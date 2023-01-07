@@ -1454,14 +1454,6 @@ legend + * {
   -webkit-appearance: textfield;
 }
 
-/* rtl:raw:
-[type="tel"],
-[type="url"],
-[type="email"],
-[type="number"] {
-  direction: ltr;
-}
-*/
 ::-webkit-search-decoration {
   -webkit-appearance: none;
 }
@@ -26789,20 +26781,6 @@ label {
 
 .form-check-label {
   line-height: 1.45rem;
-}
-
-/*-----------------------------------------------
-|   Remove spinner from Input[type="number"]
------------------------------------------------*/
-.input-spin-none::-webkit-outer-spin-button,
-.input-spin-none::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.input-spin-none[type=number] {
-  -moz-appearance: textfield;
-  /* Firefox */
 }
 
 /*-----------------------------------------------

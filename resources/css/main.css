@@ -1,3 +1,9 @@
 body {
     font-family: "ABeeZee", sans-serif;
+    background: #b5b5b5;
+}
+
+h2 {
+    font-size: 2em !important;
+    font-weight: 400;
 }

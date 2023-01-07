@@ -1,10 +1,13 @@
 <nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
     <!-- Primary Navigation Menu -->
-    <div class="container-fluid">
+    <div class="container-fluid ps-0 pe-0">
         <div class="flex justify-between h-16 bg-light navbar-light">
             <div class="flex">
                 <nav class="navbar navbar-expand-lg ">
-                    <div class="container-fluid"><a class="navbar-brand" href="/">{{ $_ENV["APP_NAME"] }}</a>
+                    <div class="container-fluid">
+                        <h2>
+                            <a href="/">{{ $_ENV["APP_NAME"] }}</a>
+                        </h2>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#navbarLightExample" aria-controls="navbarLightExample"
                                 aria-expanded="false" aria-label="Toggle navigation">
@@ -15,7 +18,7 @@
             </div>
 
             <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ml-6">
+            <div class="hidden sm:flex sm:items-center sm:ml-6 pe-4">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button
@@ -42,9 +45,8 @@
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
 
-                            <x-dropdown-link :href="route('logout')"
-                                onclick="event.preventDefault();
-                                                this.closest('form').submit();">
+                            <x-dropdown-link 
+                                :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
                         </form>

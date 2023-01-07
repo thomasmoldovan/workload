@@ -16,6 +16,8 @@
         <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
+        {{-- <script src="../node_modules/bootstrap-input-spinner/src/bootstrap-input-spinner.js"></script> --}}
+
         <!-- Styles -->
         <link href="assets/css/theme.min.css" rel="stylesheet" id="style-default">
 
