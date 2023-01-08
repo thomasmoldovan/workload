@@ -13,9 +13,7 @@ class DashboardController extends Controller
     public function index()
     {
         $colaborators = Colaborator::all();
-        $promotions = Promotion::all();
-        $students = Student::all();
 
-        return view("admin.main.main", compact("colaborators", "promotions", "students"));
+        return view("admin.main.main", compact("colaborators"));
     }
 }

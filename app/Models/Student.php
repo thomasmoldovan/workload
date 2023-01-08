@@ -10,6 +10,7 @@ class Student extends Model
     use HasFactory;
 
     protected $fillable = [
+        "workload_id",
         "colaborator_id",
         "promotion_id",
         "nr_students",
@@ -24,5 +25,10 @@ class Student extends Model
     public function promotion()
     {
         return $this->belongsTo(Promotion::class);
+    }
+
+    public function workload()
+    {
+        return $this->belongsTo(Workload::class);
     }
 }

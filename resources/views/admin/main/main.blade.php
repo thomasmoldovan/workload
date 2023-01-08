@@ -5,21 +5,25 @@
         <div class="container-fluid h-100 ps-0 pe-0">
             <div class="col-12 bg-white p-3">
 
+                <livewire:colaborators-component />
+
                 {{-- Select colaborator --}}
-                <div class="col-2">
-                    <select class="form-select">
+                {{-- <div class="col-2">
+                    <select wire:model="colaborators.id" class="form-select">
                         <option class="dropdown-item" value="0">Select colaborator</option>
                         @foreach ($colaborators as $key => $colaborator)
                             <option class="dropdown-item" value="{{ $key }}">{{ $colaborator->name }}
                                 {{ $colaborator->surname }}</option>
                         @endforeach
                     </select>
-                </div>
+                </div> --}}
 
                 <hr class="mt-3 mb-0">
 
                 {{-- Student --}}
-                <div class="row col-12 ms-0 me-0">
+                <livewire:student-promotion-component />
+
+                {{-- <div class="row col-12 ms-0 me-0">
                     <div class="col-2 ps-0 pe-0">
                         <table class="table h-100">
                             <td class="h-100" style="vertical-align: middle;">
@@ -68,7 +72,7 @@
 
                         </table>
                     </div>                
-                </div>
+                </div> --}}
 
             </div>
         </div>
