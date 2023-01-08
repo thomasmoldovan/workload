@@ -5,16 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Promotion extends Model
+class Student extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name',
+        "colaborator_id",
+        "promotion_id",
+        "student",
+        "days",
     ];
 
-    public function colaborators()
+    public function colaborator()
     {
         return $this->belongsTo(Colaborator::class);
+    }
+
+    public function promotion()
+    {
+        return $this->belongsTo(Promotion::class);
     }
 }

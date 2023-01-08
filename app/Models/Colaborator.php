@@ -14,4 +14,14 @@ class Colaborator extends Model
         'surname',
         'trigramme'
     ];
+
+    public function promotions()
+    {
+        return $this->hasMany(Promotion::class);
+    }
+
+    public function students()
+    {
+        return $this->hasMany(Student::class);
+    }
 }

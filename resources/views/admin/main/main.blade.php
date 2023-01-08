@@ -18,16 +18,6 @@
 
                 <hr class="mt-3 mb-0">
 
-                <style>
-                    th {
-                        padding-bottom: 0px !important;
-                    }
-                    td {
-                        padding-top: 0px !important;
-                        padding-bottom: 0px !important;
-                    }
-                </style>
-
                 {{-- Student --}}
                 <div class="row col-12 ms-0 me-0">
                     <div class="col-2 ps-0 pe-0">

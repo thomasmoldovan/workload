@@ -7,3 +7,12 @@ h2 {
     font-size: 2em !important;
     font-weight: 400;
 }
+
+th {
+    padding-bottom: 0px !important;
+}
+
+td {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
