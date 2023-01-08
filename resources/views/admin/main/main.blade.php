@@ -23,7 +23,7 @@
                     <div class="col-2 ps-0 pe-0">
                         <table class="table h-100">
                             <td class="h-100" style="vertical-align: middle;">
-                                <label class="col-2 pt-1">Student</label>
+                                <label class="col-2 pt-1">Students</label>
                             </td>
                         </table>
                     </div>
@@ -42,11 +42,11 @@
                                 </th>
                                 <th class="col-2">
                                     <label class="pt-1" for="ab">Nr. of students</label>
-                                    <input type="text" class="form-control" min="0" step="1" id="ab">
+                                    <input type="number" class="form-control" min="0" step="1" id="ab" value="0">
                                 </th>
                                 <th class="col-2">
                                     <label class="pt-1" for="ac">Total time (days)</label>
-                                    <input type="text" class="form-control" min="0" step="1" id="ac">
+                                    <input type="number" class="form-control" min="0" step="1" id="ac" value="0">
                                 </th>
                                 <th class="col-2">
                                     <label class="pt-1 w-100">&nbsp</label>
