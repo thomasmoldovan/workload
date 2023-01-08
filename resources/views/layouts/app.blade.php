@@ -11,10 +11,14 @@
         <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+                integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
+                crossorigin="anonymous">
+        </script>
 
         <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+        <link href="http://cdn.tailwindcss.com" rel="stylesheet">
 
         <!-- Styles -->
         <link href="assets/css/theme.min.css" rel="stylesheet" id="style-default">
