@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId("workload_id")->constrained("workloads");
             $table->foreignId("colaborator_id")->constrained("colaborators");
             $table->foreignId("promotion_id")->constrained("promotions");
-            $table->integer("student")->unsigned()->default(0);
+            $table->integer("nr_students")->unsigned()->default(0);
             $table->integer("days")->unsigned()->default(0);
             $table->timestamps();
         });

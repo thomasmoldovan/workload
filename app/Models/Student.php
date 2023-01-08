@@ -12,7 +12,7 @@ class Student extends Model
     protected $fillable = [
         "colaborator_id",
         "promotion_id",
-        "student",
+        "nr_students",
         "days",
     ];
 

@@ -54,35 +54,18 @@
                                 </th>
                             </tr>
 
-                            <tr style="vertical-align: middle;">
-                                <td><span class="ps-2 ms-1">FISA</span></td>
-                                <td><span class="ps-2 ms-1">12</span></td>
-                                <td><span class="ps-2 ms-1">24</span></td>
-                                <td class="text-right">
-                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-                                    <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-pen"></i></button>
-                                </td>
-                            </tr>
+                            @foreach ($students as $key => $student)
+                                <tr style="vertical-align: middle;">
+                                    <td><span class="ps-2 ms-1">{{ $student->colaborator->name }}</span></td>
+                                    <td><span class="ps-2 ms-1">{{ $student->nr_students }}</span></td>
+                                    <td><span class="ps-2 ms-1">{{ $student->days }}</span></td>
+                                    <td class="text-right">
+                                        <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                        <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-pen"></i></button>
+                                    </td>
+                                </tr>
+                            @endforeach
 
-                            <tr style="vertical-align: middle;">
-                                <td><span class="ps-2 ms-1">FISA</span></td>
-                                <td><span class="ps-2 ms-1">12</span></td>
-                                <td><span class="ps-2 ms-1">24</span></td>
-                                <td class="text-right">
-                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-                                    <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-pen"></i></button>
-                                </td>
-                            </tr>
-
-                            <tr style="vertical-align: middle;">
-                                <td><span class="ps-2 ms-1">FISA</span></td>
-                                <td><span class="ps-2 ms-1">12</span></td>
-                                <td><span class="ps-2 ms-1">24</span></td>
-                                <td>
-                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-                                    <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-pen"></i></button>
-                                </td>
-                            </tr>
                         </table>
                     </div>                
                 </div>
