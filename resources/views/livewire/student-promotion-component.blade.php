@@ -1,5 +1,5 @@
 <div id="student-promotion-component">
-    <div class="row col-12 ms-0 me-0">
+    <div class="row col-12 ms-0 me-0 pb-3">
 
         {{-- Student section label --}}
         <div class="col-1 ps-0 pe-0">
@@ -13,9 +13,9 @@
         {{-- Promotions list --}}
         <div class="col-6 ps-0 pe-0">        
             <table class="table table-stripped table-responsive h-100" style="border-collapse:collapse; border-bottom-width: 0.8px;">
-                <tr>
+                <tr class="header-background">
                     <th class="col-4">
-                        <label class="pt-1">Promotion type</label>
+                        <label class="pt-1 table-header-font">Promotion type</label>
                         <select wire:model="promotion_id" class="form-select" id="promotion_id">
                             <option class="dropdown-item" value="">Select promotion</option>
                             @foreach ($promotions as $key => $promotion)
@@ -25,13 +25,13 @@
                         </select>
                     </th>
                     <th class="col-3">
-                        <label class="pt-1" for="ab">Nr. of students</label>
+                        <label class="pt-1 table-header-font" for="ab">Nr. of students</label>
                         <input wire:model.debounce.10ms="nr_students" type="number" 
                                class="form-control" min="0" step="1" id="nr_students"
                                value="{{ random_int(1, 100) }}" />
                     </th>
                     <th class="col-2">
-                        <label class="pt-1 w-100">&nbsp</label>
+                        <label class="pt-1 table-header-font w-100">&nbsp</label>
                         <div class="d-flex justify-content-end">
                             <button type="button" 
                                     wire:click="addStudentPromotion()"
@@ -43,7 +43,7 @@
                         </div>                        
                     </th>
                     <th class="col-3">
-                        <label class="pt-1 w-100 text-center">Total days</label>
+                        <label class="pt-1 table-header-font w-100 text-center">Total days</label>
                         <div class="d-flex justify-content-end">
                             <input class="form-control invisible" disabled readonly/>
                         </div> 
@@ -70,7 +70,7 @@
             @empty
                 <tr>
                     <td colspan="4">
-                        <div class="col-12 pt-3 text-center"><h3>Nothing here</h3></div>
+                        <div class="col-12 pt-3 text-center opacity-50"><h3>Empty</h3></div>
                     </td>
                 </tr>
             </table>
