@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             PromotionsSeeder::class,
             WorkloadsSeeder::class,
             StudentsSeeder::class,
+            GoalsSeeder::class,
         ]);
     }
 }

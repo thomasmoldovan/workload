@@ -1,11 +1,11 @@
 <div id="student-promotion-component">
     <div class="row col-12 ms-0 me-0">
 
-        {{-- Student section label --}}
+        {{-- Promotions section label --}}
         <div class="col-1 ps-0 pe-0">
             <table class="table h-100">
                 <td class="h-100" style="vertical-align: middle;">
-                    <label class="col-2 pt-1">Students</label>
+                    <label class="col-2 pt-1">Promotions</label>
                 </td>
             </table>
         </div>
@@ -34,7 +34,7 @@
                         <label class="pt-1 w-100">&nbsp</label>
                         <div class="d-flex justify-content-end">
                             <button type="button" 
-                                    wire:click="addStudentPromotion()"
+                                    wire:click="addPromotionGoal()"
                                     wire:beforeunload="reset"
                                     class="btn {{ $add_enabled ? "btn-success" : "btn-secondary" }} btn-sm" 
                                     {{ $add_enabled ? "" : "disabled" }}>
@@ -50,13 +50,13 @@
                     </th>
                 </tr>
 
-            @forelse ($students as $key => $student)
-                <tr style="vertical-align: middle; {{ $student->temporary ? "background: #ffd7c3;" : "" }}">
-                    <td><span class="ps-2 ms-1">{{ $student->promotion->name }}</span></td>
-                    <td><span class="ps-2 ms-1">{{ $student->nr_students }}</span></td>
+            @forelse ($goals as $key => $goal)
+                <tr style="vertical-align: middle; {{ $goal->temporary ? "background: #ffd7c3;" : "" }}">
+                    <td><span class="ps-2 ms-1">{{ $goal->promotion->name }}</span></td>
+                    <td><span class="ps-2 ms-1">{{ $goal->nr_students }}</span></td>
                     <td>
                         <div class="d-flex justify-content-end">
-                            <button wire:click="deleteStudentPromotion({{ $student->id }})" type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                            <button wire:click="deletePromotionGoal({{ $goal->id }})" type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                             {{-- <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-pen"></i></button> --}}
                         </div>
                     </td>
@@ -82,7 +82,7 @@
 
     <script>
         $().ready(function() {
-            console.log("Resetting students");
+            console.log("Resetting goals");
             Livewire.emit('refreshComponent')
         });
     </script>
