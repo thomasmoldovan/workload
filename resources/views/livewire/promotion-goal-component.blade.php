@@ -2,7 +2,7 @@
     <div class="row col-12 ms-0 me-0">
 
         {{-- Promotions section label --}}
-        <div class="col-1 ps-0 pe-0">
+        <div class="col-2 ps-0 pe-0">
             <table class="table h-100">
                 <td class="h-100" style="vertical-align: middle;">
                     <label class="col-2 pt-1">Promotions</label>
@@ -11,7 +11,7 @@
         </div>
 
         {{-- Promotions list --}}
-        <div class="col-6 ps-0 pe-0">        
+        <div class="col-10 ps-0 pe-0">        
             <table class="table table-stripped table-responsive h-100" style="border-collapse:collapse; border-bottom-width: 0.8px;">
                 <tr class="header-background">
                     <th class="col-4">

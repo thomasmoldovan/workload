@@ -1,6 +1,6 @@
 <div id="colaborators-component">
         <div class="row ps-0 pe-0">
-            <div class="col-2">
+            <div class="col-4">
                 <select wire:model="colaborator_id" class="form-select">
                     <option class="dropdown-item" value="">Select colaborator</option>
                     @foreach ($colaborators as $key => $colaborator)
@@ -10,7 +10,7 @@
                 </select>
             </div>
 
-            <div class="col-10 d-flex justify-content-end">
+            <div class="col-8 d-flex justify-content-end">
                 <button wire:click="saveWorkload({{ $colaborator_id }})" class="btn btn-success btn-sm">Save</button>
             </div>
         </div>

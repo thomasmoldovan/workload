@@ -145,7 +145,7 @@
   /**
    * Autoresize echart charts
    */
-  const mainContainer = select('#main');
+  const mainContainer = select('#workflowChart');
   if (mainContainer) {
     setTimeout(() => {
       new ResizeObserver(function() {
