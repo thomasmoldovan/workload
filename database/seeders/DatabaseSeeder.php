@@ -28,6 +28,8 @@ class DatabaseSeeder extends Seeder
             WorkloadsSeeder::class,
             StudentsSeeder::class,
             GoalsSeeder::class,
+            ProjectsSeeder::class,
+            DeliveriesSeeder::class,
         ]);
     }
 }

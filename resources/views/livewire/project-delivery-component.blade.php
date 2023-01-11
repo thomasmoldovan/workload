@@ -1,40 +1,40 @@
-<div id="student-promotion-component">
-    <div class="row col-12 ms-0 me-0 pb-3">
+<div id="project-delivery-component">
+    <div class="row col-12 ms-0 me-0 pb-3 pt-3">
 
-        {{-- Student section label --}}
+        {{-- Delivery section label --}}
         <div class="col-2 ps-0 pe-0">
             <table class="table h-100">
                 <td class="h-100" style="vertical-align: middle;">
-                    <label class="col-2 pt-1">Students</label>
+                    <label class="col-2 pt-1">Deliveries</label>
                 </td>
             </table>
         </div>
 
-        {{-- Promotions list --}}
+        {{-- Project list --}}
         <div class="col-10 ps-0 pe-0">        
             <table class="table table-stripped table-responsive h-100" style="border-collapse:collapse; border-bottom-width: 0.8px;">
                 <tr class="header-background">
                     <th class="col-4">
-                        <label class="pt-1 table-header-font">Promotion type</label>
-                        <select wire:model="promotion_id" class="form-select">
-                            <option class="dropdown-item" value="">Select promotion</option>
-                            @foreach ($promotions as $key => $promotion)
-                                <option class="dropdown-item" value="{{ $key + 1 }}">{{ $promotion->name }}
-                                    {{ $promotion->surname }}</option>
+                        <label class="pt-1 table-header-font">Project</label>
+                        <select wire:model="project_id" class="form-select" id="project_id">
+                            <option class="dropdown-item" value="">Select project</option>
+                            @foreach ($projects as $key => $project)
+                                <option class="dropdown-item" value="{{ $key + 1 }}">{{ $project->name }}
+                                    {{ $project->surname }}</option>
                             @endforeach
                         </select>
                     </th>
                     <th class="col-3">
-                        <label class="pt-1 table-header-font" for="ab">Nr. of students</label>
-                        <input wire:model.debounce.10ms="nr_students" type="number" 
-                               class="form-control" min="0" step="1" id="nr_students"
+                        <label class="pt-1 table-header-font" for="ab">Nr. hours</label>
+                        <input wire:model.debounce.10ms="nr_hours" type="number" 
+                               class="form-control" min="0" step="1"
                                value="0" />
                     </th>
                     <th class="col-2">
                         <label class="pt-1 table-header-font w-100">&nbsp</label>
                         <div class="d-flex justify-content-end">
                             <button type="button" 
-                                    wire:click="addStudentPromotion()"
+                                    wire:click="addProjectDelivery()"
                                     wire:beforeunload="reset"
                                     class="btn {{ $add_enabled ? "btn-success" : "btn-secondary" }} btn-sm" 
                                     {{ $add_enabled ? "" : "disabled" }}>
@@ -50,13 +50,13 @@
                     </th>
                 </tr>
 
-            @forelse ($students as $key => $student)
-                <tr style="vertical-align: middle; {{ $student->temporary ? "background: #ffd7c3;" : "" }}">
-                    <td><span class="ps-2 ms-1">{{ $student->promotion->name }}</span></td>
-                    <td><span class="ps-2 ms-1">{{ $student->nr_students }}</span></td>
+            @forelse ($deliveries as $key => $delivery)
+                <tr style="vertical-align: middle; {{ $delivery->temporary ? "background: #ffd7c3;" : "" }}">
+                    <td><span class="ps-2 ms-1">{{ $delivery->project->name }}</span></td>
+                    <td><span class="ps-2 ms-1">{{ $delivery->nr_students }}</span></td>
                     <td>
                         <div class="d-flex justify-content-end">
-                            <button wire:click="deleteStudentPromotion({{ $student->id }})" type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                            <button wire:click="deleteProjectDelivery({{ $delivery->id }})" type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                             {{-- <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-pen"></i></button> --}}
                         </div>
                     </td>

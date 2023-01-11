@@ -21,12 +21,12 @@
                         {{-- Workload extra info --}}
                         <div id="workload-extra">
                             <div class="row col-12 ms-0 me-0">
-                                <div class="col-12 ps-0 pe-0">
+                                <div class="col-5 ps-0 pe-0">
                                     <table class="table h-100">
-                                        <td class="h-100 col-7" style="vertical-align: middle;">
+                                        <td class="h-100 col-3" style="vertical-align: middle;">
                                             <label class="pt-1">National time</label>
                                         </td>
-                                        <td class="h-100 col-5" style="vertical-align: middle;">
+                                        <td class="h-100 col-2" style="vertical-align: middle;">
                                             <input type="number" class="form-control" id="inputField" min="0" step="1"
                                                 value="0" />
                                         </td>
@@ -34,12 +34,12 @@
                                 </div>
                             </div>
                             <div class="row col-12 ms-0 me-0">
-                                <div class="col-12 ps-0 pe-0">
+                                <div class="col-5 ps-0 pe-0">
                                     <table class="table h-100">
-                                        <td class="h-100 col-7" style="vertical-align: middle;">
+                                        <td class="h-100 col-3" style="vertical-align: middle;">
                                             <label class="pt-1">Campus activities</label>
                                         </td>
-                                        <td class="h-100 col-5" style="vertical-align: middle;">
+                                        <td class="h-100 col-2" style="vertical-align: middle;">
                                             <input type="number" class="form-control" id="inputField" min="0" step="1"
                                                 value="0" />
                                         </td>
@@ -49,17 +49,7 @@
                         </div>
 
                         {{-- Deliveries --}}
-                        <div id="deliveries">
-                            <div class="row col-12 ms-0 me-0">
-                                <div class="col-12 ps-0 pe-0">
-                                    <table class="table h-100">
-                                        <td class="h-100 col-7" style="vertical-align: middle;">
-                                            <label class="pt-1">Deliveries</label>
-                                        </td>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+                        <livewire:project-delivery-component>
 
                         {{-- Rejected projects --}}
                         <div id="workload-extra">
@@ -140,11 +130,11 @@
                     <div class="col-5">
                         <div class="card">
                             <div class="card-body pb-0">
-                                <div id="trafficChart" style="min-height: 445px;" class="echart"></div>
+                                <div id="workflowChart" style="min-height: 445px;" class="echart"></div>
 
                                 <script>
                                     document.addEventListener("DOMContentLoaded", () => {
-                                        echarts.init(document.querySelector("#trafficChart")).setOption({
+                                        echarts.init(document.querySelector("#workflowChart")).setOption({
                                             tooltip: {
                                                 trigger: 'item'
                                             },

@@ -16,7 +16,7 @@
                 <tr class="header-background">
                     <th class="col-4">
                         <label class="pt-1 table-header-font">Promotion type</label>
-                        <select wire:model="promotion_id" class="form-select" id="promotion_id">
+                        <select wire:model="promotion_id" class="form-select">
                             <option class="dropdown-item" value="">Select promotion</option>
                             @foreach ($promotions as $key => $promotion)
                                 <option class="dropdown-item" value="{{ $key + 1 }}">{{ $promotion->name }}
@@ -28,7 +28,7 @@
                         <label class="pt-1 table-header-font" for="ab">Nr. of students</label>
                         <input wire:model.debounce.10ms="nr_students" type="number" 
                                class="form-control" min="0" step="1" id="nr_students"
-                               value="{{ random_int(1, 100) }}" />
+                               value="0" />
                     </th>
                     <th class="col-2">
                         <label class="pt-1 table-header-font w-100">&nbsp</label>
