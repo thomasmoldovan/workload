@@ -20,7 +20,10 @@ $(document).ready(function () {
         "hideMethod": "fadeOut"
     }
 
-    $("[data-bs-toggle='tooltip']").tooltip();
+    // $("[data-bs-toggle='tooltip']").tooltip();
+
+
+
     // Create product page
     var today = new Date();
     var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();

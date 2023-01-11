@@ -41,7 +41,7 @@
             <!-- ===== Top bar navigation ===== -->
             @include('admin.main.top-bar-navigation')
 
-            <!-- ===== Top bar navigation ===== -->
+            <!-- ========== Siderbar ========== -->
             @include('admin.main.sidebar')
 
             <!-- ============ Main ============ -->

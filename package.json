@@ -19,6 +19,7 @@
         "bootstrap": "^5.2.3",
         "bootstrap-select": "^1.13.18",
         "dropzone": "^6.0.0-beta.2",
+        "echarts": "^5.4.1",
         "jquery": "^3.6.3"
     }
 }

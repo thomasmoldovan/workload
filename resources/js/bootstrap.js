@@ -19,6 +19,9 @@ window.axios = axios;
 import * as Popper from '@popperjs/core';
 window.Popper = Popper;
 
+import * as echarts from 'echarts';
+window.echarts = echarts;
+
 import Dropzone from 'dropzone';
 window.Dropzone = Dropzone;
 
