@@ -1,7 +1,7 @@
 @extends('admin.index')
 
 @section('main')
-    <main id="main" class="main">
+    <main id="main" class="main p-3">
         <div class="container-fluid h-100 ps-0 pe-0">
             <div class="col-12 bg-white p-3">
 
@@ -21,7 +21,7 @@
                         {{-- Workload extra info --}}
                         <div id="workload-extra">
                             <div class="row col-12 ms-0 me-0">
-                                <div class="col-5 ps-0 pe-0">
+                                <div class="col-6 ps-0 pe-0">
                                     <table class="table h-100">
                                         <td class="h-100 col-3" style="vertical-align: middle;">
                                             <label class="pt-1">National time</label>
@@ -31,10 +31,8 @@
                                                 value="0" />
                                         </td>
                                     </table>
-                                </div>
-                            </div>
-                            <div class="row col-12 ms-0 me-0">
-                                <div class="col-5 ps-0 pe-0">
+                                </div>                            
+                                <div class="col-6 ps-0 pe-0">
                                     <table class="table h-100">
                                         <td class="h-100 col-3" style="vertical-align: middle;">
                                             <label class="pt-1">Campus activities</label>

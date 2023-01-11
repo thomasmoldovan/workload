@@ -4,9 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Promotion;
 use App\Models\Student;
-use Illuminate\Http\Request;
 use Livewire\Component;
-use stdClass;
 
 class StudentPromotionComponent extends Component
 {
@@ -23,6 +21,7 @@ class StudentPromotionComponent extends Component
     protected $listeners = [
         'colaboratorSelected' => 'colaboratorSelected',
         'saveWorkload'        => 'saveStudentPromotion',
+        'resetAll'            => 'resetComponent',
         'refreshComponent'    => '$refresh'
     ];
 
@@ -41,7 +40,7 @@ class StudentPromotionComponent extends Component
         $this->updated("", "");
     }
 
-    public function render(Request $request)
+    public function render()
     {
         return view('livewire.student-promotion-component');
     }
@@ -61,13 +60,11 @@ class StudentPromotionComponent extends Component
     {
         if ($colaborator_id >=1) {
             $this->colaborator_id = $colaborator_id;
-            $this->students = [];
         } else {
             $this->add_enabled = false;
-
-            return;
         }
 
+        $this->students = [];
         $this->updated("", "");
 
         Student::where(["temporary" => true])->each(function ($student) {
@@ -82,7 +79,7 @@ class StudentPromotionComponent extends Component
         $studentPromotion = new Student();
         $studentPromotion->workload_id    = 1;
         $studentPromotion->colaborator_id = $this->colaborator_id;
-        $studentPromotion->promotion_id = $this->promotion_id;
+        $studentPromotion->promotion_id   = $this->promotion_id;
         $studentPromotion->nr_students    = $this->nr_students;
         $studentPromotion->temporary      = 1;
 
@@ -115,4 +112,9 @@ class StudentPromotionComponent extends Component
 
         $this->emit('refreshComponent');
     } 
+
+    public function resetComponent() 
+    {
+        $this->mount();
+    }
 }

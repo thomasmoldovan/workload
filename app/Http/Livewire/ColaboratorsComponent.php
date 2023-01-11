@@ -31,18 +31,17 @@ class ColaboratorsComponent extends Component
     {
         if ($value >= 1) {
             $this->colaborator_id = $value;
-            $save_enabled = true;
+            $this->save_enabled = true;
             
             $this->emit('colaboratorSelected', $value);
-
-            return;
         } else {
             $this->colaborator_id = null;
-            $save_enabled = false;
+            $this->save_enabled = false;
 
-            return;
+            $this->emit('resetAll', $value);
         }
-        $this->colaborator_id = null;
+
+        return;
     }
 
     public function saveWorkload() {

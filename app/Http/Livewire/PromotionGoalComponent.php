@@ -62,13 +62,11 @@ class PromotionGoalComponent extends Component
     {
         if ($colaborator_id >=1) {
             $this->colaborator_id = $colaborator_id;
-            $this->goals = [];
         } else {
             $this->add_enabled = false;
-
-            return;
         }
-
+        
+        $this->goals = [];
         $this->updated("", "");
 
         Goal::where(["temporary" => true])->each(function ($goal) {

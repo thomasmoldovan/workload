@@ -16,8 +16,8 @@
                 <tr class="header-background">
                     <th class="col-4">
                         <label class="pt-1 table-header-font">Promotion type</label>
-                        <select wire:model="promotion_id" class="form-select">
-                            <option class="dropdown-item" value="">Select promotion</option>
+                        <select wire:model="promotion_id" class="form-select" id="student-promotion-id">
+                            <option class="dropdown-item" value="-1">Select promotion</option>
                             @foreach ($promotions as $key => $promotion)
                                 <option class="dropdown-item" value="{{ $key + 1 }}">{{ $promotion->name }}
                                     {{ $promotion->surname }}</option>

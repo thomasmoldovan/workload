@@ -60,13 +60,11 @@ class ProjectDeliveryComponent extends Component
     {
         if ($colaborator_id >=1) {
             $this->colaborator_id = $colaborator_id;
-            $this->deliveries = [];
         } else {
             $this->add_enabled = false;
-
-            return;
         }
 
+        $this->deliveries = [];
         $this->updated("", "");
 
         Delivery::where(["temporary" => true])->each(function ($delivery) {

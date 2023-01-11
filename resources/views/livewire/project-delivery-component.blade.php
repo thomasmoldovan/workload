@@ -82,7 +82,7 @@
 
     <script>
         $().ready(function() {
-            console.log("Resetting students");
+            console.log("Resetting deliveries");
             Livewire.emit('refreshComponent')
         });
     </script>
