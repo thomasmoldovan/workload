@@ -9,10 +9,11 @@ h2 {
 }
 
 th {
-    padding-bottom: 0px !important;
+    /* padding-bottom: 0px !important; */
+    border-bottom-width: 0.8px !important;
 }
 
-th, td {
+td {
     padding-top: 0px !important;
     padding-bottom: 0px !important;
     border-bottom-width: 0.8px !important;

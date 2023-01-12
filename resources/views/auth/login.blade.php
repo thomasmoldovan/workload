@@ -9,7 +9,7 @@
                     <div class="row justify-content-center">
                         <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
                             <div class="d-flex justify-content-center">
-                                <a href="/laravela/public/" class="logo d-flex align-items-center w-auto pb-5">
+                                <a href="/" class="logo d-flex align-items-center w-auto pb-5">
                                     <span class="">{{ $_ENV["APP_NAME"] }}</span>
                                 </a>
                             </div>
@@ -25,7 +25,8 @@
 
                                     @if ($errors->any())
                                         <div>
-                                            <div class="font-medium text-red-600">{{ __('Whoops! Something went wrong.') }}</div>
+                                            <div class="font-medium text-red-600">
+                                                {{ __('Whoops! Something went wrong.') }}</div>
 
                                             <ul class="mt-3 list-disc list-inside text-sm text-red-600">
                                                 @foreach ($errors->all() as $error)

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Colaborators;
 
 use App\Models\Colaborator;
 use Livewire\Component;
@@ -24,7 +24,7 @@ class ColaboratorsComponent extends Component
 
     public function render()
     {
-        return view('livewire.colaborators-component');
+        return view('livewire.colaborators.colaborators-component');
     }
 
     public function updatedColaboratorId($value)

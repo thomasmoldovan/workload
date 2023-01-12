@@ -10,7 +10,7 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link " href="{{ route('dashboard') }}">
+            <a class="nav-link " href="{{ route('colaborators.index') }}">
                 <i class="fas fa-graduation-cap"></i>
                 <span>Colaborators</span>
             </a>

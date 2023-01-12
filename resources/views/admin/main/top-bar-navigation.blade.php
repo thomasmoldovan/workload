@@ -4,7 +4,7 @@
         <a href="/" class="logo d-flex align-items-center">
             <span class="d-none d-lg-block">{{ $_ENV['APP_NAME'] }}</span>
         </a>
-        <i class="bi bi-list toggle-sidebar-btn"></i>
+        <i class="fa fa-list text-primary toggle-sidebar-btn"></i>
     </div>
 
     <nav class="header-nav ms-auto">

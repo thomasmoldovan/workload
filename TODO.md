@@ -1,20 +1,10 @@
 TODO
 
-- QR codes
-- List
-    - Generate - for product (above the list)
+[ ] - make "should be deleted" red, and should be added "green"
 
-- Send email
-- Scan QR code
-- See statuses
+[ ] - implement profile design
 
-- make Toastr a livewire component - DONE
-- finish categories
-- finish stores
-- implement image uploader
+[ ] - make menu pages
 
-Create tests
-Switch to previous create products code ... the one from laravela without livewire
-
-- change image.name to image.filename
+[ ] - make grids for models
 
