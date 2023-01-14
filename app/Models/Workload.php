@@ -12,6 +12,15 @@ class Workload extends Model
     protected $fillable = [
         'colaborator_id',
         'name',
+        'colaborator_days',
+        'promotion_days',
+        'national_days',
+        'campus_days',
+        'delivery_days',
+        'project_weeks',
+        'project_total',
+        'project_guidance',
+        'project_days'
     ];
 
     public function colaborator()

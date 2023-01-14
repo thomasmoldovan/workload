@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'Workload') }}</title>
 
         <!-- Google Fonts -->
         <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -15,10 +15,10 @@
 
         <!-- Vendor CSS Files -->
         <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/assets/js/toastr/toastr.css" rel="stylesheet">
         {{-- <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet"> --}}
         {{-- <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet"> --}}
         {{-- <link href="/assets/vendor/remixicon/remixicon.css" rel="stylesheet"> --}}
-        {{-- <link href="/assets/js/toastr/toastr.css" rel="stylesheet"> --}}
         
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
 
@@ -38,6 +38,9 @@
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+            <!-- ======= Toaster ======= -->
+            <livewire:toaster-component/>
+
             <!-- ===== Top bar navigation ===== -->
             @include('admin.main.top-bar-navigation')
 

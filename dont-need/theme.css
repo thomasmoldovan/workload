@@ -3935,7 +3935,7 @@ progress {
   opacity: 1;
 }
 .form-control:disabled, .form-control[readonly] {
-  background-color: var(--falcon-200);
+  /* background-color: var(--falcon-200); */
   opacity: 1;
 }
 .form-control::file-selector-button {

@@ -40,7 +40,7 @@
 
 <body>
 
-    <main id="main" class="main">
+    <main>
 
         @yield('admin')
 

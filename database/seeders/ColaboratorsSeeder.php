@@ -15,18 +15,18 @@ class ColaboratorsSeeder extends Seeder
      */
     public function run()
     {
-        Colaborator::create(['name' => 'BACILA', 'surname' => 'Adriana', 'trigramme' => 'ABA']);
-        Colaborator::create(['name' => 'BOUCHET', 'surname' => 'Romain', 'trigramme' => 'RBT']);
-        Colaborator::create(['name' => 'SOURISSE', 'surname' => 'Arnaud', 'trigramme' => 'ASE']);
-        Colaborator::create(['name' => 'GUIGOT', 'surname' => 'Corentin', 'trigramme' => 'CGT']);
-        Colaborator::create(['name' => 'TREGARO', 'surname' => 'Anthony', 'trigramme' => 'ATO']);
-        Colaborator::create(['name' => 'HUET', 'surname' => 'Benoît', 'trigramme' => 'BHT']);
-        Colaborator::create(['name' => 'FOURNIER', 'surname' => 'Rémy', 'trigramme' => 'RFR']);
-        Colaborator::create(['name' => 'LITARD', 'surname' => 'Patrick', 'trigramme' => 'PLD']);
-        Colaborator::create(['name' => 'COLLET', 'surname' => 'Elodie', 'trigramme' => 'ECT']);
-        Colaborator::create(['name' => 'GAUDON', 'surname' => 'Anne', 'trigramme' => 'AGN']);
-        Colaborator::create(['name' => 'GALLET', 'surname' => 'Jérémy', 'trigramme' => 'JGT']);
-        Colaborator::create(['name' => 'VASNIER', 'surname' => 'Jean', 'trigramme' => 'JVR']);
-        Colaborator::create(['name' => 'SAUPIN', 'surname' => 'Isabelle', 'trigramme' => 'ISN']);
+        Colaborator::create(['surname' => 'BACILA',   'lastname' => 'Adriana',  'trigramme' => 'ABA']);
+        Colaborator::create(['surname' => 'BOUCHET',  'lastname' => 'Romain',   'trigramme' => 'RBT']);
+        Colaborator::create(['surname' => 'SOURISSE', 'lastname' => 'Arnaud',   'trigramme' => 'ASE']);
+        Colaborator::create(['surname' => 'GUIGOT',   'lastname' => 'Corentin', 'trigramme' => 'CGT']);
+        Colaborator::create(['surname' => 'TREGARO',  'lastname' => 'Anthony',  'trigramme' => 'ATO']);
+        Colaborator::create(['surname' => 'HUET',     'lastname' => 'Benoît',   'trigramme' => 'BHT']);
+        Colaborator::create(['surname' => 'FOURNIER', 'lastname' => 'Rémy',     'trigramme' => 'RFR']);
+        Colaborator::create(['surname' => 'LITARD',   'lastname' => 'Patrick',  'trigramme' => 'PLD']);
+        Colaborator::create(['surname' => 'COLLET',   'lastname' => 'Elodie',   'trigramme' => 'ECT']);
+        Colaborator::create(['surname' => 'GAUDON',   'lastname' => 'Anne',     'trigramme' => 'AGN']);
+        Colaborator::create(['surname' => 'GALLET',   'lastname' => 'Jérémy',   'trigramme' => 'JGT']);
+        Colaborator::create(['surname' => 'VASNIER',  'lastname' => 'Jean',     'trigramme' => 'JVR']);
+        Colaborator::create(['surname' => 'SAUPIN',   'lastname' => 'Isabelle', 'trigramme' => 'ISN']);
     }
 }

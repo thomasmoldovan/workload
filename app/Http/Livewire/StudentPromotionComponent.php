@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Promotion;
 use App\Models\Student;
+use App\Models\Workload;
 use Livewire\Component;
 
 class StudentPromotionComponent extends Component
@@ -15,6 +16,8 @@ class StudentPromotionComponent extends Component
     public $promotion_id;
     public $nr_students;
     public $days;
+
+    public $workload;
 
     public $add_enabled = false;
 
@@ -31,9 +34,12 @@ class StudentPromotionComponent extends Component
         $this->students     = [];
 
         $this->colaborator_id = null;
-        $this->promotion_id = null;
-        $this->nr_students  = 0;
-        $this->days         = 0;
+        $this->promotion_id   = null;
+        $this->nr_students    = 0;
+        $this->days           = 20;
+
+        $this->workload = new Workload();
+        $this->workload->colaborator_days = $this->days;
 
         $this->add_enabled = false;
 
@@ -60,6 +66,7 @@ class StudentPromotionComponent extends Component
     {
         if ($colaborator_id >=1) {
             $this->colaborator_id = $colaborator_id;
+            $this->workload = Workload::where("colaborator_id", $this->colaborator_id)->get();
         } else {
             $this->add_enabled = false;
         }
@@ -88,6 +95,10 @@ class StudentPromotionComponent extends Component
         $this->days         = 0;
 
         $studentPromotion->save();
+
+        // $workload = Workload::where("colaborator_id", $this->colaborator_id)->get();
+        $this->workload->colaborator_days = $this->days;
+        $this->workload->save();
 
         $this->students = Student::where("colaborator_id", $this->colaborator_id)->get();
     }

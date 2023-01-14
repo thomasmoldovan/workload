@@ -19,8 +19,7 @@
                         <select wire:model="promotion_id" class="form-select" id="student-promotion-id">
                             <option class="dropdown-item" value="-1">Select promotion</option>
                             @foreach ($promotions as $key => $promotion)
-                                <option class="dropdown-item" value="{{ $key + 1 }}">{{ $promotion->name }}
-                                    {{ $promotion->surname }}</option>
+                                <option class="dropdown-item" value="{{ $key + 1 }}">{{ $promotion->name }}</option>
                             @endforeach
                         </select>
                     </th>
@@ -35,7 +34,6 @@
                         <div class="d-flex justify-content-end">
                             <button type="button" 
                                     wire:click="addStudentPromotion()"
-                                    wire:beforeunload="reset"
                                     class="btn {{ $add_enabled ? "btn-success" : "btn-secondary" }} btn-sm" 
                                     {{ $add_enabled ? "" : "disabled" }}>
                                 <i class="fa fa-plus"></i>
@@ -45,7 +43,7 @@
                     <th class="col-3">
                         <label class="pt-1 table-header-font w-100 text-center">Total days</label>
                         <div class="d-flex justify-content-end">
-                            <input class="form-control invisible" disabled readonly/>
+                            <input wire:model="days" class="form-control invisible" disabled readonly/>
                         </div> 
                     </th>
                 </tr>
@@ -62,7 +60,7 @@
                     </td>
                     @if ($key == 0)
                         <td style="vertical-align: middle;" rowspan="0">
-                            <input wire:model.debounce.10ms="days" type="number" class="form-control" min="0" step="1" id="days" />
+                            <input wire:model.debounce.10ms="workload.colaborator_days" type="number" class="form-control" min="0" step="1" id="days" />
                         </td>
                     @endif
                 </tr>

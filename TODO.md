@@ -8,3 +8,8 @@ TODO
 
 [ ] - make grids for models
 
+[ ] - use transactions on save workload, with try/catch, and error logging
+
+[ ] - activity log
+
+[ ] - change name and surname in colaborators

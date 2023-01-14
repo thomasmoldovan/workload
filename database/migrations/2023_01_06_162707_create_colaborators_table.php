@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('colaborators', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->string('surname');
+            $table->string('lastname');
             $table->string('trigramme');
             $table->timestamps();
         });

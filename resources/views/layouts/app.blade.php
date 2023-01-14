@@ -20,11 +20,6 @@
         <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-        {{-- <link href="http://cdn.tailwindcss.com" rel="stylesheet"> --}}
-
-        <!-- Styles -->
-        {{-- <link href="assets/css/theme.min.css" rel="stylesheet" id="style-default"> --}}
-
         <!-- Template Main CSS File -->
         <link href="/assets/css/style.css" rel="stylesheet">
         <link href="/assets/css/main.css" rel="stylesheet">
@@ -37,6 +32,7 @@
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+        
             <!-- ===== Top bar navigation ===== -->
             @include('admin.main.top-bar-navigation')
 

@@ -8,7 +8,7 @@
                 <div class="row">
                     <div class="col-7">
                         {{-- Select colaborator --}}
-                        <livewire:colaborators.colaborators-component />
+                        <livewire:colaborators-component />
 
                         <hr class="mt-3 mb-3">
 

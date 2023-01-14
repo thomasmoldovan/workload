@@ -2,27 +2,7 @@ var toaster;
 
 $(document).ready(function () {
 
-    toastr.options = {
-        "closeButton": true,
-        "debug": false,
-        "newestOnTop": true,
-        "progressBar": true,
-        "positionClass": "toast-top-right",
-        "preventDuplicates": false,
-        "onclick": null,
-        "showDuration": "300",
-        "hideDuration": "1000",
-        "timeOut": "10000",
-        "extendedTimeOut": "3000",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
-    }
-
     // $("[data-bs-toggle='tooltip']").tooltip();
-
-
 
     // Create product page
     var today = new Date();
@@ -49,43 +29,6 @@ $(document).ready(function () {
     //     minView: 2,
     //     viewSelect: 2
     // });
-
-    $(".add-to-wishlist").click(function(e) {
-        e.preventDefault();
-        var wishbutton = $(this);
-        var id = $(this).data('id');
-        $.ajax({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            url: '/laravela/public/wishlist/add/' + id,
-            type: 'POST',
-            data: {
-                product_id: id
-            },
-            dataType: 'json',
-            success: function(data) {
-                if (data.toaster_message) {
-                    toastr[data.toaster_message.type](data.toaster_message.message, data.toaster_message.title);
-                }
-                // if (data.status == "removed") {
-                //     t = wishbutton.find(".btn").first();
-                //     t.removeClass('btn-danger');
-                // }
-                // if (data.status == "added") {
-                //     t = wishbutton.find(".btn").first();
-                //     t.addClass('btn-danger');
-                // }
-                console.log("success");
-            },
-            error: function(data) {
-                console.log("error");
-            },
-            complete: function(data) {
-                console.log("complete");
-            }
-        });
-    });
 });
 
 function showToast(type, title, message, init = false) {

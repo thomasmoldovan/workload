@@ -10,8 +10,8 @@ class Colaborator extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
         'surname',
+        'lastname',
         'trigramme'
     ];
 

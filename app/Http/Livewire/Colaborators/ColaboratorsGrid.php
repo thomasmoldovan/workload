@@ -9,7 +9,7 @@ use PowerComponents\LivewirePowerGrid\Rules\{Rule, RuleActions};
 use PowerComponents\LivewirePowerGrid\Traits\ActionButton;
 use PowerComponents\LivewirePowerGrid\{Button, Column, Exportable, Footer, Header, PowerGrid, PowerGridComponent, PowerGridEloquent};
 
-final class ColaboratorsManager extends PowerGridComponent
+final class ColaboratorsGrid extends PowerGridComponent
 {
     use ActionButton;
 
@@ -90,8 +90,8 @@ final class ColaboratorsManager extends PowerGridComponent
     {
         return PowerGrid::eloquent()
             ->addColumn('id')
-            ->addColumn('name')
             ->addColumn('surname')
+            ->addColumn('lastname')
             ->addColumn('trigramme')
             ->addColumn('updated_at_formatted', fn (Colaborator $model) => Carbon::parse($model->updated_at)->format('d/m/Y H:i:s'));
     }
@@ -113,13 +113,15 @@ final class ColaboratorsManager extends PowerGridComponent
     public function columns(): array
     {
         return [
-            Column::make('ID', 'id'),
-
-            Column::make('NAME', 'name')
+            Column::make('ID', 'id')
                 ->sortable()
                 ->searchable(),
 
             Column::make('SURNAME', 'surname')
+                ->sortable()
+                ->searchable(),
+
+            Column::make('LASTNAME', 'lastname')
                 ->sortable()
                 ->searchable(),
 
@@ -152,13 +154,14 @@ final class ColaboratorsManager extends PowerGridComponent
     {
        return [
            Button::make('edit', 'Edit')
-           ->class('btn btn-primary btn-sm'),
-            //    ->route('colaborator.edit', ['colaborator' => 'id']),
+                ->class('btn btn-primary btn-sm m-1')
+                ->target("_self")
+                ->emit('colaboratorEdit', ['id' => 'id']),
 
            Button::make('destroy', 'Delete')
-           ->class('btn btn-danger btn-sm')
-            //    ->route('colaborator.destroy', ['colaborator' => 'id'])
-            //    ->method('delete')
+                ->class('btn btn-danger btn-sm m-1')
+                ->target("_self")
+                ->emit('colaboratorDelete', ['id' => 'id']),
         ];
     }
 

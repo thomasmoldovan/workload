@@ -27,3 +27,12 @@ td {
 .header-background {
     background-color: #e0e0e0 !important;
 }
+
+.cell-value-changed {
+    background: #ffd7c3;
+}
+
+.validation-message {
+    color: red;
+    font-size: 0.8em;
+}

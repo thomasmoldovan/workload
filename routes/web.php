@@ -27,7 +27,9 @@ Route::get('/', function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::resource('colaborators', ColaboratorController::class, ['only' => ['index', 'create', 'edit']])->name('index', 'colaborators.index');
+    // Route::resource('colaborators', ColaboratorController::class, ['only' => ['index', 'create', 'edit']])->name('index', 'colaborators.index');
+    Route::get('/colaborator/edit/{id}', [ColaboratorController::class, 'edit'])->name('colaborator.edit');
+    Route::get('/colaborators', [ColaboratorController::class, 'index'])->name('colaborators.index');
     // Route::get('/colaborators', [ColaboratorsController::class, 'index'])->name('dashboard');
 
     
