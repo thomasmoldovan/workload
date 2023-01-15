@@ -75,7 +75,7 @@ class ColaboratorsComponent extends Component
 
     public function refreshAll() 
     {
-        $this->mount();        
+        $this->mount();
         $this->emit('refreshComponent');
         $this->emit('pg:eventRefresh-default');
     }

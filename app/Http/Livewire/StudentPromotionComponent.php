@@ -15,7 +15,9 @@ class StudentPromotionComponent extends Component
     public $colaborator_id;
     public $promotion_id;
     public $nr_students;
+
     public $days;
+    public $total_days;
 
     public $workload;
 
@@ -24,7 +26,7 @@ class StudentPromotionComponent extends Component
     protected $listeners = [
         'colaboratorSelected' => 'colaboratorSelected',
         'saveWorkload'        => 'saveStudentPromotion',
-        'resetAll'            => 'resetComponent',
+        'resetAll'            => 'resetAll',
         'refreshComponent'    => '$refresh'
     ];
 
@@ -36,10 +38,9 @@ class StudentPromotionComponent extends Component
         $this->colaborator_id = null;
         $this->promotion_id   = null;
         $this->nr_students    = 0;
-        $this->days           = 20;
 
-        $this->workload = new Workload();
-        $this->workload->colaborator_days = $this->days;
+        $this->days           = 0;
+        $this->total_days     = 0;
 
         $this->add_enabled = false;
 
@@ -54,8 +55,19 @@ class StudentPromotionComponent extends Component
     public function updated($name, $value)
     {
         if ($this->colaborator_id >= 1 && $this->promotion_id >= 1 && $this->nr_students >= 1) {
+
+            $studentPromotion = new Student();
+
+            $studentPromotion->promotion_id   = $this->promotion_id;
+            $studentPromotion->nr_students   = $this->nr_students;
+
+            $this->days = (float) $studentPromotion->getDaysFromType();
+
+            unset($studentPromotion);
+            
             $this->add_enabled = true;
         } else {
+            $this->days = 0;
             $this->add_enabled = false;
         }
 
@@ -68,6 +80,7 @@ class StudentPromotionComponent extends Component
             $this->colaborator_id = $colaborator_id;
             $this->workload = Workload::where("colaborator_id", $this->colaborator_id)->get();
         } else {
+            $this->colaborator_id = null;
             $this->add_enabled = false;
         }
 
@@ -79,10 +92,15 @@ class StudentPromotionComponent extends Component
         });
         
         $this->students = Student::where("colaborator_id", $this->colaborator_id)->get();
+        $this->total_days = $this->getTotalDaysFromStudents();
     }
 
     public function addStudentPromotion() 
     {
+        if ($this->add_enabled == false) return;
+
+        $this->add_enabled = false;
+
         $studentPromotion = new Student();
         $studentPromotion->workload_id    = 1;
         $studentPromotion->colaborator_id = $this->colaborator_id;
@@ -90,13 +108,12 @@ class StudentPromotionComponent extends Component
         $studentPromotion->nr_students    = $this->nr_students;
         $studentPromotion->temporary      = 1;
 
-        $this->promotion_id = null;
-        $this->nr_students  = 0;
-        $this->days         = 0;
+        $this->resetComponent();
 
         $studentPromotion->save();
 
         $this->students = Student::where("colaborator_id", $this->colaborator_id)->get();
+        $this->total_days = $this->getTotalDaysFromStudents();
     }
 
     public function deleteStudentPromotion($id) 
@@ -105,6 +122,7 @@ class StudentPromotionComponent extends Component
         $studentPromotion->delete();
 
         $this->students = Student::where("colaborator_id", $this->colaborator_id)->get();
+        $this->total_days = $this->getTotalDaysFromStudents();
     }
 
     public function saveStudentPromotion() 
@@ -117,11 +135,32 @@ class StudentPromotionComponent extends Component
 
         $this->students = Student::where("colaborator_id", $this->colaborator_id)->get();
 
-        $this->emit('refreshComponent');
+        $this->resetComponent();
     } 
+
+    public function resetAll() 
+    {
+        $this->colaborator_id == null;
+        $this->students = [];
+        $this->resetComponent();
+    }
 
     public function resetComponent() 
     {
-        $this->mount();
+        $this->promotion_id = null;
+        $this->nr_students  = 0;
+        $this->days         = 0;
+
+        $this->updated("", "");
+    }
+
+    public function getTotalDaysFromStudents() {
+        $total_days = 0;
+
+        foreach ($this->students as $student) {
+            $total_days += $student->getDaysFromType();
+        }
+
+        return $total_days;
     }
 }

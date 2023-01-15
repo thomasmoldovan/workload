@@ -27,10 +27,10 @@ return [
         /*
          * https://github.com/snapappointments/bootstrap-select
          */
-        'bootstrap-select' => [
-            'js'  => 'libs/bootstrap-select/dist/js/bootstrap-select.min.js',
-            'css' => 'libs/bootstrap-select/dist/css/bootstrap-select.min.css',
-        ],
+        // 'bootstrap-select' => [
+        //     'js'  => 'libs/bootstrap-select/dist/js/bootstrap-select.min.js',
+        //     'css' => 'libs/bootstrap-select/dist/css/bootstrap-select.min.css',
+        // ],
         /*
          * https://flatpickr.js.org
          */

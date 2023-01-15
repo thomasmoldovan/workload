@@ -10,20 +10,11 @@ window._ = _;
 import axios from 'axios';
 window.axios = axios;
 
-// import jQuery from 'jquery';
-// window.$ = window.jQuery = jQuery;
-
-// import bootstrap from 'bootstrap/dist/js/bootstrap.bundle.min.js';
-// window.bootstrap = bootstrap;
-
 import * as Popper from '@popperjs/core';
 window.Popper = Popper;
 
 import * as echarts from 'echarts';
 window.echarts = echarts;
-
-import Dropzone from 'dropzone';
-window.Dropzone = Dropzone;
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
