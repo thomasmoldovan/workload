@@ -96,10 +96,6 @@ class StudentPromotionComponent extends Component
 
         $studentPromotion->save();
 
-        // $workload = Workload::where("colaborator_id", $this->colaborator_id)->get();
-        $this->workload->colaborator_days = $this->days;
-        $this->workload->save();
-
         $this->students = Student::where("colaborator_id", $this->colaborator_id)->get();
     }
 

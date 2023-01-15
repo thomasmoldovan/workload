@@ -34,14 +34,6 @@
                     </li>
 
                     <li>
-                        <hr class="dropdown-divider">
-                    </li>
-
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-
-                    <li>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}"

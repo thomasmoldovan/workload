@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('promotions', function (Blueprint $table) {
+        Schema::create('promotion_types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('promotion_type_id')->constrained();
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('promotions');
+        Schema::dropIfExists('promotion_types');
     }
 };

@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Livewire\Colaborators;
+namespace App\Http\Livewire\Promotions;
 
-use App\Models\Colaborator;
+use App\Models\Promotion;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use PowerComponents\LivewirePowerGrid\Rules\{Rule, RuleActions};
 use PowerComponents\LivewirePowerGrid\Traits\ActionButton;
 use PowerComponents\LivewirePowerGrid\{Button, Column, Exportable, Footer, Header, PowerGrid, PowerGridComponent, PowerGridEloquent};
 
-final class ColaboratorsGrid extends PowerGridComponent
+final class PromotionsGrid extends PowerGridComponent
 {
     use ActionButton;
 
@@ -48,11 +48,13 @@ final class ColaboratorsGrid extends PowerGridComponent
     /**
     * PowerGrid datasource.
     *
-    * @return Builder<\App\Models\Colaborator>
+    * @return Builder<\App\Models\Promotion>
     */
     public function datasource(): Builder
     {
-        return Colaborator::query()->orderBy('id', 'desc');
+        return Promotion::query()
+            ->join("promotion_types as pt", "promotions.promotion_type_id", "=", "pt.id")
+            ->select("promotions.*", "pt.name as promotion_type_name");
     }
 
     /*
@@ -70,7 +72,11 @@ final class ColaboratorsGrid extends PowerGridComponent
      */
     public function relationSearch(): array
     {
-        return [];
+        return [
+            'promotion_types' => [ // relationship on dishes model
+                'name', // column enabled to search
+            ],
+        ];
     }
 
     /*
@@ -80,18 +86,14 @@ final class ColaboratorsGrid extends PowerGridComponent
     | Make Datasource fields available to be used as columns.
     | You can pass a closure to transform/modify the data.
     |
-    | ❗ IMPORTANT: When using closures, you must escape any value coming from
-    |    the database using the `e()` Laravel Helper function.
-    |
     */
     public function addColumns(): PowerGridEloquent
     {
         return PowerGrid::eloquent()
             ->addColumn('id')
-            ->addColumn('surname')
-            ->addColumn('lastname')
-            ->addColumn('trigramme')
-            ->addColumn('updated_at_formatted', fn (Colaborator $model) => Carbon::parse($model->updated_at)->format('d/m/Y H:i:s'));
+            ->addColumn('name')
+            ->addColumn('promotion_type_name')
+            ->addColumn('updated_at_formatted', fn (Promotion $model) => Carbon::parse($model->updated_at)->format('d/m/Y H:i:s'));
     }
 
     /*
@@ -115,21 +117,18 @@ final class ColaboratorsGrid extends PowerGridComponent
                 ->sortable()
                 ->searchable(),
 
-            Column::make('SURNAME', 'surname')
+            Column::make('NAME', 'name')
                 ->sortable()
                 ->searchable(),
 
-            Column::make('LASTNAME', 'lastname')
+            Column::make('PROMOTION TYPE', 'promotion_type_name')
                 ->sortable()
                 ->searchable(),
 
-            Column::make('TRIGRAMME', 'trigramme')
-                ->sortable()
-                ->searchable(),
-
-            Column::make('LAST UPDATED', 'updated_at_formatted', 'updated_at')
+            Column::make('UPDATED AT', 'updated_at_formatted', 'updated_at')
                 ->searchable()
-                ->sortable()
+                ->sortable(),
+
         ]
 ;
     }
@@ -143,23 +142,23 @@ final class ColaboratorsGrid extends PowerGridComponent
     */
 
      /**
-     * PowerGrid Colaborator Action Buttons.
+     * PowerGrid Promotion Action Buttons.
      *
      * @return array<int, Button>
      */
 
     public function actions(): array
     {
-       return [
-           Button::make('edit', 'Edit')
-                ->class('btn btn-primary btn-sm m-1')
-                ->target("_self")
-                ->emit('colaboratorEdit', ['id' => 'id']),
-
-           Button::make('destroy', 'Delete')
-                ->class('btn btn-danger btn-sm m-1')
-                ->target("_self")
-                ->emit('colaboratorDelete', ['id' => 'id']),
+        return [
+            Button::make('edit', 'Edit')
+                 ->class('btn btn-primary btn-sm m-1')
+                 ->target("_self")
+                 ->emit('promotionEdit', ['id' => 'id']),
+ 
+            Button::make('destroy', 'Delete')
+                 ->class('btn btn-danger btn-sm m-1')
+                 ->target("_self")
+                 ->emit('promotionDelete', ['id' => 'id']),
         ];
     }
 
@@ -172,7 +171,7 @@ final class ColaboratorsGrid extends PowerGridComponent
     */
 
      /**
-     * PowerGrid Colaborator Action Rules.
+     * PowerGrid Promotion Action Rules.
      *
      * @return array<int, RuleActions>
      */
@@ -184,14 +183,9 @@ final class ColaboratorsGrid extends PowerGridComponent
 
            //Hide button edit for ID 1
             Rule::button('edit')
-                ->when(fn($colaborator) => $colaborator->id === 1)
+                ->when(fn($promotion) => $promotion->id === 1)
                 ->hide(),
         ];
     }
     */
-
-    public function onUpdatedEditable(string $id, string $field, string $value): void
-    {
-        Colaborator::find($id)->update([$field => $value]);
-    }
 }

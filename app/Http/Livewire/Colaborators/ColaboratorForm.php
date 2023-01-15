@@ -48,12 +48,12 @@ class ColaboratorForm extends Component
                 .substr($this->colaborator->surname, 0, 1)
                 .substr($this->colaborator->surname, -1));
         }
-
-        $this->validate();
     }
 
     public function edit(Colaborator $colaborator) 
     {
+        $this->resetValidation();
+
         $this->edit = true;
         $this->colaborator = $colaborator;
     }
@@ -90,6 +90,8 @@ class ColaboratorForm extends Component
 
     public function refreshAll() 
     {
+        $this->resetValidation();
+        
         $this->mount(new Colaborator());        
         $this->emit('refreshComponent');
         $this->emit('pg:eventRefresh-default');

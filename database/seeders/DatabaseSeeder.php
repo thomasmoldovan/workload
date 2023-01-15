@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             ColaboratorsSeeder::class,
+            PromotionTypesSeeder::class,
             PromotionsSeeder::class,
             WorkloadsSeeder::class,
             StudentsSeeder::class,

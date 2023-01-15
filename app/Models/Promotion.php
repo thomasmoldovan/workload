@@ -17,4 +17,9 @@ class Promotion extends Model
     {
         return $this->belongsTo(Colaborator::class);
     }
+
+    public function promotion_types()
+    {
+        return $this->belongsTo(PromotionType::class, 'promotion_type_id', 'id');
+    }
 }

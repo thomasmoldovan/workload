@@ -1,5 +1,5 @@
-<div class="card">
-    <div class="card-body mt-3">
+<div class="card rounded-0">
+    <div class="card-body mt-2">
         <div class="card-title">
             {{ $edit ? "Edit" : "Add" }} colaborator
         </div>
