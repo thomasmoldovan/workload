@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Colaborators;
 
-use App\Http\Traits\WithToaster;
+use App\Traits\WithToaster;
 use App\Models\Colaborator;
 use Livewire\Component;
 

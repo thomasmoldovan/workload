@@ -6,11 +6,11 @@
         <form wire:submit.prevent="submit">
             @csrf
             <input type="hidden" id="id" name="id" wire:model.defer="colaborator.id">
-            <div class="col-md-12">
+            <div wire:ignore class="col-md-12">
                 <label for="surname" class="form-label">Surname <b class="text-danger">*</b></label>
                 <input type="text" id="surname" name="surname" class="form-control"
                     placeholder="Surname"
-                    wire:model.lazy="colaborator.surname">
+                    wire:model.debounce.50ms="colaborator.surname">
 
                 <div class="validation-message">
                     {{ $errors->first('colaborator.surname') }}
@@ -24,11 +24,11 @@
                 @endif --}}
             </div>
 
-            <div class="col-md-12 pt-2">
+            <div wire:ignore class="col-md-12 pt-2">
                 <label for="name" class="form-label">Lastname <b class="text-danger">*</b></label>
                 <input type="text" id="lastname" name="lastname" class="form-control"
                     placeholder="Surame"
-                    wire:model.lazy="colaborator.lastname">
+                    wire:model.debounce.50ms="colaborator.lastname">
 
                 <div class="validation-message">
                     {{ $errors->first('colaborator.lastname') }}

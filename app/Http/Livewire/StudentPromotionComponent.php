@@ -18,6 +18,7 @@ class StudentPromotionComponent extends Component
 
     public $days;
     public $total_days;
+    public $total_hours;
 
     public $workload;
 
@@ -41,6 +42,7 @@ class StudentPromotionComponent extends Component
 
         $this->days           = 0;
         $this->total_days     = 0;
+        $this->total_hours    = 0;
 
         $this->add_enabled = false;
 
@@ -93,6 +95,7 @@ class StudentPromotionComponent extends Component
         
         $this->students = Student::where("colaborator_id", $this->colaborator_id)->get();
         $this->total_days = $this->getTotalDaysFromStudents();
+        $this->total_hours = number_format($this->total_days / 7.8, 2);
     }
 
     public function addStudentPromotion() 
@@ -114,6 +117,7 @@ class StudentPromotionComponent extends Component
 
         $this->students = Student::where("colaborator_id", $this->colaborator_id)->get();
         $this->total_days = $this->getTotalDaysFromStudents();
+        $this->total_hours = number_format($this->total_days / 7.8, 2);
     }
 
     public function deleteStudentPromotion($id) 
@@ -123,14 +127,15 @@ class StudentPromotionComponent extends Component
 
         $this->students = Student::where("colaborator_id", $this->colaborator_id)->get();
         $this->total_days = $this->getTotalDaysFromStudents();
+        $this->total_hours = number_format($this->total_days / 7.8, 2);
     }
 
     public function saveStudentPromotion() 
     {
         Student::where([
-            "workload_id" => 1,
+            "workload_id"    => 1,
             "colaborator_id" => $this->colaborator_id,
-            "temporary" => true
+            "temporary"      => true
         ])->update(["temporary" => false]);
 
         $this->students = Student::where("colaborator_id", $this->colaborator_id)->get();

@@ -17,6 +17,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->foreignId('promotion_type_id')->constrained();
+            $table->integer('presence_weeks')->default(0);
+            $table->double('presence_days')->default(0);
+            $table->integer('enterprise_weeks')->default(0);
+            $table->double('enterprise_days')->default(0);
             $table->timestamps();
         });
     }

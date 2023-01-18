@@ -4,7 +4,6 @@ namespace App\Http\Livewire;
 
 use App\Models\Goal;
 use App\Models\Promotion;
-use App\Models\Student;
 use Illuminate\Http\Request;
 use Livewire\Component;
 use stdClass;
@@ -17,13 +16,16 @@ class PromotionGoalComponent extends Component
     public $colaborator_id;
     public $promotion_id;
     public $nr_students;
+
     public $days;
+    public $total_days;
 
     public $add_enabled = false;
 
     protected $listeners = [
         'colaboratorSelected' => 'colaboratorSelected',
         'saveWorkload'        => 'savePromotionGoals',
+        'resetAll'            => 'resetAll',
         'refreshComponent'    => '$refresh'
     ];
 
@@ -33,16 +35,18 @@ class PromotionGoalComponent extends Component
         $this->goals     = [];
 
         $this->colaborator_id = null;
-        $this->promotion_id = null;
-        $this->nr_students  = 0;
-        $this->days         = 0;
+        $this->promotion_id   = null;
+        $this->nr_students    = 0;
+
+        $this->days           = 0;
+        $this->total_days     = 0;
 
         $this->add_enabled = false;
 
         $this->updated("", "");
     }
 
-    public function render(Request $request)
+    public function render()
     {
         return view('livewire.promotion-goal-component');
     }
@@ -50,8 +54,18 @@ class PromotionGoalComponent extends Component
     public function updated($name, $value)
     {
         if ($this->colaborator_id >= 1 && $this->promotion_id >= 1 && $this->nr_students >= 1) {
+            $promotionGoal = new Goal();
+
+            $promotionGoal->promotion_id   = $this->promotion_id;
+            $promotionGoal->nr_students   = $this->nr_students;
+
+            $this->days = (float) $promotionGoal->getDaysFromType();
+
+            unset($promotionGoal);
+            
             $this->add_enabled = true;
         } else {
+            $this->days = 0;
             $this->add_enabled = false;
         }
 
@@ -63,9 +77,10 @@ class PromotionGoalComponent extends Component
         if ($colaborator_id >=1) {
             $this->colaborator_id = $colaborator_id;
         } else {
+            $this->colaborator_id = null;
             $this->add_enabled = false;
         }
-        
+
         $this->goals = [];
         $this->updated("", "");
 
@@ -74,10 +89,15 @@ class PromotionGoalComponent extends Component
         });
         
         $this->goals = Goal::where("colaborator_id", $this->colaborator_id)->get();
+        $this->total_days = $this->getTotalDaysFromPromotions();
     }
 
     public function addPromotionGoal() 
     {
+        if ($this->add_enabled == false) return;
+
+        $this->add_enabled = false;
+
         $promotionGoal = new Goal();
         $promotionGoal->workload_id    = 1;
         $promotionGoal->colaborator_id = $this->colaborator_id;
@@ -85,13 +105,12 @@ class PromotionGoalComponent extends Component
         $promotionGoal->nr_students    = $this->nr_students;
         $promotionGoal->temporary      = 1;
 
-        $this->promotion_id = null;
-        $this->nr_students  = 0;
-        $this->days         = 0;
+        $this->resetComponent();
 
         $promotionGoal->save();
 
         $this->goals = Goal::where("colaborator_id", $this->colaborator_id)->get();
+        $this->total_days = $this->getTotalDaysFromPromotions();
     }
 
     public function deletePromotionGoal($id) 
@@ -100,6 +119,7 @@ class PromotionGoalComponent extends Component
         $promotionGoal->delete();
 
         $this->goals = Goal::where("colaborator_id", $this->colaborator_id)->get();
+        $this->total_days = $this->getTotalDaysFromPromotions();
     }
 
     public function savePromotionGoals() 
@@ -112,6 +132,32 @@ class PromotionGoalComponent extends Component
 
         $this->goals = Goal::where("colaborator_id", $this->colaborator_id)->get();
 
-        $this->emit('refreshComponent');
+        $this->resetComponent();
     } 
+
+    public function resetAll() 
+    {
+        $this->colaborator_id == null;
+        $this->goals = [];
+        $this->resetComponent();
+    }
+
+    public function resetComponent() 
+    {
+        $this->promotion_id = null;
+        $this->nr_students  = 0;
+        $this->days         = 0;
+
+        $this->updated("", "");
+    }
+
+    public function getTotalDaysFromPromotions() {
+        $total_days = 0;
+
+        foreach ($this->goals as $goal) {
+            $total_days += $goal->getDaysFromType();
+        }
+
+        return $total_days;
+    }
 }

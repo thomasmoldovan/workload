@@ -5,7 +5,7 @@
         <div class="col-2 ps-0 pe-0">
             <table class="table h-100">
                 <td class="h-100" style="vertical-align: middle;">
-                    <label class="col-2 pt-1">Promotions</label>
+                    <label class="col-2 pt-1">Responsable Promotion</label>
                 </td>
             </table>
         </div>
@@ -15,22 +15,28 @@
             <table class="table table-stripped table-responsive h-100" style="border-collapse:collapse; border-bottom-width: 0.8px;">
                 <tr class="header-background">
                     <th class="col-4">
-                        <label class="pt-1 table-header-font">Promotion type</label>
+                        <label class="pt-1 table-header-font">Promotion</label>
                         <select wire:model="promotion_id" class="form-select">
-                            <option class="dropdown-item" value="">Select promotion</option>
+                            <option class="dropdown-item" value="">Promotion</option>
                             @foreach ($promotions as $key => $promotion)
                                 <option class="dropdown-item" value="{{ $key + 1 }}">{{ $promotion->name }}
                                     {{ $promotion->surname }}</option>
                             @endforeach
                         </select>
                     </th>
-                    <th class="col-3">
-                        <label class="pt-1 table-header-font" for="ab">Nr. of students</label>
+                    <th class="col-2">
+                        <label class="pt-1 table-header-font" for="ab">N° Apprenants</label>
                         <input wire:model.debounce.10ms="nr_students" type="number" 
                                class="form-control" min="0" step="1" id="nr_students"
                                value="0" />
                     </th>
-                    <th class="col-2">
+                    <th class="col-1">
+                        <label class="pt-1 table-header-font">Jours</label>
+                        <input wire:model="days" type="text" 
+                               class="form-control" disabled readonly
+                               value="0" />
+                    </th>
+                    <th class="col-1">
                         <label class="pt-1 table-header-font w-100">&nbsp</label>
                         <div class="d-flex justify-content-end">
                             <button type="button" 
@@ -42,8 +48,8 @@
                             </button>
                         </div>                        
                     </th>
-                    <th class="col-3">
-                        <label class="pt-1 table-header-font w-100 text-center">Total days</label>
+                    <th class="col-2">
+                        <label class="pt-1 table-header-font w-100 text-center">Total jours</label>
                         <div class="d-flex justify-content-end">
                             <input class="form-control invisible" disabled readonly/>
                         </div> 
@@ -54,6 +60,7 @@
                 <tr style="vertical-align: middle; {{ $goal->temporary ? "background: #ffd7c3;" : "" }}">
                     <td><span class="ps-2 ms-1">{{ $goal->promotion->name }}</span></td>
                     <td><span class="ps-2 ms-1">{{ $goal->nr_students }}</span></td>
+                    <td><span class="ps-1 ms-1">{{ $goal->days }}</span></td>
                     <td>
                         <div class="d-flex justify-content-end">
                             <button wire:click="deletePromotionGoal({{ $goal->id }})" type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
@@ -62,14 +69,14 @@
                     </td>
                     @if ($key == 0)
                         <td style="vertical-align: middle;" rowspan="0">
-                            <input wire:model.debounce.10ms="days" type="number" class="form-control" min="0" step="1" id="days" />
+                            <input wire:model="total_days" type="number" class="form-control" disabled readonly />
                         </td>
                     @endif
                 </tr>
                 
             @empty
                 <tr>
-                    <td colspan="4">
+                    <td colspan="5">
                         <div class="col-12 pt-3 text-center opacity-50"><h3>Empty</h3></div>
                     </td>
                 </tr>

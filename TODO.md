@@ -13,3 +13,14 @@ TODO
 [ ] - activity log
 
 [ ] - change name and surname in colaborators
+
+
+
+- projects B column ?
+
+- national time 20 days
+- Campus activities 30 days - into  others
+
+- settings
+    - 7 zile = 7.8
+    - 1 zi = 0.4s

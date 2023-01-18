@@ -24,14 +24,14 @@ class ProjectsSeeder extends Seeder
         Project::create(['name' => 'Corelly']);
         Project::create(['name' => 'Développement web']);
         Project::create(['name' => 'Electricité et asser']);
-        Project::create(['name' => 'Electronique ']);
+        Project::create(['name' => 'Electronique']);
         Project::create(['name' => 'Electrotechnique']);
         Project::create(['name' => 'Environnement et éth']);
         Project::create(['name' => 'ETS']);
-        Project::create(['name' => 'Etude des fonctions ']);
+        Project::create(['name' => 'Etude des fonctions']);
         Project::create(['name' => 'Industrie']);
         Project::create(['name' => 'Industrie du Futur']);
-        Project::create(['name' => 'Innovation ']);
+        Project::create(['name' => 'Innovation']);
         Project::create(['name' => 'Management de projet']);
         Project::create(['name' => 'Maquette numérique']);
         Project::create(['name' => 'Mécanique']);

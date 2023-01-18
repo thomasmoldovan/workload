@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Promotions;
 
-use App\Http\Traits\WithToaster;
+use App\Traits\WithToaster;
 use App\Models\Promotion;
 use App\Models\PromotionType;
 use Livewire\Component;

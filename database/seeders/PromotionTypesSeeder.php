@@ -15,8 +15,8 @@ class PromotionTypesSeeder extends Seeder
      */
     public function run()
     {
-        PromotionType::create(['name' => 'Type 1']);
-        PromotionType::create(['name' => 'Type 2']);
-        PromotionType::create(['name' => 'Type 3']);
+        PromotionType::create(['name' => 'VEP + EI + VED', 've_present' => 4, 've_distance' => 1.5, 'ei' => 2, 'ss_present' => 0, 'ss_distance' => 0]);
+        PromotionType::create(['name' => 'VEP + EI',       've_present' => 4, 've_distance' => 1.5, 'ei' => 0, 'ss_present' => 0, 'ss_distance' => 0]);
+        PromotionType::create(['name' => 'EI',             've_present' => 0, 've_distance' => 0,   'ei' => 2, 'ss_present' => 0, 'ss_distance' => 0]);
     }
 }

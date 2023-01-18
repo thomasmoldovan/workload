@@ -121,7 +121,7 @@ final class PromotionsGrid extends PowerGridComponent
                 ->sortable()
                 ->searchable(),
 
-            Column::make('PROMOTION TYPE', 'promotion_type_name')
+            Column::make('TYPE', 'promotion_type_name')
                 ->sortable()
                 ->searchable(),
 

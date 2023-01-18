@@ -52,7 +52,7 @@ class Student extends Model
             case 1:
                 return ($VE_PRESENTIEL + $EI + $VE_DISTANCE) * $this->nr_students;
             case 2:
-                return ($VE_PRESENTIEL + $VE_DISTANCE) * $this->nr_students;
+                return ($VE_PRESENTIEL + $EI) * $this->nr_students;
             case 3:
                 return $EI * $this->nr_students;
             default:
