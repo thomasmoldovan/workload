@@ -14,7 +14,7 @@
         <div class="col-10 ps-0 pe-0">        
             <table class="table table-stripped table-responsive h-100" style="border-collapse:collapse; border-bottom-width: 0.8px;">
                 <tr class="header-background">
-                    <th class="col-4">
+                    <th class="col-3">
                         <label class="pt-1 table-header-font">Promotion</label>
                         <select wire:model="promotion_id" class="form-select">
                             <option class="dropdown-item" value="">Promotion</option>
@@ -30,10 +30,10 @@
                                class="form-control" min="0" step="1" id="nr_students"
                                value="0" />
                     </th>
-                    <th class="col-1">
-                        <label class="pt-1 table-header-font">Jours</label>
+                    <th class="col-2">
+                        <label class="pt-1 table-header-font">Heurs</label>
                         <input wire:model="days" type="text" 
-                               class="form-control" disabled readonly
+                               class="form-control form-end text-end" disabled readonly
                                value="0" />
                     </th>
                     <th class="col-1">
@@ -60,7 +60,7 @@
                 <tr style="vertical-align: middle; {{ $goal->temporary ? "background: #ffd7c3;" : "" }}">
                     <td><span class="ps-2 ms-1">{{ $goal->promotion->name }}</span></td>
                     <td><span class="ps-2 ms-1">{{ $goal->nr_students }}</span></td>
-                    <td><span class="ps-1 ms-1">{{ $goal->days }}</span></td>
+                    <td><span class="d-flex justify-content-end pe-1">{{ $goal->days }}</span></td>
                     <td>
                         <div class="d-flex justify-content-end">
                             <button wire:click="deletePromotionGoal({{ $goal->id }})" type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>

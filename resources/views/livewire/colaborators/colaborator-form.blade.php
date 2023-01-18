@@ -7,9 +7,9 @@
             @csrf
             <input type="hidden" id="id" name="id" wire:model.defer="colaborator.id">
             <div wire:ignore class="col-md-12">
-                <label for="surname" class="form-label">Surname <b class="text-danger">*</b></label>
+                <label for="surname" class="form-label">Nom de famille <b class="text-danger">*</b></label>
                 <input type="text" id="surname" name="surname" class="form-control"
-                    placeholder="Surname"
+                    placeholder="Nom de famille"
                     wire:model.debounce.50ms="colaborator.surname">
 
                 <div class="validation-message">
@@ -25,9 +25,9 @@
             </div>
 
             <div wire:ignore class="col-md-12 pt-2">
-                <label for="name" class="form-label">Lastname <b class="text-danger">*</b></label>
+                <label for="name" class="form-label">Prénom <b class="text-danger">*</b></label>
                 <input type="text" id="lastname" name="lastname" class="form-control"
-                    placeholder="Surame"
+                    placeholder="Prénom"
                     wire:model.debounce.50ms="colaborator.lastname">
 
                 <div class="validation-message">

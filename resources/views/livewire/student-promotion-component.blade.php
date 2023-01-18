@@ -5,7 +5,7 @@
         <div class="col-2 ps-0 pe-0">
             <table class="table h-100">
                 <td class="h-100" style="vertical-align: middle;">
-                    <label class="col-2 pt-1">Suivi Eleves</label>
+                    <label class="col-2 pt-1">Suivi Élèves</label>
                 </td>
             </table>
         </div>
@@ -14,7 +14,7 @@
         <div class="col-10 ps-0 pe-0">        
             <table class="table table-stripped table-responsive h-100" style="border-collapse:collapse; border-bottom-width: 0.8px;">
                 <tr class="header-background">
-                    <th class="col-4">
+                    <th class="col-3">
                         <label class="pt-1 table-header-font">Promotion</label>
                         <select wire:model="promotion_id" class="form-select" id="student-promotion-id">
                             <option class="dropdown-item" value="-1">Promotion</option>
@@ -29,10 +29,10 @@
                                class="form-control" min="0" step="1" id="nr_students"
                                value="0" />
                     </th>
-                    <th class="col-1">
-                        <label class="pt-1 table-header-font">Jours</label>
+                    <th class="col-2">
+                        <label class="pt-1 table-header-font">Heurs</label>
                         <input wire:model="days" type="text" 
-                               class="form-control" disabled readonly
+                               class="form-control form-end text-end" disabled readonly
                                value="0" />
                     </th>
                     <th class="col-1">
@@ -58,7 +58,7 @@
                 <tr style="vertical-align: middle; {{ $student->temporary ? "background: #ffd7c3;" : "" }}">
                     <td><span class="ps-2 ms-1">{{ $student->promotion->name }}</span></td>
                     <td><span class="ps-2 ms-1">{{ $student->nr_students }}</span></td>
-                    <td><span class="ps-1 ms-1">{{ $student->days }} h</span></td>
+                    <td><span class="d-flex justify-content-end pe-1">{{ $student->days }} h</span></td>
                     <td>
                         <div class="d-flex justify-content-end">
                             <button wire:click="deleteStudentPromotion({{ $student->id }})" type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
@@ -67,7 +67,7 @@
                     </td>
                     @if ($key == 0)
                         <td style="vertical-align: middle;" rowspan="0">
-                            <input wire:model="total_hours" type="text" class="form-control" disabled readonly />
+                            <input value="{{ $total_hours." j" }}" type="text" class="form-control" disabled readonly />
                         </td>
                     @endif
                 </tr>

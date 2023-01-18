@@ -20,7 +20,7 @@ td {
 }
 
 .table-header-font {
-    font-size: 0.9em !important;
+    font-size: 0.8em !important;
     font-weight: 600 !important;
 }
 
@@ -35,4 +35,8 @@ td {
 .validation-message {
     color: red;
     font-size: 0.8em;
+}
+
+.sidebar-icon {
+    width: 25px;
 }

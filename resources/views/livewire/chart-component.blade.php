@@ -1,4 +1,4 @@
-<div class="col-5">
+<div wire:ignore class="col-5">
     <div class="card">
         <div class="card-body pb-0">
             <div id="workflowChart" style="min-height: 445px;" class="echart"></div>

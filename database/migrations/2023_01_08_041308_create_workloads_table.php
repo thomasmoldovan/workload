@@ -17,8 +17,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId("colaborator_id")->constrained("colaborators");
             $table->string('name');
-            $table->integer("colaborator_days")->unsigned()->default(0);
-            $table->integer("promotion_days")->unsigned()->default(0);
             $table->integer("national_days")->unsigned()->default(0);
             $table->integer("campus_days")->unsigned()->default(0);
             $table->integer("delivery_days")->unsigned()->default(0);

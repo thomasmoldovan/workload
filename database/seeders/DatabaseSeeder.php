@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
             GoalsSeeder::class,
             ProjectsSeeder::class,
             DeliveriesSeeder::class,
+            SettingsSeeder::class,
         ]);
     }
 }

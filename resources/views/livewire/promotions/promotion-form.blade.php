@@ -7,9 +7,9 @@
             @csrf
             <input type="hidden" id="id" name="id" wire:model.defer="promotion.id">
             <div class="col-md-12">
-                <label for="name" class="form-label">Name <b class="text-danger">*</b></label>
+                <label for="name" class="form-label">Nom <b class="text-danger">*</b></label>
                 <input type="text" id="name" name="name" class="form-control"
-                    placeholder="Name"
+                    placeholder="Nom"
                     wire:model.lazy="promotion.name">
 
                 <div class="validation-message">
@@ -25,17 +25,17 @@
             </div>
 
             <div class="col-md-12 pt-2">
-                <label for="type" class="form-label">Type <b class="text-danger">*</b></label>
+                <label for="type" class="form-label">Taper <b class="text-danger">*</b></label>
                 <select id="type" name="type" class="form-select"
                     wire:model.lazy="promotion.promotion_type_id">
-                    <option selected value="">Select type</option>
+                    <option value="" selected>Taper</option>
                     @foreach ($promotionTypes as $type)
                         <option value="{{ $type->id }}">{{ $type->name }}</option>
                     @endforeach
                 </select>
 
                 <div class="validation-message">
-                    {{ $errors->first('promotion.trigramme') }}
+                    {{ $errors->first('promotion.promotion_type_id') }}
                 </div>
 
                 {{-- @if ($success)

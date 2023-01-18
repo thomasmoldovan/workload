@@ -14,7 +14,7 @@ TODO
 
 [ ] - change name and surname in colaborators
 
-
+[ ] - loading activity
 
 - projects B column ?
 

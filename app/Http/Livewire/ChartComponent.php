@@ -32,6 +32,6 @@ class ChartComponent extends Component
         }
 
         // $this->updateChart();
-        // $this->emit('refreshChart', $colaborator_id);
+        $this->emit('refreshChart', $colaborator_id);
     }
 }

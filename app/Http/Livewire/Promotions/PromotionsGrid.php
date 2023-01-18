@@ -13,6 +13,11 @@ final class PromotionsGrid extends PowerGridComponent
 {
     use ActionButton;
 
+    public $presence_days;
+    public $presence_weeks;
+    public $enterprise_days;
+    public $enterprise_weeks;
+
     protected $listeners = [
         'refresh-grid' => '$refresh'
     ];
@@ -93,7 +98,11 @@ final class PromotionsGrid extends PowerGridComponent
             ->addColumn('id')
             ->addColumn('name')
             ->addColumn('promotion_type_name')
-            ->addColumn('updated_at_formatted', fn (Promotion $model) => Carbon::parse($model->updated_at)->format('d/m/Y H:i:s'));
+            ->addColumn('presence_weeks')
+            ->addColumn('presence_days')
+            ->addColumn('enterprise_weeks')
+            ->addColumn('enterprise_days');
+            // ->addColumn('updated_at_formatted', fn (Promotion $model) => Carbon::parse($model->updated_at)->format('d/m/Y H:i:s'));
     }
 
     /*
@@ -117,17 +126,37 @@ final class PromotionsGrid extends PowerGridComponent
                 ->sortable()
                 ->searchable(),
 
-            Column::make('NAME', 'name')
+            Column::make('NOM', 'name')
                 ->sortable()
                 ->searchable(),
 
-            Column::make('TYPE', 'promotion_type_name')
+            Column::make('TAPER', 'promotion_type_name')
                 ->sortable()
                 ->searchable(),
 
-            Column::make('UPDATED AT', 'updated_at_formatted', 'updated_at')
+            Column::make('PRES. SEM.', 'presence_weeks')
+                ->sortable()
+                ->searchable(),
+
+            Column::make('PRES. JOURS', 'presence_days')
+                ->sortable()
                 ->searchable()
-                ->sortable(),
+                ->editOnClick(true),
+
+            Column::make('ENTER. SEM.', 'enterprise_weeks')
+                ->sortable()
+                ->searchable(),
+
+            Column::make('ENTER. JOURS', 'enterprise_days')
+                ->sortable()
+                ->searchable()
+                ->editOnClick(true)
+                
+            //     ,
+
+            // Column::make('UPDATED AT', 'updated_at_formatted', 'updated_at')
+            //     ->searchable()
+            //     ->sortable(),
 
         ]
 ;
@@ -188,4 +217,9 @@ final class PromotionsGrid extends PowerGridComponent
         ];
     }
     */
+
+    public function onUpdatedEditable(string $id, string $field, string $value): void
+    {
+        Promotion::find($id)->update([$field => $value]);
+    }
 }

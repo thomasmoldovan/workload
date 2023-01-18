@@ -115,11 +115,11 @@ final class ColaboratorsGrid extends PowerGridComponent
                 ->sortable()
                 ->searchable(),
 
-            Column::make('SURNAME', 'surname')
+            Column::make('NOM DE FAMILLE', 'surname')
                 ->sortable()
                 ->searchable(),
 
-            Column::make('LASTNAME', 'lastname')
+            Column::make('PRÈNOM', 'lastname')
                 ->sortable()
                 ->searchable(),
 
