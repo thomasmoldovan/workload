@@ -19,6 +19,7 @@ class PromotionGoalComponent extends Component
 
     public $days;
     public $total_days;
+    public $total_hours;
 
     public $add_enabled = false;
 
@@ -40,6 +41,7 @@ class PromotionGoalComponent extends Component
 
         $this->days           = 0;
         $this->total_days     = 0;
+        $this->total_hours    = 0;
 
         $this->add_enabled = false;
 
@@ -53,13 +55,14 @@ class PromotionGoalComponent extends Component
 
     public function updated($name, $value)
     {
-        if ($this->colaborator_id >= 1 && $this->promotion_id >= 1 && $this->nr_students >= 1) {
-            $promotionGoal = new Goal();
+        if ($this->colaborator_id >= 1 && $this->promotion_id >= 1) {
+            // $promotionGoal = new Goal();
 
-            $promotionGoal->promotion_id   = $this->promotion_id;
-            $promotionGoal->nr_students   = $this->nr_students;
+            // $promotionGoal->promotion_id   = $this->promotion_id;
+            // $promotionGoal->nr_students   = $this->nr_students;
 
-            $this->days = (float) $promotionGoal->getDaysFromType();
+            $promotion = Promotion::find($this->promotion_id);
+            $this->days = (float) $promotion->days;
 
             unset($promotionGoal);
             
@@ -89,7 +92,13 @@ class PromotionGoalComponent extends Component
         });
         
         $this->goals = Goal::where("colaborator_id", $this->colaborator_id)->get();
-        $this->total_days = $this->getTotalDaysFromPromotions();
+
+        $this->total_hours = 0;
+        foreach ($this->goals as $goal) {
+            $this->total_hours += $goal->promotion->days;
+        }
+        // $this->total_days = $this->getTotalDaysFromPromotions();
+        // $this->total_hours = number_format($this->total_days / $_ENV["DAYS_PER_WEEK"], 2);
     }
 
     public function addPromotionGoal() 
@@ -110,7 +119,8 @@ class PromotionGoalComponent extends Component
         $promotionGoal->save();
 
         $this->goals = Goal::where("colaborator_id", $this->colaborator_id)->get();
-        $this->total_days = $this->getTotalDaysFromPromotions();
+        // $this->total_days = $this->getTotalDaysFromPromotions();
+        // $this->total_hours = number_format($this->total_days / $_ENV["DAYS_PER_WEEK"], 2);
     }
 
     public function deletePromotionGoal($id) 
@@ -119,7 +129,8 @@ class PromotionGoalComponent extends Component
         $promotionGoal->delete();
 
         $this->goals = Goal::where("colaborator_id", $this->colaborator_id)->get();
-        $this->total_days = $this->getTotalDaysFromPromotions();
+        // $this->total_days = $this->getTotalDaysFromPromotions();
+        // $this->total_hours = number_format($this->total_days / $_ENV["DAYS_PER_WEEK"], 2);
     }
 
     public function savePromotionGoals() 
@@ -151,13 +162,13 @@ class PromotionGoalComponent extends Component
         $this->updated("", "");
     }
 
-    public function getTotalDaysFromPromotions() {
-        $total_days = 0;
+    // public function getTotalDaysFromPromotions() {
+    //     $total_days = 0;
 
-        foreach ($this->goals as $goal) {
-            $total_days += $goal->getDaysFromType();
-        }
+    //     foreach ($this->goals as $goal) {
+    //         $total_days += $goal->getDaysFromType();
+    //     }
 
-        return $total_days;
-    }
+    //     return $total_days;
+    // }
 }

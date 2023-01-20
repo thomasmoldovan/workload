@@ -11,7 +11,12 @@ class PromotionType extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name'
+        'name',
+        've_present',
+        've_distance',
+        'ei',
+        'ss_present',
+        'ss_distance'
     ];
 
     public function promotions()

@@ -2,7 +2,7 @@ TODO
 
 [ ] - make "should be deleted" red, and should be added "green"
 
-[ ] - implement profile design
+[x] - implement profile design
 
 [ ] - make menu pages
 
@@ -16,6 +16,8 @@ TODO
 
 [ ] - loading activity
 
+[ ] - deal with constraints when deleting a promotion and in use 
+
 - projects B column ?
 
 - national time 20 days
@@ -24,3 +26,5 @@ TODO
 - settings
     - 7 zile = 7.8
     - 1 zi = 0.4s
+    
+[ ] - activity log

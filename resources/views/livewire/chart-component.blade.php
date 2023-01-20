@@ -41,7 +41,8 @@
                                 { value: 580,  name: 'FACE A FACE' },
                                 { value: 484,  name: 'SUIVI ELEVE' },
                                 { value: 300,  name: 'CONCEPTION NATIONALE' },
-                                { value: 300,  name: 'AUTRE' }
+                                { value: 300,  name: 'Activites Campus' },
+                                { value: 300,  name: 'Activites Anexes' }
                             ]
                         }]
                     });

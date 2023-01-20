@@ -1,26 +1,23 @@
 <?php
 
-namespace App\Http\Livewire\Promotions;
+namespace App\Http\Livewire\PromotionTypes;
 
-use App\Models\Promotion;
+use App\Models\PromotionType;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use PowerComponents\LivewirePowerGrid\Rules\{Rule, RuleActions};
 use PowerComponents\LivewirePowerGrid\Traits\ActionButton;
 use PowerComponents\LivewirePowerGrid\{Button, Column, Exportable, Footer, Header, PowerGrid, PowerGridComponent, PowerGridEloquent};
 
-final class PromotionsGrid extends PowerGridComponent
+final class PromotionTypesGrid extends PowerGridComponent
 {
     use ActionButton;
 
-    public $presence_days;
-    public $presence_weeks;
-    public $enterprise_days;
-    public $enterprise_weeks;
-
-    protected $listeners = [
-        'refresh-grid' => '$refresh'
-    ];
+    public $ve_distance;
+    public $ve_present;
+    public $ei;
+    public $ss_distance;
+    public $ss_present;
 
     /*
     |--------------------------------------------------------------------------
@@ -31,6 +28,8 @@ final class PromotionsGrid extends PowerGridComponent
     */
     public function setUp(): array
     {
+        $this->showCheckBox();
+
         return [
             Exportable::make('export')
                 ->striped()
@@ -53,14 +52,11 @@ final class PromotionsGrid extends PowerGridComponent
     /**
     * PowerGrid datasource.
     *
-    * @return Builder<\App\Models\Promotion>
+    * @return Builder<\App\Models\PromotionType>
     */
     public function datasource(): Builder
     {
-        return Promotion::query()
-            ->join("promotion_types as pt", "promotions.promotion_type_id", "=", "pt.id")
-            ->select("promotions.*", "pt.name as promotion_type_name")
-            ->orderBy('id', 'desc');
+        return PromotionType::query();
     }
 
     /*
@@ -78,11 +74,7 @@ final class PromotionsGrid extends PowerGridComponent
      */
     public function relationSearch(): array
     {
-        return [
-            'promotion_type' => [ // relationship on dishes model
-                'name', // column enabled to search
-            ],
-        ];
+        return [];
     }
 
     /*
@@ -98,12 +90,12 @@ final class PromotionsGrid extends PowerGridComponent
         return PowerGrid::eloquent()
             ->addColumn('id')
             ->addColumn('name')
-            ->addColumn('promotion_type_name')
-            ->addColumn('presence_weeks')
-            ->addColumn('presence_days')
-            ->addColumn('enterprise_weeks')
-            ->addColumn('enterprise_days');
-            // ->addColumn('updated_at_formatted', fn (Promotion $model) => Carbon::parse($model->updated_at)->format('d/m/Y H:i:s'));
+            ->addColumn('ve_present')
+            ->addColumn('ve_distance')
+            ->addColumn('ei')
+            ->addColumn('ss_present')
+            ->addColumn('ss_distance')
+            ->addColumn('updated_at_formatted', fn (PromotionType $model) => Carbon::parse($model->updated_at)->format('d/m/Y H:i:s'));
     }
 
     /*
@@ -123,44 +115,40 @@ final class PromotionsGrid extends PowerGridComponent
     public function columns(): array
     {
         return [
-            Column::make('ID', 'id')
+            Column::make('ID', 'id'),
+
+            Column::make('NAME', 'name')
                 ->sortable()
                 ->searchable(),
 
-            Column::make('NOM', 'name')
-                ->sortable()
-                ->searchable(),
-
-            Column::make('TAPER', 'promotion_type_name')
-                ->sortable()
-                ->searchable(),
-
-            Column::make('PRES. SEM.', 'presence_weeks')
+            Column::make('VE PRESENT', 've_present')
                 ->sortable()
                 ->searchable()
                 ->editOnClick(true),
 
-            Column::make('PRES. JOURS', 'presence_days')
+            Column::make('VE DISTANCE', 've_distance')
                 ->sortable()
                 ->searchable()
                 ->editOnClick(true),
 
-            Column::make('ENTER. SEM.', 'enterprise_weeks')
+            Column::make('EI', 'ei')
                 ->sortable()
                 ->searchable()
                 ->editOnClick(true),
 
-            Column::make('ENTER. JOURS', 'enterprise_days')
+            Column::make('SS PRESENT', 'ss_present')
                 ->sortable()
                 ->searchable()
-                ->editOnClick(true)
-                
-            //     ,
+                ->editOnClick(true),
 
-            // Column::make('UPDATED AT', 'updated_at_formatted', 'updated_at')
-            //     ->searchable()
-            //     ->sortable(),
+            Column::make('SS DISTANCE', 'ss_distance')
+                ->sortable()
+                ->searchable()
+                ->editOnClick(true),
 
+            Column::make('UPDATED AT', 'updated_at_formatted', 'updated_at')
+                ->searchable()
+                ->sortable()
         ]
 ;
     }
@@ -174,25 +162,26 @@ final class PromotionsGrid extends PowerGridComponent
     */
 
      /**
-     * PowerGrid Promotion Action Buttons.
+     * PowerGrid PromotionType Action Buttons.
      *
      * @return array<int, Button>
      */
 
+    /*
     public function actions(): array
     {
-        return [
-            Button::make('edit', 'Edit')
-                 ->class('btn btn-primary btn-sm m-1')
-                 ->target("_self")
-                 ->emit('promotionEdit', ['id' => 'id']),
- 
-            Button::make('destroy', 'Delete')
-                 ->class('btn btn-danger btn-sm m-1')
-                 ->target("_self")
-                 ->emit('promotionDelete', ['id' => 'id']),
+       return [
+           Button::make('edit', 'Edit')
+               ->class('bg-indigo-500 cursor-pointer text-white px-3 py-2.5 m-1 rounded text-sm')
+               ->route('promotion-type.edit', ['promotion-type' => 'id']),
+
+           Button::make('destroy', 'Delete')
+               ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
+               ->route('promotion-type.destroy', ['promotion-type' => 'id'])
+               ->method('delete')
         ];
     }
+    */
 
     /*
     |--------------------------------------------------------------------------
@@ -203,7 +192,7 @@ final class PromotionsGrid extends PowerGridComponent
     */
 
      /**
-     * PowerGrid Promotion Action Rules.
+     * PowerGrid PromotionType Action Rules.
      *
      * @return array<int, RuleActions>
      */
@@ -215,7 +204,7 @@ final class PromotionsGrid extends PowerGridComponent
 
            //Hide button edit for ID 1
             Rule::button('edit')
-                ->when(fn($promotion) => $promotion->id === 1)
+                ->when(fn($promotion-type) => $promotion-type->id === 1)
                 ->hide(),
         ];
     }
@@ -223,6 +212,6 @@ final class PromotionsGrid extends PowerGridComponent
 
     public function onUpdatedEditable(string $id, string $field, string $value): void
     {
-        Promotion::find($id)->update([$field => $value]);
+        PromotionType::find($id)->update([$field => $value]);
     }
 }

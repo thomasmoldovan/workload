@@ -11,7 +11,7 @@
         </div>
 
         {{-- Promotions list --}}
-        <div class="col-10 ps-0 pe-0">        
+        <div class="col-10 ps-0 pe-0">
             <table class="table table-stripped table-responsive h-100" style="border-collapse:collapse; border-bottom-width: 0.8px;">
                 <tr class="header-background">
                     <th class="col-3">
@@ -56,9 +56,9 @@
 
             @forelse ($students as $key => $student)
                 <tr style="vertical-align: middle; {{ $student->temporary ? "background: #ffd7c3;" : "" }}">
-                    <td><span class="ps-2 ms-1">{{ $student->promotion->name }}</span></td>
+                    <td><span class="ps-2 ms-1">{{ $student->promotion->name }} - {{ $student->promotion->promotion_type->id }}</span></td>
                     <td><span class="ps-2 ms-1">{{ $student->nr_students }}</span></td>
-                    <td><span class="d-flex justify-content-end pe-1">{{ $student->days }} h</span></td>
+                    <td><span class="d-flex justify-content-end pe-1">{{ $student->days }} heurs</span></td>
                     <td>
                         <div class="d-flex justify-content-end">
                             <button wire:click="deleteStudentPromotion({{ $student->id }})" type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>

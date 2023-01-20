@@ -25,14 +25,14 @@
                         </select>
                     </th>
                     <th class="col-2">
-                        <label class="pt-1 table-header-font" for="ab">N° Apprenants</label>
+                        {{-- <label class="pt-1 table-header-font" for="ab">N° Apprenants</label>
                         <input wire:model.debounce.10ms="nr_students" type="number" 
                                class="form-control" min="0" step="1" id="nr_students"
-                               value="0" />
+                               value="0" /> --}}
                     </th>
                     <th class="col-2">
-                        <label class="pt-1 table-header-font">Heurs</label>
-                        <input wire:model="days" type="text" 
+                        <label class="pt-1 table-header-font">Jeurs</label>
+                        <input wire:model="days" type="text"
                                class="form-control form-end text-end" disabled readonly
                                value="0" />
                     </th>
@@ -41,7 +41,6 @@
                         <div class="d-flex justify-content-end">
                             <button type="button" 
                                     wire:click="addPromotionGoal()"
-                                    wire:beforeunload="reset"
                                     class="btn {{ $add_enabled ? "btn-success" : "btn-secondary" }} btn-sm" 
                                     {{ $add_enabled ? "" : "disabled" }}>
                                 <i class="fa fa-plus"></i>
@@ -58,9 +57,11 @@
 
             @forelse ($goals as $key => $goal)
                 <tr style="vertical-align: middle; {{ $goal->temporary ? "background: #ffd7c3;" : "" }}">
-                    <td><span class="ps-2 ms-1">{{ $goal->promotion->name }}</span></td>
-                    <td><span class="ps-2 ms-1">{{ $goal->nr_students }}</span></td>
-                    <td><span class="d-flex justify-content-end pe-1">{{ $goal->days }}</span></td>
+                    <td><span class="ps-2 ms-1">{{ $goal->promotion->name }} - {{ $goal->promotion->promotion_type->id }}</span></td>
+                    <td>
+                        {{-- <span class="ps-2 ms-1">{{ $goal->nr_students }}</span> --}}
+                    </td>
+                    <td><span class="d-flex justify-content-end pe-1">{{ $goal->promotion->days }} jours</span></td>
                     <td>
                         <div class="d-flex justify-content-end">
                             <button wire:click="deletePromotionGoal({{ $goal->id }})" type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
@@ -69,7 +70,7 @@
                     </td>
                     @if ($key == 0)
                         <td style="vertical-align: middle;" rowspan="0">
-                            <input wire:model="total_days" type="number" class="form-control" disabled readonly />
+                            <input value="{{ $total_hours." j" }}" type="text" class="form-control" disabled readonly />
                         </td>
                     @endif
                 </tr>

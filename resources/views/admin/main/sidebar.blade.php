@@ -24,14 +24,21 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link " href="{{ route('dashboard') }}">
+            <a class="nav-link {{ request()->routeIs('promotion-types.index') ? "active" : "collapsed" }}" href="{{ route('promotion-types.index') }}">
+                <i class="fas fa-certificate sidebar-icon"></i>
+                <span>Promotions Types</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('projects.index') ? "active" : "collapsed" }}" href="">
                 <i class="fas fa-briefcase sidebar-icon"></i>
                 <span>Projects</span>
             </a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link " href="{{ route('settings.index') }}">
+            <a class="nav-link {{ request()->routeIs('settings.index') ? "active" : "collapsed" }}" href="">
                 <i class="fas fa-user sidebar-icon"></i>
                 <span>Settings</span>
             </a>

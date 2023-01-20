@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('promotion_types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('ve_present')->default(0);
-            $table->integer('ve_distance')->default(0);
-            $table->integer('ei')->default(0);
-            $table->integer('ss_present')->default(0);
-            $table->integer('ss_distance')->default(0);
+            $table->float('ve_present', 5, 2)->default(0);
+            $table->float('ve_distance', 5, 2)->default(0);
+            $table->float('ei', 5, 2)->default(0);
+            $table->float('ss_present', 5, 2)->default(0);
+            $table->float('ss_distance', 5, 2)->default(0);
             $table->timestamps();
         });
     }
