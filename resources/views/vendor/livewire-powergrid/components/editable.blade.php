@@ -7,20 +7,39 @@
     'currentTable' => null,
     'tableName' => null,
     'showErrorBag' => null,
+    'editable' => null,
 ])
+
+@php
+    $fallback = html_entity_decode(strval(data_get($editable, 'fallback')), ENT_QUOTES, 'utf-8');
+    $value  = html_entity_decode(strval($helperClass->resolveContent($currentTable, $field, $row)), ENT_QUOTES, 'utf-8');
+
+    $content = !empty($value) || $value == '0' ? $value : $fallback;
+
+    $params = [
+        'theme' => $theme->name,
+        'tableName' => $tableName,
+        'id' => $row->{$primaryKey},
+        'dataField' => $field,
+        'content' => $content,
+        'fallback' => $fallback
+    ];
+@endphp
 <div x-cloak
-     x-data="pgEditable({
-       tableName: '{{ $tableName }}',
-       id: '{{ $row->{$primaryKey} }}',
-       dataField: '{{ $field }}',
-       content: '{{ $helperClass->resolveContent($currentTable, $field, $row) }}'
-     })">
-    <div x-html="content"
-         style="border-bottom: dotted 1px; cursor: pointer"
-         x-show="!editable"
-         x-on:click="editable = true"
-    ></div>
-    <div x-show="editable">
+     x-data="pgEditable(@js($params))"
+     style="width: 100% !important; height: 100% !important;">
+    <div :class="{
+            'py-2' : theme == 'tailwind',
+            'p-1' : theme == 'bootstrap5',
+         }"
+         x-show="!showEditable"
+         x-on:click="editable = true;"
+         :id="`clickable-`+dataField+'-'+id"
+         style="cursor: pointer; width: 100%; height: 100%;"
+    >
+        <span style="border-bottom: dotted 1px;">{{ $content }}</span>
+    </div>
+    <div x-show="showEditable && !hashError" style="margin-bottom: 4px">
         {{ $input }}
     </div>
     @if($showErrorBag)

@@ -18,6 +18,16 @@ TODO
 
 [ ] - deal with constraints when deleting a promotion and in use 
 
+[ ] - load chart script only on dashboard
+
+[ ] - complete all translations
+
+[ ] - all input fields numerical
+
+[ ] - activity log
+
+[ ] - user manager
+
 - projects B column ?
 
 - national time 20 days
@@ -27,4 +37,3 @@ TODO
     - 7 zile = 7.8
     - 1 zi = 0.4s
     
-[ ] - activity log

@@ -23,6 +23,8 @@ Route::get('/', function () {
     return redirect('login');
 });
 
+Route::view('/powergrid', 'powergrid-demo');
+
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');

@@ -3,8 +3,10 @@
 namespace App\Http\Livewire\Promotions;
 
 use App\Models\Promotion;
+use App\Models\PromotionType;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 use PowerComponents\LivewirePowerGrid\Rules\{Rule, RuleActions};
 use PowerComponents\LivewirePowerGrid\Traits\ActionButton;
 use PowerComponents\LivewirePowerGrid\{Button, Column, Exportable, Footer, Header, PowerGrid, PowerGridComponent, PowerGridEloquent};
@@ -61,6 +63,11 @@ final class PromotionsGrid extends PowerGridComponent
             ->join("promotion_types as pt", "promotions.promotion_type_id", "=", "pt.id")
             ->select("promotions.*", "pt.name as promotion_type_name")
             ->orderBy('id', 'desc');
+    }
+
+    public function promotionTypes(): Collection
+    {
+        return PromotionType::all();
     }
 
     /*
@@ -133,27 +140,28 @@ final class PromotionsGrid extends PowerGridComponent
 
             Column::make('TAPER', 'promotion_type_name')
                 ->sortable()
-                ->searchable(),
+                ->searchable()
+                ->editOnClick(true, '', null, true),
 
             Column::make('PRES. SEM.', 'presence_weeks')
                 ->sortable()
                 ->searchable()
-                ->editOnClick(true),
+                ->editOnClick(true, '', null, true),
 
             Column::make('PRES. JOURS', 'presence_days')
                 ->sortable()
                 ->searchable()
-                ->editOnClick(true),
+                ->editOnClick(true, '', null, true),
 
             Column::make('ENTER. SEM.', 'enterprise_weeks')
                 ->sortable()
                 ->searchable()
-                ->editOnClick(true),
+                ->editOnClick(true, '', null, true),
 
             Column::make('ENTER. JOURS', 'enterprise_days')
                 ->sortable()
                 ->searchable()
-                ->editOnClick(true)
+                ->editOnClick(true, '', null, true)
                 
             //     ,
 

@@ -1,32 +1,32 @@
 @inject('helperClass','PowerComponents\LivewirePowerGrid\Helpers\Helpers')
 @php
     if($action->singleParam) {
-        $parameters = $helperClass->makeActionParameter($action->param);
+        $parameters = $helperClass->makeActionParameter($action->params);
     } else {
-        $parameters = $helperClass->makeActionParameters($action->param);
+        $parameters = $helperClass->makeActionParameters($action->params);
     }
 @endphp
 @if($action->event !== '' && $action->to === '')
-    <a wire:click='$emit("{{ $action->event }}", @json($parameters))'
-       target="{{ $action->target }}"
+    <button wire:click='$emit("{{ $action->event }}", @json($parameters))'
        title="{{ $action->tooltip }}"
-       class="{{ filled($action->class) ? $action->class : $theme->actions->headerBtnClass }}">
+       id="{{ $action->id }}"
+       class="power-grid-button {{ filled($action->class) ? $action->class : $theme->actions->headerBtnClass }}">
         {!! $action->caption !!}
-    </a>
+    </button>
 @elseif($action->event !== '' && $action->to !== '')
-    <a wire:click='$emitTo("{{ $action->to }}", "{{ $action->event }}", @json($parameters))'
-       target="{{ $action->target }}"
+    <button wire:click='$emitTo("{{ $action->to }}", "{{ $action->event }}", @json($parameters))'
        title="{{ $action->tooltip }}"
-       class="{{ filled($action->class) ? $action->class : $theme->actions->headerBtnClass }}">
+       id="{{ $action->id }}"
+       class="power-grid-button {{ filled($action->class) ? $action->class : $theme->actions->headerBtnClass }}">
         {!! $action->caption !!}
-    </a>
+    </button>
 @elseif($action->view !== '')
-    <a wire:click='$emit("openModal", "{{$action->view}}", @json($parameters))'
-       target="{{ $action->target }}"
+    <button wire:click='$emit("openModal", "{{$action->view}}", @json($parameters))'
        title="{{ $action->tooltip }}"
-       class="{{ filled($action->class) ? $action->class : $theme->actions->headerBtnClass }}">
+       id="{{ $action->id }}"
+       class="power-grid-button {{ filled($action->class) ? $action->class : $theme->actions->headerBtnClass }}">
         {!! $action->caption !!}
-    </a>
+    </button>
 @else
     @if(strtolower($action->method) !== 'get')
         <form target="{{ $action->target }}"
@@ -35,17 +35,21 @@
             @method($action->method)
             @csrf
             <button type="submit"
+                    id="{{ $action->id }}"
                     title="{{ $action->tooltip }}"
-                    class="{{ filled( $action->class) ? $action->class : $theme->actions->headerBtnClass }}">
+                    class="power-grid-button {{ filled( $action->class) ? $action->class : $theme->actions->headerBtnClass }}">
                 {!! $action->caption ?? '' !!}
             </button>
         </form>
     @else
+        @if(data_get($action, 'route'))
         <a href="{{ route($action->route, $parameters) }}"
+           id="{{ $action->id }}"
            title="{{ $action->tooltip }}"
            target="{{ $action->target }}"
-           class="{{ filled($action->class) ? $action->class : $theme->actions->headerBtnClass }}">
+           class="power-grid-button {{ filled($action->class) ? $action->class : $theme->actions->headerBtnClass }}">
             {!! $action->caption !!}
         </a>
+        @endif
     @endif
 @endif
