@@ -85,6 +85,18 @@ class PromotionForm extends Component
             ],
             "promotion.promotion_type_id" => [
                 "required"
+            ],
+            "promotion.presence_weeks" => [
+                "required"
+            ],
+            "promotion.presence_days" => [
+                "required"
+            ],
+            "promotion.enterprise_weeks" => [
+                "required"
+            ],
+            "promotion.enterprise_days" => [
+                "required"
             ]
         ];
     }

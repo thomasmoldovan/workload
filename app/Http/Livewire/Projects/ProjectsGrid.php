@@ -1,28 +1,17 @@
 <?php
 
-namespace App\Http\Livewire\Promotions;
+namespace App\Http\Livewire\Projects;
 
-use App\Models\Promotion;
-use App\Models\PromotionType;
+use App\Models\Project;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Collection;
 use PowerComponents\LivewirePowerGrid\Rules\{Rule, RuleActions};
 use PowerComponents\LivewirePowerGrid\Traits\ActionButton;
 use PowerComponents\LivewirePowerGrid\{Button, Column, Exportable, Footer, Header, PowerGrid, PowerGridComponent, PowerGridEloquent};
 
-final class PromotionsGrid extends PowerGridComponent
+final class ProjectsGrid extends PowerGridComponent
 {
     use ActionButton;
-
-    public $presence_days;
-    public $presence_weeks;
-    public $enterprise_days;
-    public $enterprise_weeks;
-
-    protected $listeners = [
-        'refresh-grid' => '$refresh'
-    ];
 
     /*
     |--------------------------------------------------------------------------
@@ -55,19 +44,11 @@ final class PromotionsGrid extends PowerGridComponent
     /**
     * PowerGrid datasource.
     *
-    * @return Builder<\App\Models\Promotion>
+    * @return Builder<\App\Models\Project>
     */
     public function datasource(): Builder
     {
-        return Promotion::query()
-            ->join("promotion_types as pt", "promotions.promotion_type_id", "=", "pt.id")
-            ->select("promotions.*", "pt.name as promotion_type_name")
-            ->orderBy('id', 'desc');
-    }
-
-    public function promotionTypes(): Collection
-    {
-        return PromotionType::all();
+        return Project::query();
     }
 
     /*
@@ -85,11 +66,7 @@ final class PromotionsGrid extends PowerGridComponent
      */
     public function relationSearch(): array
     {
-        return [
-            'promotion_type' => [ // relationship on dishes model
-                'name', // column enabled to search
-            ],
-        ];
+        return [];
     }
 
     /*
@@ -99,18 +76,22 @@ final class PromotionsGrid extends PowerGridComponent
     | Make Datasource fields available to be used as columns.
     | You can pass a closure to transform/modify the data.
     |
+    | ❗ IMPORTANT: When using closures, you must escape any value coming from
+    |    the database using the `e()` Laravel Helper function.
+    |
     */
     public function addColumns(): PowerGridEloquent
     {
         return PowerGrid::eloquent()
             ->addColumn('id')
             ->addColumn('name')
-            ->addColumn('promotion_type_name')
-            ->addColumn('presence_weeks')
-            ->addColumn('presence_days')
-            ->addColumn('enterprise_weeks')
-            ->addColumn('enterprise_days');
-            // ->addColumn('updated_at_formatted', fn (Promotion $model) => Carbon::parse($model->updated_at)->format('d/m/Y H:i:s'));
+
+           /** Example of custom column using a closure **/
+            ->addColumn('name_lower', function (Project $model) {
+                return strtolower(e($model->name));
+            })
+
+            ->addColumn('updated_at_formatted', fn (Project $model) => Carbon::parse($model->updated_at)->format('d/m/Y H:i:s'));
     }
 
     /*
@@ -130,43 +111,15 @@ final class PromotionsGrid extends PowerGridComponent
     public function columns(): array
     {
         return [
-            Column::make('ID', 'id')
-                ->sortable()
-                ->searchable(),
+            Column::make('ID', 'id'),
 
             Column::make('NOM', 'name')
                 ->sortable()
                 ->searchable(),
 
-            Column::make('TAPER', 'promotion_type_name')
-                ->sortable()
-                ->searchable(),
-
-            Column::make('PRES. SEM.', 'presence_weeks')
-                ->sortable()
+            Column::make('UPDATED AT', 'updated_at_formatted', 'updated_at')
                 ->searchable()
-                ->editOnClick(true, '', null, true),
-
-            Column::make('PRES. JOURS', 'presence_days')
-                ->sortable()
-                ->searchable()
-                ->editOnClick(true, '', null, true),
-
-            Column::make('ENTER. SEM.', 'enterprise_weeks')
-                ->sortable()
-                ->searchable()
-                ->editOnClick(true, '', null, true),
-
-            Column::make('ENTER. JOURS', 'enterprise_days')
-                ->sortable()
-                ->searchable()
-                ->editOnClick(true, '', null, true)
-                
-            //     ,
-
-            // Column::make('UPDATED AT', 'updated_at_formatted', 'updated_at')
-            //     ->searchable()
-            //     ->sortable(),
+                ->sortable(),
 
         ]
 ;
@@ -181,7 +134,7 @@ final class PromotionsGrid extends PowerGridComponent
     */
 
      /**
-     * PowerGrid Promotion Action Buttons.
+     * PowerGrid Project Action Buttons.
      *
      * @return array<int, Button>
      */
@@ -192,12 +145,12 @@ final class PromotionsGrid extends PowerGridComponent
             Button::make('edit', 'Edit')
                  ->class('btn btn-primary btn-sm m-1')
                  ->target("_self")
-                 ->emit('promotionEdit', ['id' => 'id']),
+                 ->emit('projectEdit', ['id' => 'id']),
  
             Button::make('destroy', 'Delete')
                  ->class('btn btn-danger btn-sm m-1')
                  ->target("_self")
-                 ->emit('promotionDelete', ['id' => 'id']),
+                 ->emit('projectDelete', ['id' => 'id']),
         ];
     }
 
@@ -210,7 +163,7 @@ final class PromotionsGrid extends PowerGridComponent
     */
 
      /**
-     * PowerGrid Promotion Action Rules.
+     * PowerGrid Project Action Rules.
      *
      * @return array<int, RuleActions>
      */
@@ -222,14 +175,9 @@ final class PromotionsGrid extends PowerGridComponent
 
            //Hide button edit for ID 1
             Rule::button('edit')
-                ->when(fn($promotion) => $promotion->id === 1)
+                ->when(fn($project) => $project->id === 1)
                 ->hide(),
         ];
     }
     */
-
-    public function onUpdatedEditable(string $id, string $field, string $value): void
-    {
-        Promotion::find($id)->update([$field => $value]);
-    }
 }

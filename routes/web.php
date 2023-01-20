@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\ColaboratorController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\PromotionController;
 use App\Http\Controllers\PromotionTypesController;
 use App\Http\Controllers\SettingsController;
@@ -35,6 +36,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/colaborators', [ColaboratorController::class, 'index'])->name('colaborators.index');
     Route::get('/promotions', [PromotionController::class, 'index'])->name('promotions.index');
     Route::get('/promotion-types', [PromotionTypesController::class, 'index'])->name('promotion-types.index');
+    Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
     Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

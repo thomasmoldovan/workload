@@ -144,6 +144,10 @@ class PromotionGoalComponent extends Component
         ])->update(["temporary" => false]);
 
         $this->goals = Goal::where("colaborator_id", $this->colaborator_id)->get();
+        $this->total_hours = 0;
+        foreach ($this->goals as $goal) {
+            $this->total_hours += $goal->promotion->days;
+        }
 
         $this->resetComponent();
     } 
@@ -163,14 +167,4 @@ class PromotionGoalComponent extends Component
 
         $this->updated("", "");
     }
-
-    // public function getTotalDaysFromPromotions() {
-    //     $total_days = 0;
-
-    //     foreach ($this->goals as $goal) {
-    //         $total_days += $goal->getDaysFromType();
-    //     }
-
-    //     return $total_days;
-    // }
 }

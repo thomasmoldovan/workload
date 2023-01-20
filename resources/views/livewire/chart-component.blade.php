@@ -3,16 +3,34 @@
         <div class="card-body pb-0">
             <div wire:ignore id="workflowChart" style="min-height: 445px;" class="echart"></div>
 
+            <hr class="mt-2 mb-2">
+
             {{-- RESP. PEDAGOGIQUE --}}
             <div class="row pt-3">
                 <div class="col-6 small">Resp. Pedagogique</div>
                 <div class="col-3 small">{{ $responsable_pedagogique }} jours</div>
-                <div class="col-3 small">{{ $responsable_pedagogique * 100 / 210 }} %</div>
+                <div class="col-3 small">{{ number_format($responsable_pedagogique * 100 / 210, 2) }} %</div>
             </div>
-            <div class="row pt-3 pb-3">
+
+            {{-- PILOTE PROJET --}}
+            <div class="row pt-3 ">
                 <div class="col-6 small">Pilote Projet</div>
                 <div class="col-3 small">{{ $pilote_projet }} jours</div>
-                <div class="col-3 small">{{ $pilote_projet * 100 / 210 }} %</div>
+                <div class="col-3 small">{{ number_format($pilote_projet * 100 / 210, 2) }} %</div>
+            </div>
+            
+            {{-- FACE A FACE --}}
+            <div class="row pt-3 pb-3">
+                <div class="col-6 small">Face a Face</div>
+                <div class="col-3 small">{{ $face_a_face }} jours</div>
+                <div class="col-3 small">{{ number_format($face_a_face * 100 / 210, 2) }} %</div>
+            </div>
+
+            <hr class="mt-2 mb-2">
+
+            <div class="d-flex float-end pb-2">
+                <div class="bold">Total:</div>
+                <div class="bold ps-2">{{ number_format($responsable_pedagogique * 100 / 210 + $pilote_projet * 100 / 210 + $face_a_face * 100 / 210, 2) }} %</div>
             </div>
 
             <script>
@@ -43,13 +61,13 @@
                                 show: true
                             },
                             data: [                                                    
-                                { value: {{ $responsable_pedagogique / 210 }}, name: 'RESP. PEDAGOGIQUE' },
-                                { value: {{ $pilote_projet / 210 }},  name: 'PILOTE PROJET' },
-                                { value: 580,  name: 'FACE A FACE' },
-                                { value: 484,  name: 'SUIVI ELEVE' },
-                                { value: 300,  name: 'CONCEPTION NATIONALE' },
-                                { value: 300,  name: 'Activites Campus' },
-                                { value: 300,  name: 'Activites Anexes' }
+                                { value: 0, name: 'Responsable Pédagogique' },
+                                { value: 0, name: 'Pilote Projet' },
+                                { value: 0, name: 'Face à Face' },
+                                { value: 0, name: 'Suivi Élève' },
+                                { value: 0, name: 'Conception Nationale' },
+                                { value: 0, name: 'Activités Campus' },
+                                { value: 0, name: 'Activités Annexes' }
                             ]
                         }]
                     });
@@ -60,16 +78,7 @@
                                 data: event.detail.data
                             }]
                         });
-                        // chart.data.datasets[0].data = event.details.data;
                     })
-                });
-
-                
-
-                document.addEventListener('updateChart', function(event, newData) {
-                    console.log(newData);
-                    // chart.data.datasets[0].data = newData;
-                    // chart.update();
                 });
             </script>
         </div>

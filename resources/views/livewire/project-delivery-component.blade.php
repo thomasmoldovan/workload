@@ -5,7 +5,7 @@
         <div class="col-2 ps-0 pe-0">
             <table class="table h-100">
                 <td class="h-100" style="vertical-align: middle;">
-                    <label class="col-2 pt-1">Deliveries</label>
+                    <label>Planning</br> face a face</label>
                 </td>
             </table>
         </div>
@@ -14,7 +14,7 @@
         <div class="col-10 ps-0 pe-0">        
             <table class="table table-stripped table-responsive h-100" style="border-collapse:collapse; border-bottom-width: 0.8px;">
                 <tr class="header-background">
-                    <th class="col-4">
+                    <th class="col-3">
                         <label class="pt-1 table-header-font">Project</label>
                         <select wire:model="project_id" class="form-select" id="project_id">
                             <option class="dropdown-item" value="">Select project</option>
@@ -23,13 +23,14 @@
                             @endforeach
                         </select>
                     </th>
-                    <th class="col-3">
+                    <th class="col-2"></div>
+                    <th class="col-2">
                         <label class="pt-1 table-header-font" for="ab">Nr. hours</label>
                         <input wire:model.debounce.10ms="nr_hours" type="number" 
-                               class="form-control" min="0" step="1"
+                               class="form-control form-end text-end" min="0" step="1"
                                value="0" />
                     </th>
-                    <th class="col-2">
+                    <th class="col-1">
                         <label class="pt-1 table-header-font w-100">&nbsp</label>
                         <div class="d-flex justify-content-end">
                             <button type="button" 
@@ -41,8 +42,8 @@
                             </button>
                         </div>                        
                     </th>
-                    <th class="col-3">
-                        <label class="pt-1 table-header-font w-100 text-center">Total days</label>
+                    <th class="col-2">
+                        <label class="pt-1 table-header-font w-100 text-center">Total heurs</label>
                         <div class="d-flex justify-content-end">
                             <input class="form-control invisible" disabled readonly/>
                         </div> 
@@ -51,8 +52,8 @@
 
             @forelse ($deliveries as $key => $delivery)
                 <tr style="vertical-align: middle; {{ $delivery->temporary ? "background: #ffd7c3;" : "" }}">
-                    <td><span class="ps-2 ms-1">{{ $delivery->project->name }}</span></td>
-                    <td><span class="ps-2 ms-1">{{ $delivery->nr_students }}</span></td>
+                    <td colspan="2"><span class="ps-2 ms-1">{{ $delivery->project->name }}</span></td>
+                    <td><span class="d-flex justify-content-end pe-1">{{ $delivery->nr_hours }} heurs</span></td>
                     <td>
                         <div class="d-flex justify-content-end">
                             <button wire:click="deleteProjectDelivery({{ $delivery->id }})" type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
@@ -61,7 +62,7 @@
                     </td>
                     @if ($key == 0)
                         <td style="vertical-align: middle;" rowspan="0">
-                            <input wire:model.debounce.10ms="days" type="number" class="form-control" min="0" step="1" id="days" />
+                            <input value="{{ $total_hours." heurs" }}" type="text" class="form-control" disabled readonly />
                         </td>
                     @endif
                 </tr>

@@ -94,8 +94,7 @@ final class PromotionTypesGrid extends PowerGridComponent
             ->addColumn('ve_distance')
             ->addColumn('ei')
             ->addColumn('ss_present')
-            ->addColumn('ss_distance')
-            ->addColumn('updated_at_formatted', fn (PromotionType $model) => Carbon::parse($model->updated_at)->format('d/m/Y H:i:s'));
+            ->addColumn('ss_distance');
     }
 
     /*
@@ -144,11 +143,7 @@ final class PromotionTypesGrid extends PowerGridComponent
             Column::make('SS DISTANCE', 'ss_distance')
                 ->sortable()
                 ->searchable()
-                ->editOnClick(true),
-
-            Column::make('UPDATED AT', 'updated_at_formatted', 'updated_at')
-                ->searchable()
-                ->sortable()
+                ->editOnClick(true)
         ]
 ;
     }
@@ -167,21 +162,20 @@ final class PromotionTypesGrid extends PowerGridComponent
      * @return array<int, Button>
      */
 
-    /*
     public function actions(): array
     {
-       return [
-           Button::make('edit', 'Edit')
-               ->class('bg-indigo-500 cursor-pointer text-white px-3 py-2.5 m-1 rounded text-sm')
-               ->route('promotion-type.edit', ['promotion-type' => 'id']),
-
-           Button::make('destroy', 'Delete')
-               ->class('bg-red-500 cursor-pointer text-white px-3 py-2 m-1 rounded text-sm')
-               ->route('promotion-type.destroy', ['promotion-type' => 'id'])
-               ->method('delete')
+        return [
+            Button::make('edit', 'Edit')
+                 ->class('btn btn-primary btn-sm m-1')
+                 ->target("_self")
+                 ->emit('promotionTypeEdit', ['id' => 'id']),
+ 
+            Button::make('destroy', 'Delete')
+                 ->class('btn btn-danger btn-sm m-1')
+                 ->target("_self")
+                 ->emit('promotionTypeDelete', ['id' => 'id']),
         ];
     }
-    */
 
     /*
     |--------------------------------------------------------------------------

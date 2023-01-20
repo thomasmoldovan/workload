@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Delivery;
 use App\Models\Goal;
 use App\Models\Student;
 use Livewire\Component;
@@ -113,7 +114,10 @@ class ChartComponent extends Component
 
     protected function getFaceAFace()
     {
-        return 0;
+        $total_hours = Delivery::where("colaborator_id", $this->colaborator_id)->sum("nr_hours");
+        $total_hours = $this->twoDecimals($total_hours / $_ENV["HOURS_PER_WEEK"]);
+        
+        return $total_hours;
     }
     protected function getSuiviEleve()
     {

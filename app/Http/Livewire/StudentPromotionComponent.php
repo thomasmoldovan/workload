@@ -139,6 +139,8 @@ class StudentPromotionComponent extends Component
         ])->update(["temporary" => false]);
 
         $this->students = Student::where("colaborator_id", $this->colaborator_id)->get();
+        $this->total_days = $this->getTotalDaysFromStudents();
+        $this->total_hours = number_format($this->total_days / $_ENV["HOURS_PER_WEEK"], 2);
 
         $this->resetComponent();
     } 

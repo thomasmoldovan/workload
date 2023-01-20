@@ -5,7 +5,7 @@
         </div>
         <form wire:submit.prevent="submit">
             @csrf
-            <input type="hidden" id="id" name="id" wire:model.defer.defer="promotiontype.id">
+            <input type="hidden" id="id" name="id" wire:model.defer="promotiontype.id">
             <div class="col-md-12">
                 <label for="name" class="form-label">Nom <b class="text-danger">*</b></label>
                 <input type="text" class="form-control"
@@ -19,8 +19,8 @@
 
             <div class="col-md-12 pt-2">
                 <label for="name" class="form-label">VE Present <b class="text-danger">*</b></label>
-                <input type="number" class="form-control"
-                    placeholder="Nom"
+                <input type="number" class="form-control" min="0" step="0.5"
+                    placeholder="VE Present"
                     wire:model.defer="promotiontype.ve_present">
 
                 <div class="validation-message">
@@ -30,8 +30,8 @@
 
             <div class="col-md-12 pt-2">
                 <label for="name" class="form-label">VE Enterprise <b class="text-danger">*</b></label>
-                <input type="number" class="form-control"
-                    placeholder="Nom"
+                <input type="number" class="form-control" min="0" step="0.5"
+                    placeholder="VE Enterprise"
                     wire:model.defer="promotiontype.ve_distance">
 
                 <div class="validation-message">
@@ -41,8 +41,8 @@
 
             <div class="col-md-12 pt-2">
                 <label for="name" class="form-label">EI <b class="text-danger">*</b></label>
-                <input type="number" class="form-control"
-                    placeholder="Nom"
+                <input type="number" class="form-control" min="0" step="0.5"
+                    placeholder="EI"
                     wire:model.defer="promotiontype.ei">
 
                 <div class="validation-message">
@@ -52,8 +52,8 @@
 
             <div class="col-md-12 pt-2">
                 <label for="name" class="form-label">SS Present <b class="text-danger">*</b></label>
-                <input type="number" class="form-control"
-                    placeholder="Nom"
+                <input type="number" class="form-control" min="0" step="0.5"
+                    placeholder="SS Present"
                     wire:model.defer="promotiontype.ss_present">
 
                 <div class="validation-message">
@@ -63,8 +63,8 @@
 
             <div class="col-md-12 pt-2">
                 <label for="name" class="form-label">SS Enterprise <b class="text-danger">*</b></label>
-                <input type="number" class="form-control"
-                    placeholder="Nom"
+                <input type="number" class="form-control" min="0" step="0.5"
+                    placeholder="SS Enterprise"
                     wire:model.defer="promotiontype.ss_distance">
 
                 <div class="validation-message">

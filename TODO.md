@@ -28,6 +28,8 @@ TODO
 
 [ ] - user manager
 
+[ ] - deal with unique trigramme
+
 - projects B column ?
 
 - national time 20 days

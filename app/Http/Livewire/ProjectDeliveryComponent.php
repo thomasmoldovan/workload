@@ -17,6 +17,8 @@ class ProjectDeliveryComponent extends Component
     public $nr_hours;
     public $days;
 
+    public $total_hours;
+
     public $add_enabled = false;
 
     protected $listeners = [
@@ -72,6 +74,7 @@ class ProjectDeliveryComponent extends Component
         });
         
         $this->deliveries = Delivery::where("colaborator_id", $this->colaborator_id)->get();
+        $this->total_hours = Delivery::where("colaborator_id", $this->colaborator_id)->sum("nr_hours");
     }
 
     public function addProjectDelivery() 
@@ -90,6 +93,7 @@ class ProjectDeliveryComponent extends Component
         $projectDelivery->save();
 
         $this->deliveries = Delivery::where("colaborator_id", $this->colaborator_id)->get();
+        $this->total_hours = Delivery::where("colaborator_id", $this->colaborator_id)->sum("nr_hours");
     }
 
     public function deleteProjectDelivery($id) 
@@ -98,6 +102,7 @@ class ProjectDeliveryComponent extends Component
         $projectDelivery->delete();
 
         $this->deliveries = Delivery::where("colaborator_id", $this->colaborator_id)->get();
+        $this->total_hours = Delivery::where("colaborator_id", $this->colaborator_id)->sum("nr_hours");
     }
 
     public function saveProjectDelivery() 
@@ -109,6 +114,7 @@ class ProjectDeliveryComponent extends Component
         ])->update(["temporary" => false]);
 
         $this->deliveries = Delivery::where("colaborator_id", $this->colaborator_id)->get();
+        $this->total_hours = Delivery::where("colaborator_id", $this->colaborator_id)->sum("nr_hours");
 
         $this->emit('refreshComponent');
     } 

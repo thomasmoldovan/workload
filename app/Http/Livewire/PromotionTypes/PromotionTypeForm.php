@@ -15,8 +15,8 @@ class PromotionTypeForm extends Component
     public $edit = false;
 
     protected $listeners = [
-        'promotiontypeEdit'   => 'edit',
-        'promotiontypeDelete' => 'delete',
+        'promotionTypeEdit'   => 'edit',
+        'promotionTypeDelete' => 'delete',
     ];
 
     public function mount() {
@@ -101,7 +101,7 @@ class PromotionTypeForm extends Component
 
     public function messages() {
         return [
-            "promotion.name.required" => "You must enter a promotion type name",
+            "promotiontype.name.required" => "You must enter a promotion type name",
         ];
     }
 }

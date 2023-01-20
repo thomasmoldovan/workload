@@ -31,7 +31,7 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('projects.index') ? "active" : "collapsed" }}" href="">
+            <a class="nav-link {{ request()->routeIs('projects.index') ? "active" : "collapsed" }}" href="{{ route('projects.index') }}">
                 <i class="fas fa-briefcase sidebar-icon"></i>
                 <span>Projects</span>
             </a>
