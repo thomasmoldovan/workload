@@ -15,9 +15,10 @@ class ProjectDeliveryComponent extends Component
     public $colaborator_id;
     public $project_id;
     public $nr_hours;
-    public $days;
+    public $multiplier;
 
     public $total_hours;
+    public $total_days;
 
     public $add_enabled = false;
 
@@ -35,7 +36,7 @@ class ProjectDeliveryComponent extends Component
         $this->colaborator_id = null;
         $this->project_id     = null;
         $this->nr_hours       = 0;
-        $this->days           = 0;
+        $this->multiplier     = 2;
 
         $this->add_enabled = false;
 
@@ -74,7 +75,12 @@ class ProjectDeliveryComponent extends Component
         });
         
         $this->deliveries = Delivery::where("colaborator_id", $this->colaborator_id)->get();
-        $this->total_hours = Delivery::where("colaborator_id", $this->colaborator_id)->sum("nr_hours");
+        
+        $this->total_hours = 0;
+        foreach ($this->deliveries as $delivery) {
+            $this->total_hours += $delivery->nr_hours * $delivery->multiplier;
+        }
+        $this->total_days = round($this->total_hours / $_ENV['HOURS_PER_DAY'] * 100) / 100;
     }
 
     public function addProjectDelivery() 
@@ -82,18 +88,26 @@ class ProjectDeliveryComponent extends Component
         $projectDelivery = new Delivery();
         $projectDelivery->workload_id    = 1;
         $projectDelivery->colaborator_id = $this->colaborator_id;
-        $projectDelivery->project_id = $this->project_id;
-        $projectDelivery->nr_hours    = $this->nr_hours;
+        $projectDelivery->project_id     = $this->project_id;
+        $projectDelivery->nr_hours       = $this->nr_hours;
+        $projectDelivery->multiplier     = $this->multiplier;
         $projectDelivery->temporary      = 1;
 
         $this->project_id = null;
-        $this->nr_hours  = 0;
-        $this->days         = 0;
+        $this->nr_hours   = 0;
+        $this->multiplier = 2;
 
         $projectDelivery->save();
 
         $this->deliveries = Delivery::where("colaborator_id", $this->colaborator_id)->get();
-        $this->total_hours = Delivery::where("colaborator_id", $this->colaborator_id)->sum("nr_hours");
+
+        $this->total_hours = 0;
+        foreach ($this->deliveries as $delivery) {
+            $this->total_hours += $delivery->nr_hours * $delivery->multiplier;
+        }
+        $this->total_days = round($this->total_hours / $_ENV['HOURS_PER_DAY'] * 100) / 100;
+
+        $this->emit('updateChart');
     }
 
     public function deleteProjectDelivery($id) 
@@ -102,7 +116,14 @@ class ProjectDeliveryComponent extends Component
         $projectDelivery->delete();
 
         $this->deliveries = Delivery::where("colaborator_id", $this->colaborator_id)->get();
-        $this->total_hours = Delivery::where("colaborator_id", $this->colaborator_id)->sum("nr_hours");
+
+        $this->total_hours = 0;
+        foreach ($this->deliveries as $delivery) {
+            $this->total_hours += $delivery->nr_hours * $delivery->multiplier;
+        }
+        $this->total_days = round($this->total_hours / $_ENV['HOURS_PER_DAY'] * 100) / 100;
+
+        $this->emit('updateChart');
     }
 
     public function saveProjectDelivery() 
@@ -114,8 +135,14 @@ class ProjectDeliveryComponent extends Component
         ])->update(["temporary" => false]);
 
         $this->deliveries = Delivery::where("colaborator_id", $this->colaborator_id)->get();
-        $this->total_hours = Delivery::where("colaborator_id", $this->colaborator_id)->sum("nr_hours");
+        
+        $this->total_hours = 0;
+        foreach ($this->deliveries as $delivery) {
+            $this->total_hours += $delivery->nr_hours * $delivery->multiplier;
+        }
+        $this->total_days = round($this->total_hours / $_ENV['HOURS_PER_DAY'] * 100) / 100;
 
         $this->emit('refreshComponent');
+        $this->emit('updateChart');
     } 
 }

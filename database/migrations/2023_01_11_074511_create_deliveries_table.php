@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId("colaborator_id")->constrained("colaborators");
             $table->foreignId("project_id")->constrained("projects");
             $table->integer("nr_hours")->unsigned()->default(0);
+            $table->float("multiplier", 3, 1)->default(2.0);
             $table->boolean("temporary")->default(true);
             $table->timestamps();
         });

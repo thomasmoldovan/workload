@@ -15,6 +15,8 @@ class WorkloadsSeeder extends Seeder
      */
     public function run()
     {
-        Workload::create(['colaborator_id' => 1, 'name' => 'Default']);
+        for ($i = 0; $i < 13; $i++) {
+            Workload::create(['colaborator_id' => $i + 1]);
+        }
     }
 }

@@ -10,8 +10,6 @@ TODO
 
 [ ] - use transactions on save workload, with try/catch, and error logging
 
-[ ] - activity log
-
 [ ] - change name and surname in colaborators
 
 [ ] - loading activity
@@ -29,6 +27,10 @@ TODO
 [ ] - user manager
 
 [ ] - deal with unique trigramme
+
+[ ] - Autres cours in workload extra
+
+[ ] - export to PDF
 
 - projects B column ?
 

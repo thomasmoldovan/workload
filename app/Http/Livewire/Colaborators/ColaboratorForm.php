@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Colaborators;
 
 use App\Traits\WithToaster;
 use App\Models\Colaborator;
+use App\Models\Workload;
 use Livewire\Component;
 
 class ColaboratorForm extends Component
@@ -31,9 +32,20 @@ class ColaboratorForm extends Component
     public function submit() 
     {
         $this->validate();
-        $updated = $this->colaborator->id > 0;
+
+        if (!isset($this->colaborator->id)) {
+            $updated = false;
+        } else {
+            $updated = true;
+        }
 
         $this->colaborator->save();
+
+        if ($updated === false) {
+            Workload::create(["colaborator_id" => $this->colaborator->id]);
+        }
+
+        debug($this->colaborator->id);
 
         $this->alert("success", "Success", "Colaborator successfully ".($updated ? "updated" : "added"));
 

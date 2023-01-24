@@ -5,7 +5,7 @@
         <div class="col-2 ps-0 pe-0">
             <table class="table h-100">
                 <td class="h-100" style="vertical-align: middle;">
-                    <label class="col-2 pt-1">Responsable Promotion</label>
+                    <label class="col-2 pt-1">Responsable Pedagogique</label>
                 </td>
             </table>
         </div>
@@ -25,10 +25,6 @@
                         </select>
                     </th>
                     <th class="col-2">
-                        {{-- <label class="pt-1 table-header-font" for="ab">N° Apprenants</label>
-                        <input wire:model.debounce.10ms="nr_students" type="number" 
-                               class="form-control" min="0" step="1" id="nr_students"
-                               value="0" /> --}}
                     </th>
                     <th class="col-2">
                         <label class="pt-1 table-header-font">Jeurs</label>
@@ -59,7 +55,6 @@
                 <tr style="vertical-align: middle; {{ $goal->temporary ? "background: #ffd7c3;" : "" }}">
                     <td><span class="ps-2 ms-1">{{ $goal->promotion->name }} - {{ $goal->promotion->promotion_type->id }}</span></td>
                     <td>
-                        {{-- <span class="ps-2 ms-1">{{ $goal->nr_students }}</span> --}}
                     </td>
                     <td><span class="d-flex justify-content-end pe-1">{{ $goal->promotion->days }} jours</span></td>
                     <td>

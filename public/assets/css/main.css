@@ -7,6 +7,10 @@ body {
     font-size: 0.8rem;
 }
 
+.form-control:disabled, .form-control[readonly] {
+    background-color: #e9ecef !important;
+}
+
 label {
     font-weight: bold;
 }

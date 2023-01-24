@@ -95,7 +95,7 @@ class StudentPromotionComponent extends Component
         
         $this->students = Student::where("colaborator_id", $this->colaborator_id)->get();
         $this->total_days = $this->getTotalDaysFromStudents();
-        $this->total_hours = number_format($this->total_days / $_ENV["HOURS_PER_WEEK"], 2);
+        $this->total_hours = number_format($this->total_days / $_ENV["HOURS_PER_DAY"], 2);
     }
 
     public function addStudentPromotion() 
@@ -117,7 +117,9 @@ class StudentPromotionComponent extends Component
 
         $this->students = Student::where("colaborator_id", $this->colaborator_id)->get();
         $this->total_days = $this->getTotalDaysFromStudents();
-        $this->total_hours = number_format($this->total_days / $_ENV["HOURS_PER_WEEK"], 2);
+        $this->total_hours = number_format($this->total_days / $_ENV["HOURS_PER_DAY"], 2);
+
+        $this->emit('updateChart');
     }
 
     public function deleteStudentPromotion($id) 
@@ -127,7 +129,9 @@ class StudentPromotionComponent extends Component
 
         $this->students = Student::where("colaborator_id", $this->colaborator_id)->get();
         $this->total_days = $this->getTotalDaysFromStudents();
-        $this->total_hours = number_format($this->total_days / $_ENV["HOURS_PER_WEEK"], 2);
+        $this->total_hours = number_format($this->total_days / $_ENV["HOURS_PER_DAY"], 2);
+
+        $this->emit('updateChart');
     }
 
     public function saveStudentPromotion() 
@@ -139,10 +143,9 @@ class StudentPromotionComponent extends Component
         ])->update(["temporary" => false]);
 
         $this->students = Student::where("colaborator_id", $this->colaborator_id)->get();
-        $this->total_days = $this->getTotalDaysFromStudents();
-        $this->total_hours = number_format($this->total_days / $_ENV["HOURS_PER_WEEK"], 2);
 
         $this->resetComponent();
+        $this->emit('updateChart');
     } 
 
     public function resetAll() 

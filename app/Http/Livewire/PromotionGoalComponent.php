@@ -15,7 +15,6 @@ class PromotionGoalComponent extends Component
 
     public $colaborator_id;
     public $promotion_id;
-    public $nr_students;
 
     public $days;
     public $total_days;
@@ -37,7 +36,6 @@ class PromotionGoalComponent extends Component
 
         $this->colaborator_id = null;
         $this->promotion_id   = null;
-        $this->nr_students    = 0;
 
         $this->days           = 0;
         $this->total_days     = 0;
@@ -56,11 +54,6 @@ class PromotionGoalComponent extends Component
     public function updated($name, $value)
     {
         if ($this->colaborator_id >= 1 && $this->promotion_id >= 1) {
-            // $promotionGoal = new Goal();
-
-            // $promotionGoal->promotion_id   = $this->promotion_id;
-            // $promotionGoal->nr_students   = $this->nr_students;
-
             $promotion = Promotion::find($this->promotion_id);
             $this->days = (float) $promotion->days;
 
@@ -109,7 +102,6 @@ class PromotionGoalComponent extends Component
         $promotionGoal->workload_id    = 1;
         $promotionGoal->colaborator_id = $this->colaborator_id;
         $promotionGoal->promotion_id   = $this->promotion_id;
-        $promotionGoal->nr_students    = $this->nr_students;
         $promotionGoal->temporary      = 1;
 
         $this->resetComponent();
@@ -121,6 +113,8 @@ class PromotionGoalComponent extends Component
         foreach ($this->goals as $goal) {
             $this->total_hours += $goal->promotion->days;
         }
+
+        $this->emit('updateChart');
     }
 
     public function deletePromotionGoal($id) 
@@ -133,6 +127,8 @@ class PromotionGoalComponent extends Component
         foreach ($this->goals as $goal) {
             $this->total_hours += $goal->promotion->days;
         }
+
+        $this->emit('updateChart');
     }
 
     public function savePromotionGoals() 
@@ -150,6 +146,7 @@ class PromotionGoalComponent extends Component
         }
 
         $this->resetComponent();
+        $this->emit('updateChart');
     } 
 
     public function resetAll() 
@@ -162,7 +159,6 @@ class PromotionGoalComponent extends Component
     public function resetComponent() 
     {
         $this->promotion_id = null;
-        $this->nr_students  = 0;
         $this->days         = 0;
 
         $this->updated("", "");

@@ -14,6 +14,8 @@ class Delivery extends Model
         "colaborator_id",
         "project_id",
         "nr_hours",
+        "multiplier",
+        "temporary",
         "days",
     ];
 

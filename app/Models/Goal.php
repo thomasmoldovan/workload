@@ -14,7 +14,6 @@ class Goal extends Model
         "workload_id",
         "colaborator_id",
         "promotion_id",
-        "nr_students",
         "days",
     ];
 
@@ -32,11 +31,4 @@ class Goal extends Model
     {
         return $this->belongsTo(Workload::class);
     }
-
-    // protected function days(): Attribute
-    // {
-    //     return Attribute::make(
-    //         get: fn () => $this->present_weeks * $this->present_days + $this->enterprise_weeks * $this->enterprise_days        
-    //     );
-    // }
 }

@@ -11,7 +11,6 @@ class Workload extends Model
 
     protected $fillable = [
         'colaborator_id',
-        'name',
         'colaborator_days',
         'promotion_days',
         'national_days',

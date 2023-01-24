@@ -15,6 +15,7 @@ class ProjectsSeeder extends Seeder
      */
     public function run()
     {
+        Project::create(["name" => "Autres Cours"]);
         Project::create(["name" => "Algorithmique Avancée"]);
         Project::create(["name" => "Administration du Système d'Information"]);
         Project::create(["name" => "Administrer un Parc Informatique"]);

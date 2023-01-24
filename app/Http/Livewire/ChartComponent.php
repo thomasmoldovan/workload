@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Delivery;
 use App\Models\Goal;
 use App\Models\Student;
+use App\Models\Workload;
 use Livewire\Component;
 
 class ChartComponent extends Component
@@ -26,7 +27,7 @@ class ChartComponent extends Component
         "Suivi Eleve",
         "Conception Nationale",
         "Activites Campus",
-        "Activites Anexe",
+        "Autres Activites",
     ];
 
     public function mount() {
@@ -43,12 +44,18 @@ class ChartComponent extends Component
 
     protected $listeners = [
         'colaboratorSelected' => 'colaboratorSelected',
-        'refreshChart' => '$refresh'
+        'updateChart'         => 'recalculateChart',
+        'refreshChart'        => '$refresh'
     ];
 
     public function render()
     {
         return view('livewire.chart-component');
+    }
+
+    public function recalculateChart()
+    {
+        $this->colaboratorSelected($this->colaborator_id);
     }
 
     public function colaboratorSelected($colaborator_id)
@@ -63,7 +70,7 @@ class ChartComponent extends Component
         $this->suivi_eleve             = $this->twoDecimals($this->getSuiviEleve());
         $this->conception_nationale    = $this->twoDecimals($this->getConceptionNationale());
         $this->activites_campus        = $this->twoDecimals($this->getActivitesCampus());
-        $this->activites_anexe         = $this->twoDecimals($this->getActivitesAnexe());
+        $this->activites_anexe         = $this->twoDecimals($this->getAutreActivites());
 
         $this->updateChart();
     }
@@ -72,7 +79,7 @@ class ChartComponent extends Component
     {
         $data = [
             ["value" => $this->responsable_pedagogique, "name" => "Responsable Pedagogique"],
-            ["value" => $this->pilote_projet,           "name" => "Pilote Projet"],
+            ["value" => $this->pilote_projet,           "name" => "Planification Projets"],
             ["value" => $this->face_a_face,             "name" => "Face A Face"],
             ["value" => $this->suivi_eleve,             "name" => "Suivi Eleve"],
             ["value" => $this->conception_nationale,    "name" => "Conception Nationale"],
@@ -87,6 +94,33 @@ class ChartComponent extends Component
     
     protected function getResponsablePedagogique()
     {
+        $responsable_pedagogique = Workload::where("colaborator_id", $this->colaborator_id)->get()[0]->national_days;
+
+        return $responsable_pedagogique;
+    }
+
+    protected function getPiloteProjet() // DONE
+    {
+        $pilote_projet = Workload::where("colaborator_id", $this->colaborator_id)->get()[0]->project_weeks;
+
+        return $pilote_projet;
+    }
+
+    protected function getFaceAFace() // DONE
+    {
+        $deliveries = Delivery::where("colaborator_id", $this->colaborator_id)->get();
+
+        $total_hours = 0;
+        foreach ($deliveries as $delivery) {
+            $total_hours += $delivery->nr_hours * $delivery->multiplier;
+        }
+
+        $total_days = $this->twoDecimals($total_hours / $_ENV["HOURS_PER_DAY"]);
+        
+        return $total_days;
+    }
+    protected function getSuiviEleve()
+    {
         $students = Student::where("colaborator_id", $this->colaborator_id)->get();
 
         $total_hours = 0;
@@ -95,45 +129,27 @@ class ChartComponent extends Component
             $total_hours += $student->getDaysFromType();
         }
 
-        $total_days = $this->twoDecimals($total_hours / $_ENV["HOURS_PER_WEEK"]);
+        $total_days = $this->twoDecimals($total_hours / $_ENV["HOURS_PER_DAY"]);
 
         return $total_days;
     }
-
-    protected function getPiloteProjet()
-    {
-        $goals = Goal::where("colaborator_id", $this->colaborator_id)->get();
-
-        $total_hours = 0;
-        foreach ($goals as $goal) {
-            $total_hours += $goal->promotion->days;
-        }
-
-        return $total_hours;
-    }
-
-    protected function getFaceAFace()
-    {
-        $total_hours = Delivery::where("colaborator_id", $this->colaborator_id)->sum("nr_hours");
-        $total_hours = $this->twoDecimals($total_hours / $_ENV["HOURS_PER_WEEK"]);
-        
-        return $total_hours;
-    }
-    protected function getSuiviEleve()
-    {
-        return 0;
-    }
     protected function getConceptionNationale()
     {
-        return 0;
+        $national_days = Workload::where("colaborator_id", $this->colaborator_id)->get()[0]->national_days;
+
+        return $national_days;
     }
     protected function getActivitesCampus()
     {
-        return 0;
+        $campus_days = Workload::where("colaborator_id", $this->colaborator_id)->get()[0]->campus_days;
+
+        return $campus_days;
     }
-    protected function getActivitesAnexe()
+    protected function getAutreActivites()
     {
-        return 0;
+        $delivery_days = Workload::where("colaborator_id", $this->colaborator_id)->get()[0]->delivery_days;
+
+        return $delivery_days;
     }
 
     protected function twoDecimals($number)

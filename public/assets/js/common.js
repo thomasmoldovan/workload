@@ -5,8 +5,8 @@ $(document).ready(function () {
     // $("[data-bs-toggle='tooltip']").tooltip();
 
     // Create product page
-    var today = new Date();
-    var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    // var today = new Date();
+    // var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
     // $(".startdate").datetimepicker({
     //     autoclose: true,
     //     minuteStep: 15,

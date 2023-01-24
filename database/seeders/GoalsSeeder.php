@@ -15,9 +15,12 @@ class GoalsSeeder extends Seeder
      */
     public function run()
     {
-        Goal::create(['workload_id' => 1, 'colaborator_id' => 1, 'promotion_id' => 1, "nr_students" => random_int(1, 50), "temporary" => false]);
-        Goal::create(['workload_id' => 1, 'colaborator_id' => 1, 'promotion_id' => 2, "nr_students" => random_int(1, 50), "temporary" => false]);
-        Goal::create(['workload_id' => 1, 'colaborator_id' => 1, 'promotion_id' => 3, "nr_students" => random_int(1, 50), "temporary" => false]);
-        Goal::create(['workload_id' => 1, 'colaborator_id' => 1, 'promotion_id' => 4, "nr_students" => random_int(1, 50), "temporary" => false]);
+        Goal::create(['workload_id' => 1, 'colaborator_id' => 1, 'promotion_id' => 1, "temporary" => false]);
+        Goal::create(['workload_id' => 1, 'colaborator_id' => 1, 'promotion_id' => 2, "temporary" => false]);
+        Goal::create(['workload_id' => 1, 'colaborator_id' => 1, 'promotion_id' => 3, "temporary" => false]);
+        Goal::create(['workload_id' => 1, 'colaborator_id' => 1, 'promotion_id' => 4, "temporary" => false]);
+        
+        Goal::create(['workload_id' => 1, 'colaborator_id' => 8, 'promotion_id' => 2, "temporary" => false]);
+        Goal::create(['workload_id' => 1, 'colaborator_id' => 8, 'promotion_id' => 4, "temporary" => false]);
     }
 }

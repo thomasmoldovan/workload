@@ -9,28 +9,63 @@
             <div class="row pt-3">
                 <div class="col-6 small">Resp. Pedagogique</div>
                 <div class="col-3 small">{{ $responsable_pedagogique }} jours</div>
-                <div class="col-3 small">{{ number_format($responsable_pedagogique * 100 / 210, 2) }} %</div>
+                <div class="col-3 small">{{ number_format($responsable_pedagogique * 100 / $_ENV["TOTAL_DAYS"], 2) }} %</div>
             </div>
 
             {{-- PILOTE PROJET --}}
             <div class="row pt-3 ">
                 <div class="col-6 small">Pilote Projet</div>
-                <div class="col-3 small">{{ $pilote_projet }} jours</div>
-                <div class="col-3 small">{{ number_format($pilote_projet * 100 / 210, 2) }} %</div>
+                <div class="col-3 small">{{ $pilote_projet }} semaines</div>
+                <div class="col-3 small">{{ number_format($pilote_projet * 100 / $_ENV["TOTAL_DAYS"], 2) }} %</div>
             </div>
             
             {{-- FACE A FACE --}}
-            <div class="row pt-3 pb-3">
+            <div class="row pt-3">
                 <div class="col-6 small">Face a Face</div>
                 <div class="col-3 small">{{ $face_a_face }} jours</div>
-                <div class="col-3 small">{{ number_format($face_a_face * 100 / 210, 2) }} %</div>
+                <div class="col-3 small">{{ number_format($face_a_face * 100 / $_ENV["TOTAL_DAYS"], 2) }} %</div>
+            </div>
+            
+            {{-- SUIVI ELEVE --}}
+            <div class="row pt-3">
+                <div class="col-6 small">Suivi Élèves</div>
+                <div class="col-3 small">{{ $suivi_eleve }} jours</div>
+                <div class="col-3 small">{{ number_format($suivi_eleve * 100 / $_ENV["TOTAL_DAYS"], 2) }} %</div>
+            </div>
+
+            {{-- SUIVI ELEVE --}}
+            <div class="row pt-3">
+                <div class="col-6 small">Conception Nationale</div>
+                <div class="col-3 small">{{ $conception_nationale }} jours</div>
+                <div class="col-3 small">{{ number_format($conception_nationale * 100 / $_ENV["TOTAL_DAYS"], 2) }} %</div>
+            </div>
+
+            {{-- SUIVI ELEVE --}}
+            <div class="row pt-3">
+                <div class="col-6 small">Activites Campus</div>
+                <div class="col-3 small">{{ $activites_campus }} jours</div>
+                <div class="col-3 small">{{ number_format($activites_campus * 100 / $_ENV["TOTAL_DAYS"], 2) }} %</div>
+            </div>
+
+            {{-- SUIVI ELEVE --}}
+            <div class="row pt-3 pb-3">
+                <div class="col-6 small">Autres Activites</div>
+                <div class="col-3 small">{{ $activites_anexe }} jours</div>
+                <div class="col-3 small">{{ number_format($activites_anexe * 100 / $_ENV["TOTAL_DAYS"], 2) }} %</div>
             </div>
 
             <hr class="mt-2 mb-2">
 
             <div class="d-flex float-end pb-2">
                 <div class="bold">Total:</div>
-                <div class="bold ps-2">{{ number_format($responsable_pedagogique * 100 / 210 + $pilote_projet * 100 / 210 + $face_a_face * 100 / 210, 2) }} %</div>
+                <div class="bold ps-2">
+                    {{ number_format(
+                        /* $responsable_pedagogique * 100 / $_ENV["TOTAL_DAYS"] + */
+                        $pilote_projet * 100 / $_ENV["TOTAL_DAYS"] +
+                        $face_a_face * 100 / $_ENV["TOTAL_DAYS"] + 
+                        $suivi_eleve * 100 / $_ENV["TOTAL_DAYS"], 2) 
+                    }} %
+                </div>
             </div>
 
             <script>

@@ -51,7 +51,7 @@
             {{-- Presence days --}}
             <div class="col-md-12 pt-2">
                 <label for="presence_days" class="form-label">Présence jours <b class="text-danger">*</b></label>
-                <input type="number" min="0" 
+                <input type="number" min="0" step="0.125"
                     id="presence_days" name="presence_days" class="form-control"
                     placeholder="Présence jours"
                     wire:model.defer="promotion.presence_days">
@@ -77,7 +77,7 @@
             {{-- Enterprise days --}}
             <div class="col-md-12 pt-2">
                 <label for="enterprise_days" class="form-label">Enterprise jours <b class="text-danger">*</b></label>
-                <input type="number" min="0" 
+                <input type="number" min="0" step="0.125"
                     id="enterprise_days" name="enterprise_days" class="form-control"
                     placeholder="Enterprise jours"
                     wire:model.defer="promotion.enterprise_days">
