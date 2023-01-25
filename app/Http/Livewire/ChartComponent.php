@@ -68,8 +68,6 @@ class ChartComponent extends Component
         if ($colaborator_id >=1) {
             $this->colaborator_id = $colaborator_id;
 
-            $colaborator = Goal::where("colaborator_id", $this->colaborator_id)->with("colaborator")->first()->colaborator;
-
             $colaborator = Colaborator::where("id", $this->colaborator_id)->first();
             $this->chart_colaborator_name = strtoupper($colaborator->surname)." ".ucwords(strtolower($colaborator->lastname));
         } else {
@@ -119,7 +117,7 @@ class ChartComponent extends Component
 
     protected function getPiloteProjet() // DONE
     {
-        $pilote_projet = Workload::where("colaborator_id", $this->colaborator_id)->get()[0]->project_weeks;
+        $pilote_projet = Workload::where("colaborator_id", $this->colaborator_id)->first()->project_weeks;
         $pilote_projet = round($pilote_projet * $_ENV['TEMPS_PILOTAJ_PROJET'] * $_ENV['DAYS_PER_WEEK'] * 100) / 100;
 
         return $pilote_projet;

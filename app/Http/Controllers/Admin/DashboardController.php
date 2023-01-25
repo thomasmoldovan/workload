@@ -12,10 +12,10 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $colaborators = Colaborator::all();
+        $colaborators = Colaborator::orderBy("surname", "asc")->get();
         $students     = Student::all();
-        $promotions   = Promotion::with("promotion_type")->get();
-        $projects     = Project::all();
+        $promotions   = Promotion::with("promotion_type")->orderBy("name", "asc")->get();
+        $projects     = Project::orderBy("name", "asc")->get();
 
         return view("admin.main.main", compact("colaborators", "students", "promotions", "projects"));
     }

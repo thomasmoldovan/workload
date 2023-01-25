@@ -28,13 +28,13 @@ TODO
 
 [ ] - deal with unique trigramme
 
-[ ] - Autres cours in workload extra
+[x] - Autres cours in workload extra
 
 [ ] - export to PDF
 
 [ ] - saveWorkload should run on DashboardComponent not on every child component
 
-[ ] - Settings screen
+[x] - Settings screen
 
 [ ] - percentage bar on total in chart component
 

@@ -12,11 +12,13 @@ class SettingsController extends Controller
         return view('admin.settings.index');
     }
 
-    public function update(Request $request) {
-        if (empty($request)) return;
-        $input = $request->all();
+    public function update(Request $request) 
+    {
+        if (empty($request)) {
+            return;
+        }
 
-        // $settings = Settings::all();
+        $input = $request->all();
 
         foreach ($input as $key => $value) {
             if ($key == "_token") continue;

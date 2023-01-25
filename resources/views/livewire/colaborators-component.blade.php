@@ -5,7 +5,7 @@
                     <select wire:model="colaborator_id" class="form-select" id="colaborator_id">
                         <option class="dropdown-item" value="-1">Select colaborator</option>
                         @foreach ($colaborators as $key => $colaborator)
-                            <option class="dropdown-item" value="{{ $key + 1 }}">{{ $colaborator->surname }}
+                            <option class="dropdown-item" value="{{ $colaborator->id }}">{{ $colaborator->surname }}
                                 {{ $colaborator->lastname }}</option>
                         @endforeach
                     </select>

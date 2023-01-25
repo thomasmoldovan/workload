@@ -8,7 +8,7 @@
                     <livewire:projects.projects-grid />
                 </div>
                 <div class="col-lg-3 p-0 ps-2">
-                    {{-- <livewire:projects.projects-form /> --}}
+                    <livewire:projects.project-form />
                 </div>
             </div>            
         </div>        

@@ -20,7 +20,7 @@
                             <select wire:model="promotion_id" class="form-select">
                                 <option class="dropdown-item" value="">Promotion</option>
                                 @foreach ($promotions as $key => $promotion)
-                                    <option class="dropdown-item" value="{{ $key + 1 }}">{{ $promotion->name }}
+                                    <option class="dropdown-item" value="{{ $promotion->id }}">{{ $promotion->name }}
                                         {{ $promotion->surname }}</option>
                                 @endforeach
                             </select>
