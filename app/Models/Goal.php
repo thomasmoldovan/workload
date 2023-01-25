@@ -31,4 +31,11 @@ class Goal extends Model
     {
         return $this->belongsTo(Workload::class);
     }
+
+    public function promotion_type() {
+        return $this->hasOneThrough(
+            PromotionType::class, Promotion::class,
+            'id',                 'id',
+            'promotion_id',       'promotion_type_id');
+    }
 }

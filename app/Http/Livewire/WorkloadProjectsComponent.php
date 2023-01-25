@@ -48,9 +48,7 @@ class WorkloadProjectsComponent extends Component
 
             $this->workload->colaborator_id   = $this->colaborator_id;
             $this->workload->project_weeks    = 0;
-            // $this->workload->project_total    = 0;
             $this->workload->project_guidance = 0;
-            // $this->workload->project_days     = 0;
 
             $this->workload->save();
         } else {
@@ -68,9 +66,7 @@ class WorkloadProjectsComponent extends Component
         $this->workload = Workload::where('colaborator_id', $this->colaborator_id)->first();
 
         $this->workload->project_weeks    = $this->project_weeks;
-        // $this->workload->project_total    = $this->project_total;
         $this->workload->project_guidance = $this->project_guidance;
-        // $this->workload->project_days     = $this->project_days;
 
         $this->workload->save();
 

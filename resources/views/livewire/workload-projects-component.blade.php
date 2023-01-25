@@ -16,7 +16,7 @@
                         <label class="pt-1">N° Semaines</label>
                     </td>
                     <td class="h-100 col-5" style="vertical-align: middle;">
-                        <input wire:model="project_weeks" type="number" class="form-control" id="inputField" min="0" step="1"
+                        <input wire:model="project_weeks" type="number" class="form-control" id="inputField" min="0" step="0.5"
                             value="0" />
                     </td>
                 </table>

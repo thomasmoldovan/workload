@@ -8,21 +8,21 @@
                 <div class="row">
                     <div class="col-7">
                         {{-- Select colaborator --}}
-                        <livewire:colaborators-component />
+                        <livewire:colaborators-component :colaborators="$colaborators" />
 
                         <hr class="mt-3 mb-3">
 
                         {{-- Student --}}
-                        <livewire:student-promotion-component />
+                        <livewire:student-promotion-component :promotions="$promotions" />
 
                         {{-- Promotions --}}
-                        <livewire:promotion-goal-component />
+                        <livewire:promotion-goal-component :promotions="$promotions"/>
 
                         {{-- Workload extra info --}}
                         <livewire:workload-extra-component />
 
                         {{-- Deliveries --}}
-                        <livewire:project-delivery-component />
+                        <livewire:project-delivery-component :projects="$projects" />
 
                         {{-- Workload projects --}}
                         <livewire:workload-projects-component>

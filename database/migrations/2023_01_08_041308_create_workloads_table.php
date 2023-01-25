@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer("national_days")->unsigned()->default(0);
             $table->integer("campus_days")->unsigned()->default(0);
             $table->integer("delivery_days")->unsigned()->default(0);
-            $table->integer("project_weeks")->unsigned()->default(0);
+            $table->float("project_weeks")->decimal(10, 2)->unsigned()->default(0);
             $table->float("project_guidance")->decimal(10, 2)->unsigned()->default(0);
             $table->timestamps();
         });

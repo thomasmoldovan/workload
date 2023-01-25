@@ -2,9 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Promotion;
 use App\Models\Student;
-use App\Models\Workload;
 use Livewire\Component;
 
 class StudentPromotionComponent extends Component
@@ -20,21 +18,20 @@ class StudentPromotionComponent extends Component
     public $total_days;
     public $total_hours;
 
-    public $workload;
-
     public $add_enabled = false;
 
     protected $listeners = [
         'colaboratorSelected' => 'colaboratorSelected',
         'saveWorkload'        => 'saveStudentPromotion',
-        'resetAll'            => 'resetAll',
-        'refreshComponent'    => '$refresh'
+        'resetComponent'      => 'resetComponent',
+        'refreshComponent'    => '$refresh',
     ];
 
     public function mount()
     {
-        $this->promotions   = Promotion::all();
-        $this->students     = [];
+        debug("SPC - mount");
+
+        $this->students       = [];
 
         $this->colaborator_id = null;
         $this->promotion_id   = null;
@@ -45,23 +42,25 @@ class StudentPromotionComponent extends Component
         $this->total_hours    = 0;
 
         $this->add_enabled = false;
-
-        $this->updated("", "");
     }
 
     public function render()
     {
+        debug("SPC - render");
+
         return view('livewire.student-promotion-component');
     }
 
     public function updated($name, $value)
     {
+        debug("SPC - updated ".$name." ".$value);
+
         if ($this->colaborator_id >= 1 && $this->promotion_id >= 1 && $this->nr_students >= 1) {
 
             $studentPromotion = new Student();
 
-            $studentPromotion->promotion_id   = $this->promotion_id;
-            $studentPromotion->nr_students   = $this->nr_students;
+            $studentPromotion->promotion_id = $this->promotion_id;
+            $studentPromotion->nr_students  = $this->nr_students;
 
             $this->days = (float) $studentPromotion->getDaysFromType();
 
@@ -72,34 +71,30 @@ class StudentPromotionComponent extends Component
             $this->days = 0;
             $this->add_enabled = false;
         }
-
-        return;
     }
 
     public function colaboratorSelected($colaborator_id)
     {
+        debug("SPC - cs");
+
         if ($colaborator_id >=1) {
             $this->colaborator_id = $colaborator_id;
-            $this->workload = Workload::where("colaborator_id", $this->colaborator_id)->get();
         } else {
             $this->colaborator_id = null;
-            $this->add_enabled = false;
+            $this->add_enabled    = false;
         }
 
         $this->students = [];
-        $this->updated("", "");
 
-        Student::where(["temporary" => true])->each(function ($student) {
-            $student->delete();
-        });
+        Student::where(["temporary" => true])->delete();
         
-        $this->students = Student::where("colaborator_id", $this->colaborator_id)->get();
-        $this->total_days = $this->getTotalDaysFromStudents();
-        $this->total_hours = number_format($this->total_days / $_ENV["HOURS_PER_DAY"], 2);
+        $this->updateData();
     }
 
     public function addStudentPromotion() 
     {
+        debug("SPC - add");
+
         if ($this->add_enabled == false) return;
 
         $this->add_enabled = false;
@@ -115,62 +110,61 @@ class StudentPromotionComponent extends Component
 
         $studentPromotion->save();
 
-        $this->students = Student::where("colaborator_id", $this->colaborator_id)->get();
-        $this->total_days = $this->getTotalDaysFromStudents();
-        $this->total_hours = number_format($this->total_days / $_ENV["HOURS_PER_DAY"], 2);
-
-        $this->emit('updateChart');
+        $this->updateData();
     }
 
     public function deleteStudentPromotion($id) 
     {
+        debug("SPC - delete");
+
         $studentPromotion = Student::find($id);
         $studentPromotion->delete();
 
-        $this->students = Student::where("colaborator_id", $this->colaborator_id)->get();
-        $this->total_days = $this->getTotalDaysFromStudents();
-        $this->total_hours = number_format($this->total_days / $_ENV["HOURS_PER_DAY"], 2);
-
-        $this->emit('updateChart');
+        $this->updateData();
     }
 
     public function saveStudentPromotion() 
     {
+        debug("SPC - save student promotion");
+
         Student::where([
             "workload_id"    => 1,
             "colaborator_id" => $this->colaborator_id,
             "temporary"      => true
         ])->update(["temporary" => false]);
 
-        $this->students = Student::where("colaborator_id", $this->colaborator_id)->get();
-
         $this->resetComponent();
-        $this->emit('updateChart');
+
+        $this->updateData();
     } 
-
-    public function resetAll() 
-    {
-        $this->colaborator_id == null;
-        $this->students = [];
-        $this->resetComponent();
-    }
 
     public function resetComponent() 
     {
+        debug("SPC - resetComponent");
+
         $this->promotion_id = null;
         $this->nr_students  = 0;
         $this->days         = 0;
+    }
 
-        $this->updated("", "");
+    public function updateData() 
+    {
+        debug("SPC - update data");
+        
+        $this->students    = Student::where("colaborator_id", $this->colaborator_id)->with("promotion")->with("promotion_type")->get();
+        $this->total_days  = $this->getTotalDaysFromStudents();
+        $this->total_hours = number_format($this->total_days / $_ENV["HOURS_PER_DAY"], 2);
+
+        $this->emit('updateChart');
     }
 
     public function getTotalDaysFromStudents() {
-        $total_days = 0;
+        $total_hours = 0;
 
         foreach ($this->students as $student) {
-            $total_days += $student->getDaysFromType();
+            $total_hours += $student->getDaysFromType();
         }
 
-        return $total_days;
+        return $total_hours;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Colaborator;
 use App\Models\Delivery;
 use App\Models\Goal;
 use App\Models\Student;
@@ -11,6 +12,7 @@ use Livewire\Component;
 class ChartComponent extends Component
 {
     public $colaborator_id;
+    public $chart_colaborator_name;
 
     public $responsable_pedagogique;
     public $pilote_projet;
@@ -22,7 +24,7 @@ class ChartComponent extends Component
 
     public $chart_labels = [
         "Responsable Pedagogique",
-        "Pilote Projet",
+        "Planification Projets",
         "Face A Face",
         "Suivi Eleve",
         "Conception Nationale",
@@ -30,8 +32,11 @@ class ChartComponent extends Component
         "Autres Activites",
     ];
 
-    public function mount() {
+    public function mount() 
+    {
         $this->colaborator_id = 0;
+
+        $this->chart_colaborator_name = "";
 
         $this->responsable_pedagogique = 0;
         $this->pilote_projet = 0;
@@ -45,7 +50,7 @@ class ChartComponent extends Component
     protected $listeners = [
         'colaboratorSelected' => 'colaboratorSelected',
         'updateChart'         => 'recalculateChart',
-        'refreshChart'        => '$refresh'
+        // 'refreshChart'        => '$refresh'
     ];
 
     public function render()
@@ -62,8 +67,15 @@ class ChartComponent extends Component
     {
         if ($colaborator_id >=1) {
             $this->colaborator_id = $colaborator_id;
-        }
 
+            $colaborator = Goal::where("colaborator_id", $this->colaborator_id)->with("colaborator")->first()->colaborator;
+
+            $colaborator = Colaborator::where("id", $this->colaborator_id)->first();
+            $this->chart_colaborator_name = strtoupper($colaborator->surname)." ".ucwords(strtolower($colaborator->lastname));
+        } else {
+            $this->chart_colaborator_name = "";
+        }
+        
         $this->responsable_pedagogique = $this->twoDecimals($this->getResponsablePedagogique());
         $this->pilote_projet           = $this->twoDecimals($this->getPiloteProjet());
         $this->face_a_face             = $this->twoDecimals($this->getFaceAFace());
@@ -87,6 +99,8 @@ class ChartComponent extends Component
             ["value" => $this->activites_anexe,         "name" => "Activites Anexe"]
         ];
 
+        $this->emit("refreshChart");
+
         $this->dispatchBrowserEvent('updateChart', [
             "data" => $data
         ]);
@@ -94,14 +108,19 @@ class ChartComponent extends Component
     
     protected function getResponsablePedagogique()
     {
-        $responsable_pedagogique = Workload::where("colaborator_id", $this->colaborator_id)->get()[0]->national_days;
+        $goals = Goal::where("colaborator_id", $this->colaborator_id)->get();
+        $total_hours = 0;
+        foreach ($goals as $goal) {
+            $total_hours += $goal->promotion->days;
+        }
 
-        return $responsable_pedagogique;
+        return $total_hours;
     }
 
     protected function getPiloteProjet() // DONE
     {
         $pilote_projet = Workload::where("colaborator_id", $this->colaborator_id)->get()[0]->project_weeks;
+        $pilote_projet = round($pilote_projet * $_ENV['TEMPS_PILOTAJ_PROJET'] * $_ENV['DAYS_PER_WEEK'] * 100) / 100;
 
         return $pilote_projet;
     }

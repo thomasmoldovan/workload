@@ -24,12 +24,6 @@ Route::get('/', function () {
     return redirect('login');
 });
 
-Route::view('/powergrid', 'powergrid-demo');
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -38,6 +32,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/promotion-types', [PromotionTypesController::class, 'index'])->name('promotion-types.index');
     Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
     Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
+    Route::post('/settings/update', [SettingsController::class, 'update'])->name('settings.update');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

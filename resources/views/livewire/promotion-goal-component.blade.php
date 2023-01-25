@@ -16,13 +16,15 @@
                 <tr class="header-background">
                     <th class="col-3">
                         <label class="pt-1 table-header-font">Promotion</label>
-                        <select wire:model="promotion_id" class="form-select">
-                            <option class="dropdown-item" value="">Promotion</option>
-                            @foreach ($promotions as $key => $promotion)
-                                <option class="dropdown-item" value="{{ $key + 1 }}">{{ $promotion->name }}
-                                    {{ $promotion->surname }}</option>
-                            @endforeach
-                        </select>
+                        <form autocomplete="off">
+                            <select wire:model="promotion_id" class="form-select">
+                                <option class="dropdown-item" value="">Promotion</option>
+                                @foreach ($promotions as $key => $promotion)
+                                    <option class="dropdown-item" value="{{ $key + 1 }}">{{ $promotion->name }}
+                                        {{ $promotion->surname }}</option>
+                                @endforeach
+                            </select>
+                        </form>
                     </th>
                     <th class="col-2">
                     </th>
@@ -53,14 +55,22 @@
 
             @forelse ($goals as $key => $goal)
                 <tr style="vertical-align: middle; {{ $goal->temporary ? "background: #ffd7c3;" : "" }}">
-                    <td><span class="ps-2 ms-1">{{ $goal->promotion->name }} - {{ $goal->promotion->promotion_type->id }}</span></td>
+                    <td>
+                        <span>
+                            <span class="badge rounded-pill bg-info" 
+                                data-bs-toggle="tooltip" 
+                                data-bs-original-title="{{ $goal->promotion_type->name }}">
+                                {{ $goal->promotion_type->id }}
+                            </span>
+                             - {{ $goal->promotion->name }}
+                        </span>
+                    </td>
                     <td>
                     </td>
                     <td><span class="d-flex justify-content-end pe-1">{{ $goal->promotion->days }} jours</span></td>
                     <td>
                         <div class="d-flex justify-content-end">
                             <button wire:click="deletePromotionGoal({{ $goal->id }})" type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-                            {{-- <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-pen"></i></button> --}}
                         </div>
                     </td>
                     @if ($key == 0)
@@ -73,7 +83,7 @@
             @empty
                 <tr>
                     <td colspan="5">
-                        <div class="col-12 pt-3 text-center opacity-50"><h3>Empty</h3></div>
+                        <div class="col-12 pt-3 text-center opacity-50"><h3>aucune entrée</h3></div>
                     </td>
                 </tr>
             </table>
@@ -82,11 +92,4 @@
             </table>
         </div>
     </div>
-
-    <script>
-        $().ready(function() {
-            console.log("Resetting goals");
-            Livewire.emit('refreshComponent')
-        });
-    </script>
 </div>

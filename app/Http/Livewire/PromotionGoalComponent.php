@@ -4,9 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Goal;
 use App\Models\Promotion;
-use Illuminate\Http\Request;
 use Livewire\Component;
-use stdClass;
 
 class PromotionGoalComponent extends Component
 {
@@ -25,13 +23,12 @@ class PromotionGoalComponent extends Component
     protected $listeners = [
         'colaboratorSelected' => 'colaboratorSelected',
         'saveWorkload'        => 'savePromotionGoals',
-        'resetAll'            => 'resetAll',
+        'resetComponent'      => 'resetComponent',
         'refreshComponent'    => '$refresh'
     ];
 
     public function mount()
     {
-        $this->promotions   = Promotion::all();
         $this->goals     = [];
 
         $this->colaborator_id = null;
@@ -42,8 +39,6 @@ class PromotionGoalComponent extends Component
         $this->total_hours    = 0;
 
         $this->add_enabled = false;
-
-        $this->updated("", "");
     }
 
     public function render()
@@ -80,16 +75,9 @@ class PromotionGoalComponent extends Component
         $this->goals = [];
         $this->updated("", "");
 
-        Goal::where(["temporary" => true])->each(function ($goal) {
-            $goal->delete();
-        });
+        Goal::where(["temporary" => true])->delete();
         
-        $this->goals = Goal::where("colaborator_id", $this->colaborator_id)->get();
-
-        $this->total_hours = 0;
-        foreach ($this->goals as $goal) {
-            $this->total_hours += $goal->promotion->days;
-        }
+        $this->updateData();
     }
 
     public function addPromotionGoal() 
@@ -108,13 +96,7 @@ class PromotionGoalComponent extends Component
 
         $promotionGoal->save();
 
-        $this->goals = Goal::where("colaborator_id", $this->colaborator_id)->get();
-        $this->total_hours = 0;
-        foreach ($this->goals as $goal) {
-            $this->total_hours += $goal->promotion->days;
-        }
-
-        $this->emit('updateChart');
+        $this->updateData();
     }
 
     public function deletePromotionGoal($id) 
@@ -122,13 +104,7 @@ class PromotionGoalComponent extends Component
         $promotionGoal = Goal::find($id);
         $promotionGoal->delete();
 
-        $this->goals = Goal::where("colaborator_id", $this->colaborator_id)->get();
-        $this->total_hours = 0;
-        foreach ($this->goals as $goal) {
-            $this->total_hours += $goal->promotion->days;
-        }
-
-        $this->emit('updateChart');
+        $this->updateData();
     }
 
     public function savePromotionGoals() 
@@ -139,28 +115,25 @@ class PromotionGoalComponent extends Component
             "temporary"      => true
         ])->update(["temporary" => false]);
 
+        $this->resetComponent();
+
+        $this->updateData();
+    } 
+
+    public function resetComponent() 
+    {
+        $this->promotion_id = null;
+        $this->days         = 0;
+    }
+
+    public function updateData() 
+    {
         $this->goals = Goal::where("colaborator_id", $this->colaborator_id)->get();
         $this->total_hours = 0;
         foreach ($this->goals as $goal) {
             $this->total_hours += $goal->promotion->days;
         }
 
-        $this->resetComponent();
         $this->emit('updateChart');
-    } 
-
-    public function resetAll() 
-    {
-        $this->colaborator_id == null;
-        $this->goals = [];
-        $this->resetComponent();
-    }
-
-    public function resetComponent() 
-    {
-        $this->promotion_id = null;
-        $this->days         = 0;
-
-        $this->updated("", "");
     }
 }

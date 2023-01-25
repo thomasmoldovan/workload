@@ -3,34 +3,32 @@
 namespace App\Http\Livewire;
 
 use App\Models\Delivery;
-use App\Models\Project;
-use Illuminate\Http\Request;
 use Livewire\Component;
 
 class ProjectDeliveryComponent extends Component
 {
-    public $projects;
     public $deliveries;
+    public $projects;
 
     public $colaborator_id;
     public $project_id;
     public $nr_hours;
     public $multiplier;
 
-    public $total_hours;
     public $total_days;
+    public $total_hours;
 
     public $add_enabled = false;
 
     protected $listeners = [
         'colaboratorSelected' => 'colaboratorSelected',
         'saveWorkload'        => 'saveProjectDelivery',
+        'resetComponent'      => 'resetComponent',
         'refreshComponent'    => '$refresh'
     ];
 
     public function mount()
     {
-        $this->projects   = Project::all();
         $this->deliveries = [];
 
         $this->colaborator_id = null;
@@ -39,11 +37,9 @@ class ProjectDeliveryComponent extends Component
         $this->multiplier     = 2;
 
         $this->add_enabled = false;
-
-        $this->updated("", "");
     }
 
-    public function render(Request $request)
+    public function render()
     {
         return view('livewire.project-delivery-component');
     }
@@ -64,23 +60,15 @@ class ProjectDeliveryComponent extends Component
         if ($colaborator_id >=1) {
             $this->colaborator_id = $colaborator_id;
         } else {
+            $this->colaborator_id = null;
             $this->add_enabled = false;
         }
 
         $this->deliveries = [];
-        $this->updated("", "");
 
-        Delivery::where(["temporary" => true])->each(function ($delivery) {
-            $delivery->delete();
-        });
+        Delivery::where(["temporary" => true])->delete();
         
-        $this->deliveries = Delivery::where("colaborator_id", $this->colaborator_id)->get();
-        
-        $this->total_hours = 0;
-        foreach ($this->deliveries as $delivery) {
-            $this->total_hours += $delivery->nr_hours * $delivery->multiplier;
-        }
-        $this->total_days = round($this->total_hours / $_ENV['HOURS_PER_DAY'] * 100) / 100;
+        $this->updateData();
     }
 
     public function addProjectDelivery() 
@@ -97,17 +85,11 @@ class ProjectDeliveryComponent extends Component
         $this->nr_hours   = 0;
         $this->multiplier = 2;
 
+        $this->resetComponent();
+
         $projectDelivery->save();
 
-        $this->deliveries = Delivery::where("colaborator_id", $this->colaborator_id)->get();
-
-        $this->total_hours = 0;
-        foreach ($this->deliveries as $delivery) {
-            $this->total_hours += $delivery->nr_hours * $delivery->multiplier;
-        }
-        $this->total_days = round($this->total_hours / $_ENV['HOURS_PER_DAY'] * 100) / 100;
-
-        $this->emit('updateChart');
+        $this->updateData();
     }
 
     public function deleteProjectDelivery($id) 
@@ -115,15 +97,7 @@ class ProjectDeliveryComponent extends Component
         $projectDelivery = Delivery::find($id);
         $projectDelivery->delete();
 
-        $this->deliveries = Delivery::where("colaborator_id", $this->colaborator_id)->get();
-
-        $this->total_hours = 0;
-        foreach ($this->deliveries as $delivery) {
-            $this->total_hours += $delivery->nr_hours * $delivery->multiplier;
-        }
-        $this->total_days = round($this->total_hours / $_ENV['HOURS_PER_DAY'] * 100) / 100;
-
-        $this->emit('updateChart');
+        $this->updateData();
     }
 
     public function saveProjectDelivery() 
@@ -134,6 +108,20 @@ class ProjectDeliveryComponent extends Component
             "temporary" => true
         ])->update(["temporary" => false]);
 
+        $this->resetComponent();
+
+        $this->updateData();
+    }
+
+    public function resetComponent() 
+    {
+        $this->project_id = null;
+        $this->nr_hours   = 0;
+        $this->multiplier = 2;
+    }
+
+    public function updateData() 
+    {
         $this->deliveries = Delivery::where("colaborator_id", $this->colaborator_id)->get();
         
         $this->total_hours = 0;
@@ -142,7 +130,6 @@ class ProjectDeliveryComponent extends Component
         }
         $this->total_days = round($this->total_hours / $_ENV['HOURS_PER_DAY'] * 100) / 100;
 
-        $this->emit('refreshComponent');
         $this->emit('updateChart');
-    } 
+    }
 }

@@ -15,6 +15,10 @@ class SettingsSeeder extends Seeder
      */
     public function run()
     {
-        Settings::create(['national_time' => 20]);
+        Settings::create(["name" => "HOURS_PER_DAY", "type" => "float", "value" => "7.8"]);
+        Settings::create(["name" => "DAYS_PER_WEEK", "type" => "int", "value" => "5"]);
+        Settings::create(["name" => "TEMPS_PILOTAJ_PROJET", "type" => "float", "value" => "0.4"]);
+        Settings::create(["name" => "TOTAL_DAYS", "type" => "int", "value" => "210"]);
+
     }
 }

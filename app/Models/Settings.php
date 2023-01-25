@@ -10,6 +10,8 @@ class Settings extends Model
     use HasFactory;
 
     protected $fillable = [
-        'national_time',
+        'name',
+        'type',
+        'value',
     ];
 }

@@ -21,7 +21,6 @@ class ColaboratorsComponent extends Component
 
     public function mount()
     {
-        $this->colaborators = Colaborator::all();
         $this->colaborator_id = null;
     }
 
@@ -32,6 +31,7 @@ class ColaboratorsComponent extends Component
 
     public function updatedColaboratorId($value)
     {
+        debug("Colaborator Changed: ".$value);
         if ($value >= 1) {
             $this->colaborator_id = $value;
             $this->save_enabled = true;
@@ -41,7 +41,7 @@ class ColaboratorsComponent extends Component
             $this->colaborator_id = null;
             $this->save_enabled = false;
 
-            $this->emit('resetAll', $value);
+            return redirect("/");
         }
 
         return;
@@ -75,9 +75,7 @@ class ColaboratorsComponent extends Component
 
     public function refreshAll() 
     {
-        $this->mount();
         $this->emit('refreshComponent');
-        $this->emit('pg:eventRefresh-default');
     }
 
     public function saveWorkload() {

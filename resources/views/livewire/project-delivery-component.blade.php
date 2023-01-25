@@ -16,24 +16,30 @@
                 <tr class="header-background">
                     <th class="col-3">
                         <label class="pt-1 table-header-font">Project</label>
-                        <select wire:model="project_id" class="form-select" id="project_id">
-                            <option class="dropdown-item" value="">Select project</option>
-                            @foreach ($projects as $key => $project)
-                                <option class="dropdown-item" value="{{ $key + 1 }}">{{ $project->name }}</option>
-                            @endforeach
-                        </select>
+                        <form autocomplete="off">
+                            <select wire:model="project_id" class="form-select" id="project_id">
+                                <option class="dropdown-item" value="">Select project</option>
+                                @foreach ($projects as $key => $project)
+                                    <option class="dropdown-item" value="{{ $key + 1 }}">{{ $project->name }}</option>
+                                @endforeach
+                            </select>
+                        </form>
                     </th>
                     <th class="col-2">
                         <label class="pt-1 table-header-font">Nr. hours</label>
-                        <input wire:model="nr_hours" type="number" 
-                               class="form-control form-end text-end" min="0" step="1"
-                               value="0" />
+                        <form autocomplete="off">
+                            <input wire:model="nr_hours" type="number" 
+                                class="form-control form-end" min="0" step="1"
+                                value="0" />
+                        </form>
                     </th>
                     <th class="col-2">
                         <label class="pt-1 table-header-font">Multiply</label>
-                        <input wire:model="multiplier" type="number" 
-                               class="form-control form-end text-end" min="0" step="0.5"
-                               value="0" />
+                        <form autocomplete="off">
+                            <input wire:model="multiplier" type="number" 
+                                class="form-control form-end" min="0" step="0.5"
+                                value="0" />
+                        </form>
                     </div>
                     <th class="col-1">
                         <label class="pt-1 table-header-font w-100">&nbsp</label>
@@ -74,7 +80,7 @@
             @empty
                 <tr>
                     <td colspan="4">
-                        <div class="col-12 pt-3 text-center opacity-50"><h3>Empty</h3></div>
+                        <div class="col-12 pt-3 text-center opacity-50"><h3>aucune entrée</h3></div>
                     </td>
                 </tr>
             </table>
@@ -83,11 +89,4 @@
             </table>
         </div>
     </div>
-
-    <script>
-        $().ready(function() {
-            console.log("Resetting deliveries");
-            Livewire.emit('refreshComponent')
-        });
-    </script>
 </div>

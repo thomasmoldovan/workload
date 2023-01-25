@@ -4,9 +4,9 @@ TODO
 
 [x] - implement profile design
 
-[ ] - make menu pages
+[x] - make menu pages
 
-[ ] - make grids for models
+[x] - make grids for models
 
 [ ] - use transactions on save workload, with try/catch, and error logging
 
@@ -14,13 +14,13 @@ TODO
 
 [ ] - loading activity
 
-[ ] - deal with constraints when deleting a promotion and in use 
+[ ] - deal with constraints when deleting a promotion (and others) and in use 
 
 [ ] - load chart script only on dashboard
 
 [ ] - complete all translations
 
-[ ] - all input fields numerical
+[ ] - all input fields numerical in PowerGrid
 
 [ ] - activity log
 
@@ -31,6 +31,12 @@ TODO
 [ ] - Autres cours in workload extra
 
 [ ] - export to PDF
+
+[ ] - saveWorkload should run on DashboardComponent not on every child component
+
+[ ] - Settings screen
+
+[ ] - percentage bar on total in chart component
 
 - projects B column ?
 

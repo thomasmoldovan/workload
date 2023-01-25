@@ -38,7 +38,7 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('settings.index') ? "active" : "collapsed" }}" href="">
+            <a class="nav-link {{ request()->routeIs('settings.index') ? "active" : "collapsed" }}" href="{{ route('settings.index') }}">
                 <i class="fas fa-user sidebar-icon"></i>
                 <span>Settings</span>
             </a>

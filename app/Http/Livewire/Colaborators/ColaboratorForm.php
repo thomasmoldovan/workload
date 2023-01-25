@@ -45,8 +45,6 @@ class ColaboratorForm extends Component
             Workload::create(["colaborator_id" => $this->colaborator->id]);
         }
 
-        debug($this->colaborator->id);
-
         $this->alert("success", "Success", "Colaborator successfully ".($updated ? "updated" : "added"));
 
         $this->refreshAll();

@@ -12,22 +12,26 @@
 
         {{-- Promotions list --}}
         <div class="col-10 ps-0 pe-0">
-            <table class="table table-stripped table-responsive h-100" style="border-collapse:collapse; border-bottom-width: 0.8px;">
+            <table class="table table-hover table-responsive h-100" style="border-collapse:collapse; border-bottom-width: 0.8px;">
                 <tr class="header-background">
                     <th class="col-3">
                         <label class="pt-1 table-header-font">Promotion</label>
-                        <select wire:model="promotion_id" class="form-select" id="student-promotion-id">
-                            <option class="dropdown-item" value="-1">Promotion</option>
-                            @foreach ($promotions as $key => $promotion)
-                                <option class="dropdown-item" value="{{ $key + 1 }}">{{ $promotion->name }}</option>
-                            @endforeach
-                        </select>
+                        <form autocomplete="off">
+                            <select wire:model="promotion_id" class="form-select" id="student-promotion-id">
+                                <option class="dropdown-item" value="-1">Promotion</option>
+                                @foreach ($promotions as $key => $promotion)
+                                    <option class="dropdown-item" value="{{ $key + 1 }}">{{ $promotion->name }}</option>
+                                @endforeach
+                            </select>
+                        </form>
                     </th>
                     <th class="col-2">
                         <label class="pt-1 table-header-font">N° Apprenants</label>
-                        <input wire:model="nr_students" type="number" 
-                               class="form-control" min="0" step="1" id="nr_students"
-                               value="0" />
+                        <form autocomplete="off">
+                                <input wire:model="nr_students" type="number" 
+                                    class="form-control" min="0" step="1" id="nr_students"
+                                    value="0" />
+                        </form>
                     </th>
                     <th class="col-2">
                         <label class="pt-1 table-header-font">Heurs</label>
@@ -56,17 +60,25 @@
 
             @forelse ($students as $key => $student)
                 <tr style="vertical-align: middle; {{ $student->temporary ? "background: #ffd7c3;" : "" }}">
-                    <td><span class="ps-2 ms-1">{{ $student->promotion->name }} - {{ $student->promotion->promotion_type->id }}</span></td>
+                    <td>
+                        <span>
+                            <span class="badge rounded-pill bg-info" 
+                                data-bs-toggle="tooltip" 
+                                data-bs-original-title="{{ $student->promotion_type->name }}">
+                                {{ $student->promotion_type->id }}
+                            </span>
+                             - {{ $student->promotion->name }}
+                        </span>
+                    </td>
                     <td><span class="ps-2 ms-1">{{ $student->nr_students }}</span></td>
                     <td><span class="d-flex justify-content-end pe-1">{{ $student->days }} heurs</span></td>
                     <td>
                         <div class="d-flex justify-content-end">
                             <button wire:click="deleteStudentPromotion({{ $student->id }})" type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-                            {{-- <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-pen"></i></button> --}}
                         </div>
                     </td>
                     @if ($key == 0)
-                        <td style="vertical-align: middle;" rowspan="0">
+                        <td style="vertical-align: middle; background: #FFFFFF !important;" rowspan="0" class="bg-info">
                             <input value="{{ $total_hours." jours" }}" type="text" class="form-control" disabled readonly />
                         </td>
                     @endif
@@ -75,7 +87,7 @@
             @empty
                 <tr>
                     <td colspan="5">
-                        <div class="col-12 pt-3 text-center opacity-50"><h3>Empty</h3></div>
+                        <div class="col-12 pt-3 text-center opacity-50"><h3>aucune entrée</h3></div>
                     </td>
                 </tr>
             </table>
@@ -84,11 +96,4 @@
             </table>
         </div>
     </div>
-
-    <script>
-        $().ready(function() {
-            console.log("Resetting students");
-            Livewire.emit('refreshComponent')
-        });
-    </script>
 </div>
