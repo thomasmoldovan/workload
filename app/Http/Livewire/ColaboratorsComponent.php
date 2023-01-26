@@ -19,9 +19,9 @@ class ColaboratorsComponent extends Component
         'refreshComponent' => '$refresh'
     ];
 
-    public function mount()
+    public function mount($colaborator_id = null)
     {
-        $this->colaborator_id = null;
+        $this->colaborator_id = $colaborator_id;
     }
 
     public function render()
@@ -80,5 +80,9 @@ class ColaboratorsComponent extends Component
 
     public function saveWorkload() {
         $this->emit('saveWorkload');
+    }
+
+    public function exportPDF($colaborator_id) {
+        $this->emit('exportPDF');
     }
 }

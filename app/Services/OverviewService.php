@@ -11,18 +11,28 @@ use App\Models\Workload;
 class OverviewService
 {
     public $colaborator_id;
+    public $settings;
+
+    public function __construct()
+    {
+        $this->colaborator_id = null;
+
+        $settingsService = new SettingsService();
+        $this->settings   = $settingsService->getSettings();
+
+        unset($settingsService);
+    }
 
     public function getOverview()
     {
         $colaborators = Colaborator::orderBy("surname", "asc")->get();
 
         $overview = [];
-        foreach ($colaborators as $key => $colaborator) {
+        foreach ($colaborators as $colaborator) {
             $this->colaborator_id = $colaborator->id;
             
-            $overview[$colaborator->id]["id"] = $key;
-            $overview[$colaborator->id]["name"] = $colaborator->surname." ".$colaborator->lastname;
-            $overview[$colaborator->id]["trigramme"] = $colaborator->trigramme;
+            $overview[$colaborator->id]["id"] = $colaborator->id;
+            $overview[$colaborator->id]["name"] = "(".$colaborator->trigramme.") - ".$colaborator->surname." ".$colaborator->lastname;
             $overview[$colaborator->id]["responsable_pedagogique"] = $this->getResponsablePedagogique();
             $overview[$colaborator->id]["pilote_projet"] = $this->getPiloteProjet();
             $overview[$colaborator->id]["face_a_face"] = $this->getFaceAFace();
@@ -49,7 +59,7 @@ class OverviewService
     protected function getPiloteProjet() // DONE
     {
         $pilote_projet = Workload::where("colaborator_id", $this->colaborator_id)->first()->project_weeks;
-        $pilote_projet = round($pilote_projet * $_ENV['TEMPS_PILOTAJ_PROJET'] * $_ENV['DAYS_PER_WEEK'] * 100) / 100;
+        $pilote_projet = round($pilote_projet * $this->settings["TEMPS_PILOTAJ_PROJET"] * $this->settings["DAYS_PER_WEEK"] * 100) / 100;
 
         return $pilote_projet;
     }
@@ -63,7 +73,7 @@ class OverviewService
             $total_hours += $delivery->nr_hours * $delivery->multiplier;
         }
 
-        $total_days = $this->twoDecimals($total_hours / $_ENV["HOURS_PER_DAY"]);
+        $total_days = $this->twoDecimals($total_hours / $this->settings["HOURS_PER_DAY"]);
         
         return $total_days;
     }
@@ -77,7 +87,7 @@ class OverviewService
             $total_hours += $student->getDaysFromType();
         }
 
-        $total_days = $this->twoDecimals($total_hours / $_ENV["HOURS_PER_DAY"]);
+        $total_days = $this->twoDecimals($total_hours / $this->settings["HOURS_PER_DAY"]);
 
         return $total_days;
     }

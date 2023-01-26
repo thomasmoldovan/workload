@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Delivery;
+use App\Services\SettingsService;
 use Livewire\Component;
 
 class ProjectDeliveryComponent extends Component
@@ -19,6 +20,8 @@ class ProjectDeliveryComponent extends Component
     public $total_hours;
 
     public $add_enabled = false;
+
+    public $settings;
 
     protected $listeners = [
         'colaboratorSelected' => 'colaboratorSelected',
@@ -37,6 +40,11 @@ class ProjectDeliveryComponent extends Component
         $this->multiplier     = 2;
 
         $this->add_enabled = false;
+
+        $settingsService = new SettingsService();
+        $this->settings   = $settingsService->getSettings();
+
+        unset($settingsService);
     }
 
     public function render()
@@ -128,7 +136,7 @@ class ProjectDeliveryComponent extends Component
         foreach ($this->deliveries as $delivery) {
             $this->total_hours += $delivery->nr_hours * $delivery->multiplier;
         }
-        $this->total_days = round($this->total_hours / $_ENV['HOURS_PER_DAY'] * 100) / 100;
+        $this->total_days = round($this->total_hours / $this->settings["HOURS_PER_DAY"] * 100) / 100;
 
         $this->emit('updateChart');
     }

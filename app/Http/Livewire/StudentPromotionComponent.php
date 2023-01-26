@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Student;
+use App\Services\SettingsService;
 use Livewire\Component;
 
 class StudentPromotionComponent extends Component
@@ -19,6 +20,8 @@ class StudentPromotionComponent extends Component
     public $total_hours;
 
     public $add_enabled = false;
+
+    public $settings;
 
     protected $listeners = [
         'colaboratorSelected' => 'colaboratorSelected',
@@ -42,6 +45,11 @@ class StudentPromotionComponent extends Component
         $this->total_hours    = 0;
 
         $this->add_enabled = false;
+
+        $settingsService = new SettingsService();
+        $this->settings   = $settingsService->getSettings();
+
+        unset($settingsService);
     }
 
     public function render()
@@ -153,7 +161,7 @@ class StudentPromotionComponent extends Component
         
         $this->students    = Student::where("colaborator_id", $this->colaborator_id)->with("promotion")->with("promotion_type")->get();
         $this->total_days  = $this->getTotalDaysFromStudents();
-        $this->total_hours = number_format($this->total_days / $_ENV["HOURS_PER_DAY"], 2);
+        $this->total_hours = number_format($this->total_days / $this->settings["HOURS_PER_DAY"], 2);
 
         $this->emit('updateChart');
     }

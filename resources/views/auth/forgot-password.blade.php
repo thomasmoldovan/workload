@@ -10,7 +10,7 @@
                         <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
                             <div class="d-flex justify-content-center py-4">
                                 <a href="/" class="logo d-flex align-items-center w-auto pb-5">
-                                    <span class="">{{ $_ENV["APP_NAME"] }}</span>
+                                    <span class="">{{ $this->settings["APP_NAME"] }}</span>
                                 </a>
                             </div>
 

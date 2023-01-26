@@ -26,13 +26,13 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         if (php_sapi_name() !== "cli") {
-            $settings = [];
-            $settingsCollection = Settings::all();
-            foreach ($settingsCollection as $setting) {
-                $settings[$setting->name] = (float) number_format((float) $setting->value, 2);
+            $this->settings = [];
+            $this->settingsCollection = Settings::all();
+            foreach ($this->settingsCollection as $setting) {
+                $this->settings[$setting->name] = (float) number_format((float) $setting->value, 2);
             }
 
-            View::share('settings', $settings);
+            View::share('settings', $this->settings);
         }        
     }
 }

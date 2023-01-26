@@ -6,6 +6,7 @@ use App\Models\Colaborator;
 use App\Services\OverviewService;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
+use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
 use PowerComponents\LivewirePowerGrid\Footer;
 use PowerComponents\LivewirePowerGrid\Header;
@@ -21,6 +22,8 @@ final class OverviewGrid extends PowerGridComponent
 
     public int   $perPage = 1000;
     public array $perPageValues = [1, 2, 3];
+
+    protected $listeners = ['colaboratorView' => 'colaboratorView'];
 
     /*
     |--------------------------------------------------------------------------
@@ -66,8 +69,8 @@ final class OverviewGrid extends PowerGridComponent
     public function addColumns(): PowerGridEloquent
     {
         return PowerGrid::eloquent()
+            ->addColumn('id')
             ->addColumn('name')
-            ->addColumn('trigramme')
             ->addColumn('responsable_pedagogique')
             ->addColumn('pilote_projet')
             ->addColumn('face_a_face')
@@ -94,16 +97,16 @@ final class OverviewGrid extends PowerGridComponent
     public function columns(): array
     {
         return [
-            Column::make('Nom', 'name')
+            Column::make('ID', 'id')
                 ->searchable()
                 ->sortable(),
-            Column::make('Trigramme', 'trigramme')
+            Column::make('Nom', 'name')
                 ->searchable()
                 ->sortable(),
             Column::make('Resp. Pedagogique', 'responsable_pedagogique')
                 ->searchable()
                 ->sortable(),
-            Column::make('Planification Projets', 'pilote_projet')
+            Column::make('Plan. Projets', 'pilote_projet')
                 ->searchable()
                 ->sortable(),
             Column::make('Face a Face', 'face_a_face')
@@ -115,13 +118,28 @@ final class OverviewGrid extends PowerGridComponent
             Column::make('Conception Nationale', 'conception_nationale')
                 ->searchable()
                 ->sortable(),
-            Column::make('Activites Campus', 'activites_campus')
+            Column::make('Act. Campus', 'activites_campus')
                 ->searchable()
                 ->sortable(),
-            Column::make('Autres Activites', 'autre_activites')
+            Column::make('Autres Act.', 'autre_activites')
                 ->searchable()
                 ->sortable(),
 
         ];
+    }
+
+    public function actions(): array
+    {
+       return [
+           Button::make('view', '<i class="fas fa-eye"></i>')
+                ->class('btn btn-primary btn-sm m-1')
+                ->route('dashboard.index', ['id' => 'id'])
+       ];
+    }
+
+    public function colaboratorView($id)
+    {
+        $test = $id;
+        return redirect(route('colaborator.view', $id));
     }
 }

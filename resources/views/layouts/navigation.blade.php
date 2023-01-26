@@ -6,7 +6,7 @@
                 <nav class="navbar navbar-expand-lg ">
                     <div class="container-fluid">
                         <h2>
-                            <a href="/">{{ $_ENV["APP_NAME"] }}</a>
+                            <a href="/">{{ $this->settings["APP_NAME"] }}</a>
                         </h2>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#navbarLightExample" aria-controls="navbarLightExample"

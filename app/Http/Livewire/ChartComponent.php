@@ -7,6 +7,7 @@ use App\Models\Delivery;
 use App\Models\Goal;
 use App\Models\Student;
 use App\Models\Workload;
+use App\Services\SettingsService;
 use Livewire\Component;
 
 class ChartComponent extends Component
@@ -21,6 +22,8 @@ class ChartComponent extends Component
     public $conception_nationale;
     public $activites_campus;
     public $activites_anexe;
+
+    public $settings;
 
     public $chart_labels = [
         "Responsable Pedagogique",
@@ -45,6 +48,11 @@ class ChartComponent extends Component
         $this->conception_nationale = 0;
         $this->activites_campus = 0;
         $this->activites_anexe = 0;
+
+        $settingsService = new SettingsService();
+        $this->settings   = $settingsService->getSettings();
+
+        unset($settingsService);
     }
 
     protected $listeners = [
@@ -118,7 +126,7 @@ class ChartComponent extends Component
     protected function getPiloteProjet() // DONE
     {
         $pilote_projet = Workload::where("colaborator_id", $this->colaborator_id)->first()->project_weeks;
-        $pilote_projet = round($pilote_projet * $_ENV['TEMPS_PILOTAJ_PROJET'] * $_ENV['DAYS_PER_WEEK'] * 100) / 100;
+        $pilote_projet = round($pilote_projet * $this->settings["TEMPS_PILOTAJ_PROJET"] * $this->settings["DAYS_PER_WEEK"] * 100) / 100;
 
         return $pilote_projet;
     }
@@ -132,7 +140,7 @@ class ChartComponent extends Component
             $total_hours += $delivery->nr_hours * $delivery->multiplier;
         }
 
-        $total_days = $this->twoDecimals($total_hours / $_ENV["HOURS_PER_DAY"]);
+        $total_days = $this->twoDecimals($total_hours / $this->settings["HOURS_PER_DAY"]);
         
         return $total_days;
     }
@@ -146,7 +154,7 @@ class ChartComponent extends Component
             $total_hours += $student->getDaysFromType();
         }
 
-        $total_days = $this->twoDecimals($total_hours / $_ENV["HOURS_PER_DAY"]);
+        $total_days = $this->twoDecimals($total_hours / $this->settings["HOURS_PER_DAY"]);
 
         return $total_days;
     }
