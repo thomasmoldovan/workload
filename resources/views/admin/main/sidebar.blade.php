@@ -3,9 +3,16 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
         <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('dashboard') ? "active" : "collapsed" }}" href="{{ route('dashboard') }}">
+            <a class="nav-link {{ request()->routeIs('overview.index') ? "active" : "collapsed" }}" href="{{ route('overview.index') }}">
+                <i class="fas fa-eye sidebar-icon"></i>
+                <span>Overview</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('dashboard.index') ? "active" : "collapsed" }}" href="{{ route('dashboard.index') }}">
                 <i class="fas fa-tachometer-alt sidebar-icon"></i>
-                <span>Dashboard</span>
+                <span>Workload</span>
             </a>
         </li>
 

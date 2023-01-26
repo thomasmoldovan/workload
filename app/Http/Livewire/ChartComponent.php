@@ -97,7 +97,7 @@ class ChartComponent extends Component
             ["value" => $this->activites_anexe,         "name" => "Activites Anexe"]
         ];
 
-        $this->emit("refreshChart");
+        // $this->emit("refreshChart");
 
         $this->dispatchBrowserEvent('updateChart', [
             "data" => $data

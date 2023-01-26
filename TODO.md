@@ -38,6 +38,8 @@ TODO
 
 [ ] - percentage bar on total in chart component
 
+[ ] - overview page
+
 - projects B column ?
 
 - national time 20 days
