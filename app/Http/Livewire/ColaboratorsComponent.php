@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Colaborator;
+use Illuminate\Http\Request;
 use Livewire\Component;
 
 class ColaboratorsComponent extends Component
@@ -83,6 +84,6 @@ class ColaboratorsComponent extends Component
     }
 
     public function exportPDF($colaborator_id) {
-        $this->emit('exportPDF');
+        $this->emit('exportPDF', $colaborator_id);
     }
 }

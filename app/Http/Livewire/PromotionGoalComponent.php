@@ -31,7 +31,6 @@ class PromotionGoalComponent extends Component
     {
         $this->goals     = [];
 
-        $this->colaborator_id = null;
         $this->promotion_id   = null;
 
         $this->days           = 0;
@@ -39,6 +38,10 @@ class PromotionGoalComponent extends Component
         $this->total_hours    = 0;
 
         $this->add_enabled = false;
+
+        if (!is_null($this->colaborator_id)) {
+            $this->colaboratorSelected($this->colaborator_id);
+        }
     }
 
     public function render()

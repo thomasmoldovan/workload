@@ -8,6 +8,7 @@ use App\Models\Goal;
 use App\Models\Student;
 use App\Models\Workload;
 use App\Services\SettingsService;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Livewire\Component;
 
 class ChartComponent extends Component
@@ -37,8 +38,6 @@ class ChartComponent extends Component
 
     public function mount() 
     {
-        $this->colaborator_id = 0;
-
         $this->chart_colaborator_name = "";
 
         $this->responsable_pedagogique = 0;
@@ -53,11 +52,16 @@ class ChartComponent extends Component
         $this->settings   = $settingsService->getSettings();
 
         unset($settingsService);
+
+        if (!is_null($this->colaborator_id)) {
+            $this->colaboratorSelected($this->colaborator_id);
+        }
     }
 
     protected $listeners = [
         'colaboratorSelected' => 'colaboratorSelected',
         'updateChart'         => 'recalculateChart',
+        'exportPDF'           => 'exportPDF',
         // 'refreshChart'        => '$refresh'
     ];
 
@@ -180,6 +184,37 @@ class ChartComponent extends Component
     protected function twoDecimals($number)
     {
         return round($number * 100) / 100;
+    }
+
+    public function exportPDF($colaborator_id) 
+    {
+        $colaborator = Colaborator::where("id", $colaborator_id)->first();
+
+        $this->colaborator_id         = $colaborator_id;
+        $this->chart_colaborator_name = strtoupper($colaborator->surname)." ".ucwords(strtolower($colaborator->lastname));
+
+        $this->responsable_pedagogique = $this->twoDecimals($this->getResponsablePedagogique());
+        $this->pilote_projet           = $this->twoDecimals($this->getPiloteProjet());
+        $this->face_a_face             = $this->twoDecimals($this->getFaceAFace());
+        $this->suivi_eleve             = $this->twoDecimals($this->getSuiviEleve());
+        $this->conception_nationale    = $this->twoDecimals($this->getConceptionNationale());
+        $this->activites_campus        = $this->twoDecimals($this->getActivitesCampus());
+        $this->activites_anexe         = $this->twoDecimals($this->getAutreActivites());
+
+        $data = [
+            "chart_colaborator_name" => $this->chart_colaborator_name,
+            "responsable_pedagogique" => $this->responsable_pedagogique,
+            "pilote_projet" => $this->pilote_projet,
+            "face_a_face" => $this->face_a_face,
+            "suivi_eleve" => $this->suivi_eleve,
+            "conception_nationale" => $this->conception_nationale,
+            "activites_campus" => $this->activites_campus,
+            "activites_anexe" => $this->activites_anexe,
+        ];
+  
+        $pdf = Pdf::loadView('livewire.chart-component-export', $data);
+        
+        return $pdf->download();
     }
 
 }

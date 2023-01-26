@@ -62,7 +62,7 @@
                 <tr style="vertical-align: middle; {{ $student->temporary ? "background: #ffd7c3;" : "" }}">
                     <td>
                         <span>
-                            <span class="badge rounded-pill bg-info" 
+                            <span class="badge rounded-pill bg-primary" 
                                 data-bs-toggle="tooltip" 
                                 data-bs-original-title="{{ $student->promotion_type->name }}">
                                 {{ $student->promotion_type->id }}

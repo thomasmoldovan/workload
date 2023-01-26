@@ -36,7 +36,6 @@ class StudentPromotionComponent extends Component
 
         $this->students       = [];
 
-        $this->colaborator_id = null;
         $this->promotion_id   = null;
         $this->nr_students    = 0;
 
@@ -50,6 +49,10 @@ class StudentPromotionComponent extends Component
         $this->settings   = $settingsService->getSettings();
 
         unset($settingsService);
+
+        if (!is_null($this->colaborator_id)) {
+            $this->colaboratorSelected($this->colaborator_id);
+        }
     }
 
     public function render()

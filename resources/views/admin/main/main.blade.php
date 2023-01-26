@@ -8,29 +8,29 @@
                 <div class="row">
                     <div class="col-7">
                         {{-- Select colaborator --}}
-                        <livewire:colaborators-component :colaborators="$colaborators" />
+                        <livewire:colaborators-component :colaborators="$colaborators" :colaborator_id="$colaborator_id" />
 
                         <hr class="mt-3 mb-3">
 
                         {{-- Student --}}
-                        <livewire:student-promotion-component :promotions="$promotions" />
+                        <livewire:student-promotion-component :promotions="$promotions" :colaborator_id="$colaborator_id" />
 
                         {{-- Promotions --}}
-                        <livewire:promotion-goal-component :promotions="$promotions"/>
+                        <livewire:promotion-goal-component :promotions="$promotions" :colaborator_id="$colaborator_id" />
 
                         {{-- Workload extra info --}}
-                        <livewire:workload-extra-component />
+                        <livewire:workload-extra-component :colaborator_id="$colaborator_id" />
 
                         {{-- Deliveries --}}
-                        <livewire:project-delivery-component :projects="$projects" />
+                        <livewire:project-delivery-component :projects="$projects" :colaborator_id="$colaborator_id" />
 
                         {{-- Workload projects --}}
-                        <livewire:workload-projects-component>
+                        <livewire:workload-projects-component :colaborator_id="$colaborator_id" />
 
                     </div>
 
                     {{-- Pie chart --}}
-                    <livewire:chart-component>
+                    <livewire:chart-component :colaborator_id="$colaborator_id" />
                 </div>
                                 
             </div>

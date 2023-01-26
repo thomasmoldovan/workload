@@ -34,7 +34,6 @@ class ProjectDeliveryComponent extends Component
     {
         $this->deliveries = [];
 
-        $this->colaborator_id = null;
         $this->project_id     = null;
         $this->nr_hours       = 0;
         $this->multiplier     = 2;
@@ -45,6 +44,10 @@ class ProjectDeliveryComponent extends Component
         $this->settings   = $settingsService->getSettings();
 
         unset($settingsService);
+
+        if (!is_null($this->colaborator_id)) {
+            $this->colaboratorSelected($this->colaborator_id);
+        }
     }
 
     public function render()

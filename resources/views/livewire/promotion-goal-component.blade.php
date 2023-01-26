@@ -57,7 +57,7 @@
                 <tr style="vertical-align: middle; {{ $goal->temporary ? "background: #ffd7c3;" : "" }}">
                     <td>
                         <span>
-                            <span class="badge rounded-pill bg-info" 
+                            <span class="badge rounded-pill bg-primary" 
                                 data-bs-toggle="tooltip" 
                                 data-bs-original-title="{{ $goal->promotion_type->name }}">
                                 {{ $goal->promotion_type->id }}

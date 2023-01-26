@@ -25,6 +25,10 @@ class WorkloadExtraComponent extends Component
         $this->national_days = 0;
         $this->campus_days = 0;
         $this->delivery_days = 0;
+
+        if (!is_null($this->colaborator_id)) {
+            $this->colaboratorSelected($this->colaborator_id);
+        }
     }
 
     public function render()

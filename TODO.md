@@ -30,15 +30,17 @@ TODO
 
 [x] - Autres cours in workload extra
 
-[ ] - export to PDF
+!!! [ ] - saveWorkload should run on DashboardComponent not on every child component
 
-[ ] - saveWorkload should run on DashboardComponent not on every child component
+!!! [x] - /dashboard/8/ - route to start with the selected colaborator
 
 [x] - Settings screen
 
-[ ] - percentage bar on total in chart component
+[x] - percentage bar on total in chart component
 
-[ ] - overview page
+[x] - overview page
+
+[ ] - show all by defalt
 
 - projects B column ?
 

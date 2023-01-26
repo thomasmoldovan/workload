@@ -35,6 +35,10 @@ class WorkloadProjectsComponent extends Component
         $this->settings   = $settingsService->getSettings();
 
         unset($settingsService);
+
+        if (!is_null($this->colaborator_id)) {
+            $this->colaboratorSelected($this->colaborator_id);
+        }
     }
 
     public function render()

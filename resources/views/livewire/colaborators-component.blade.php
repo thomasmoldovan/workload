@@ -12,12 +12,12 @@
                 </form>
             </div>
 
-             <div class="col-8 d-flex justify-content-end">
+            {{-- <div class="col-8 d-flex justify-content-end">
                 <button wire:click="exportPDF({{ $colaborator_id }})" 
                         class="btn {{ $save_enabled ? "btn-success" : "btn-secondary" }} btn-sm ">
                     Export PDF
                 </button>
-            </div>
+            </div> --}}
 
             <div class="col-8 d-flex justify-content-end">
                 <button wire:click="saveWorkload({{ $colaborator_id }})" 
