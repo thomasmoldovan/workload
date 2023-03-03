@@ -67,7 +67,7 @@ class WorkloadProjectsComponent extends Component
             $this->project_weeks    = $this->workload->project_weeks;
             $this->project_total    = round($this->project_weeks * $this->settings["TEMPS_PILOTAJ_PROJET"] * $this->settings["DAYS_PER_WEEK"] * 100) / 100;
             $this->project_guidance = $this->workload->project_guidance;
-            $this->project_days     = round($this->project_guidance / $this->settings["HOURS_PER_DAY"] * 100) / 100;
+            $this->project_days     = round($this->project_guidance);
         }
 
         $this->emit('refreshChart');
@@ -76,7 +76,7 @@ class WorkloadProjectsComponent extends Component
     public function updated()
     {
         $this->project_total = round($this->project_weeks * $this->settings["TEMPS_PILOTAJ_PROJET"] * $this->settings["DAYS_PER_WEEK"] * 100) / 100;
-        $this->project_days  = round($this->project_guidance / $this->settings["HOURS_PER_DAY"] * 100) / 100;
+        $this->project_days  = round($this->project_guidance);
     }
 
     public function saveWorkloadProjects()
