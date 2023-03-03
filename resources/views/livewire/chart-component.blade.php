@@ -41,21 +41,21 @@
                 <div class="col-3 small text-end">{{ number_format($suivi_eleve * 100 / $settings["TOTAL_DAYS"], 2) }} %</div>
             </div>
 
-            {{-- SUIVI ELEVE --}}
+            {{-- CONCEPTION NATIONALE --}}
             <div class="row pt-3">
                 <div class="col-6 small bold">Conception Nationale</div>
                 <div class="col-3 small">{{ $conception_nationale }} jours</div>
                 <div class="col-3 small text-end">{{ number_format($conception_nationale * 100 / $settings["TOTAL_DAYS"], 2) }} %</div>
             </div>
 
-            {{-- SUIVI ELEVE --}}
+            {{-- ACTIVITES CAMPUS --}}
             <div class="row pt-3">
                 <div class="col-6 small bold">Activites Campus</div>
                 <div class="col-3 small">{{ $activites_campus }} jours</div>
                 <div class="col-3 small text-end">{{ number_format($activites_campus * 100 / $settings["TOTAL_DAYS"], 2) }} %</div>
             </div>
 
-            {{-- SUIVI ELEVE --}}
+            {{-- AUTRES ACTIVITES --}}
             <div class="row pt-3 pb-3">
                 <div class="col-6 small bold">Autres Activites</div>
                 <div class="col-3 small">{{ $activites_anexe }} jours</div>
@@ -77,7 +77,6 @@
                             $activites_campus * 100 / $settings["TOTAL_DAYS"] +
                             $activites_anexe * 100 / $settings["TOTAL_DAYS"], 2);
 
-
                             $total_overload = $total_percentage - 100;
                     ?>
                     <div class="{{ $total_percentage <= 100 ? 'text-success' : 'text-danger' }}">{{ $total_percentage }} %</div>
@@ -94,55 +93,9 @@
                     @endif
                 </div>
             </div>
-
-            <script>
-                document.addEventListener("DOMContentLoaded", () => {
-                    window.echart = echarts.init(document.querySelector("#workflowChart"));
-                    window.echart.setOption({
-                        tooltip: {
-                            trigger: 'item'
-                        },
-                        legend: {
-                            top: '5%',
-                            orient: 'horizontal',
-                            center: 'right'
-                        },
-                        series: [{
-                            type: 'pie',
-                            top: '100px',
-                            radius: ['0%', '80%'],
-                            avoidLabelOverlap: false,
-                            emphasis: {
-                                label: {
-                                    show: true,
-                                    fontSize: '14',
-                                    fontWeight: 'bold'
-                                }
-                            },
-                            labelLine: {
-                                show: true
-                            },
-                            data: [                                                    
-                                { value: 0, name: 'Responsable Pédagogique' },
-                                { value: 0, name: 'Planification Projets' },
-                                { value: 0, name: 'Face à Face' },
-                                { value: 0, name: 'Suivi Élève' },
-                                { value: 0, name: 'Conception Nationale' },
-                                { value: 0, name: 'Activités Campus' },
-                                { value: 0, name: 'Activités Annexes' }
-                            ]
-                        }]
-                    });
-
-                    window.addEventListener('updateChart', event => {
-                        window.echart.setOption({
-                            series: [{
-                                data: event.detail.data
-                            }]
-                        });
-                    })
-                });
-            </script>
         </div>
     </div>
+
+    {{-- <script src="/assets/js/echarts/echarts.js"></script> --}}
+    {{-- <script src="/assets/js/chart.js"></script> --}}
 </div>

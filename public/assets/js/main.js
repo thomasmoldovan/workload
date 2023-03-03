@@ -134,18 +134,4 @@
       }, false)
     })
 
-  /**
-   * Autoresize echart charts
-   */
-  const mainContainer = select('#workflowChart');
-  if (mainContainer) {
-    setTimeout(() => {
-      new ResizeObserver(function() {
-        select('.echart', true).forEach(getEchart => {
-          echarts.getInstanceByDom(getEchart).resize();
-        })
-      }).observe(mainContainer);
-    }, 200);
-  }
-
 })();
