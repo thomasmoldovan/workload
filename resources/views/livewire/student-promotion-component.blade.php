@@ -12,7 +12,7 @@
 
         {{-- Promotions list --}}
         <div class="col-10 ps-0 pe-0">
-            <table class="table table-hover table-responsive h-100" style="border-collapse:collapse; border-bottom-width: 0.8px;">
+            <table class="table table-responsive h-100" style="border-collapse:collapse; border-bottom-width: 0.8px;">
                 <tr class="header-background">
                     <th class="col-3">
                         <label class="pt-1 table-header-font">Promotion</label>

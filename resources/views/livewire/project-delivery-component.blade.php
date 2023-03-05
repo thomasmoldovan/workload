@@ -28,7 +28,7 @@
                     <th class="col-2">
                         <label class="pt-1 table-header-font">Nr. hours</label>
                         <form autocomplete="off">
-                            <input wire:model="nr_hours" type="number" 
+                            <input wire:model.lazy="nr_hours" type="number" 
                                 class="form-control form-end" min="0" step="1"
                                 value="0" />
                         </form>

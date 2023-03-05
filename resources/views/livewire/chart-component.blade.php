@@ -96,6 +96,6 @@
         </div>
     </div>
 
-    {{-- <script src="/assets/js/echarts/echarts.js"></script> --}}
-    {{-- <script src="/assets/js/chart.js"></script> --}}
+    <script src="/assets/js/echarts/echarts.js"></script>
+    <script src="/assets/js/chart.js"></script>
 </div>
