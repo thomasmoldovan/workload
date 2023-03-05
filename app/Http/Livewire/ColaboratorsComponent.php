@@ -23,6 +23,12 @@ class ColaboratorsComponent extends Component
     public function mount($colaborator_id = null)
     {
         $this->colaborator_id = $colaborator_id;
+        
+        if ($this->colaborator_id >= 1) {
+            $this->save_enabled = true;
+
+            $this->emit('updateChart');
+        }
     }
 
     public function render()
@@ -35,21 +41,16 @@ class ColaboratorsComponent extends Component
         debug("Colaborator Changed: ".$value);
         if ($value >= 1) {
             $this->colaborator_id = $value;
-            $this->save_enabled = true;            
+            $this->save_enabled = true;
+            
         } else {
             $this->colaborator_id = null;
             $this->save_enabled = false;
         }
 
-        $this->emit('colaboratorSelected', $value);
+        $this->emit('colaboratorSelected', $this->colaborator_id);
 
         return;
-    }
-
-    public function edit(Colaborator $colaborator) 
-    {
-        $this->edit = true;
-        $this->colaborator = $colaborator;
     }
 
     public function delete(Colaborator $colaborator) 

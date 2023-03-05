@@ -21,15 +21,12 @@ class WorkloadProjectsComponent extends Component
     protected $listeners = [
         'colaboratorSelected' => 'colaboratorSelected',
         'saveWorkload'        => 'saveWorkloadProjects',
-        'refreshChart'        => '$refresh'
+        // 'refreshChart'        => '$refresh'
     ];
 
     public function mount()
     {
-        $this->project_weeks    = 0;
-        $this->project_total    = 0;
-        $this->project_guidance = 0;
-        $this->project_days     = 0;
+        $this->resetValues();
 
         $settingsService = new SettingsService();
         $this->settings   = $settingsService->getSettings();
@@ -52,10 +49,7 @@ class WorkloadProjectsComponent extends Component
             $this->colaborator_id = $colaborator_id;
             $this->workload = Workload::where('colaborator_id', $this->colaborator_id)->first();
         } else {
-            $this->project_weeks    = 0;
-            $this->project_total    = 0;
-            $this->project_guidance = 0;
-            $this->project_days     = 0;
+            $this->resetValues();
 
             return;
         }
@@ -91,8 +85,6 @@ class WorkloadProjectsComponent extends Component
         $this->workload->project_guidance = $this->project_guidance;
 
         $this->workload->save();
-
-        $this->updateData(false);
     }
 
     public function updateData($updateChart = true) 
@@ -110,11 +102,18 @@ class WorkloadProjectsComponent extends Component
         $this->project_total = round($this->project_weeks * $this->settings["TEMPS_PILOTAJ_PROJET"] * $this->settings["DAYS_PER_WEEK"] * 100) / 100;
         $this->project_days = round($this->project_guidance);
 
-        // $this->saveWorkloadProjects();
+        $this->saveWorkloadProjects();
 
         if ($updateChart) {
             $this->emit('updateChart');
         }
+    }
+
+    public function resetValues() {
+        $this->project_weeks    = 0;
+        $this->project_total    = 0;
+        $this->project_guidance = 0;
+        $this->project_days     = 0;
     }
 
 }

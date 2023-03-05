@@ -8,6 +8,7 @@
                 <div class="row">
                     <div class="col-7">
                         {{-- Select colaborator --}}
+
                         <livewire:colaborators-component :colaborators="$colaborators" :colaborator_id="$colaborator_id" />
 
                         <hr class="mt-3 mb-3">

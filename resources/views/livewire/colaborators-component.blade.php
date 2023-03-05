@@ -21,7 +21,7 @@
 
             <div class="col-8 d-flex justify-content-end">
                 <button wire:click="saveWorkload({{ $colaborator_id }})" 
-                        class="btn {{ $save_enabled ? "btn-success" : "btn-secondary" }} btn-sm ">
+                        class="btn {{ $save_enabled ? "btn-success" : "d-none" }} btn-sm ">
                     Save
                 </button>
             </div>

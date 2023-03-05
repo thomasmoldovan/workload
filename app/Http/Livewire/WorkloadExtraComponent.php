@@ -17,7 +17,7 @@ class WorkloadExtraComponent extends Component
     protected $listeners = [
         'colaboratorSelected' => 'colaboratorSelected',
         // 'saveWorkload'        => 'saveWorkloadExtra',
-        'refreshChart'        => '$refresh'
+        // 'refreshChart'        => '$refresh'
     ];
 
     public function mount()
@@ -63,7 +63,6 @@ class WorkloadExtraComponent extends Component
         }
 
         $this->updateData(false);
-        // $this->emit('refreshChart');
     }
 
     public function saveWorkloadExtra()
@@ -75,8 +74,6 @@ class WorkloadExtraComponent extends Component
         $this->workload->delivery_days = $this->delivery_days;
 
         $this->workload->save();
-
-        $this->updateData(false);
     }
 
     public function updated()
@@ -96,7 +93,7 @@ class WorkloadExtraComponent extends Component
             $this->delivery_days = 0;
         }
 
-        // $this->saveWorkloadExtra();
+        $this->saveWorkloadExtra();
 
         if ($updateChart) {
             $this->emit('updateChart');
