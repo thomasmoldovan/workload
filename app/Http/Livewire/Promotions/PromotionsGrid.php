@@ -20,6 +20,8 @@ final class PromotionsGrid extends PowerGridComponent
     public $enterprise_days;
     public $enterprise_weeks;
 
+    public int $perPage = 999;
+
     protected $listeners = [
         'refresh-grid' => '$refresh'
     ];
@@ -39,7 +41,7 @@ final class PromotionsGrid extends PowerGridComponent
                 ->type(Exportable::TYPE_XLS, Exportable::TYPE_CSV),
             Header::make()->showSearchInput(),
             Footer::make()
-                ->showPerPage()
+                // ->showPerPage()
                 ->showRecordCount(),
         ];
     }

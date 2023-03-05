@@ -35,15 +35,13 @@ class ColaboratorsComponent extends Component
         debug("Colaborator Changed: ".$value);
         if ($value >= 1) {
             $this->colaborator_id = $value;
-            $this->save_enabled = true;
-            
-            $this->emit('colaboratorSelected', $value);
+            $this->save_enabled = true;            
         } else {
             $this->colaborator_id = null;
             $this->save_enabled = false;
-
-            return redirect("/");
         }
+
+        $this->emit('colaboratorSelected', $value);
 
         return;
     }

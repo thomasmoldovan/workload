@@ -48,11 +48,16 @@ class WorkloadProjectsComponent extends Component
 
     public function colaboratorSelected($colaborator_id)
     {
-        if ($colaborator_id >=1) {
+        if ($colaborator_id >= 1) {
             $this->colaborator_id = $colaborator_id;
             $this->workload = Workload::where('colaborator_id', $this->colaborator_id)->first();
         } else {
-            return false;
+            $this->project_weeks    = 0;
+            $this->project_total    = 0;
+            $this->project_guidance = 0;
+            $this->project_days     = 0;
+
+            return;
         }
 
         if (is_null($this->workload)) {
@@ -70,13 +75,12 @@ class WorkloadProjectsComponent extends Component
             $this->project_days     = round($this->project_guidance);
         }
 
-        $this->emit('refreshChart');
+        $this->updateData(false);
     }
 
     public function updated()
     {
-        $this->project_total = round($this->project_weeks * $this->settings["TEMPS_PILOTAJ_PROJET"] * $this->settings["DAYS_PER_WEEK"] * 100) / 100;
-        $this->project_days  = round($this->project_guidance);
+        $this->updateData();
     }
 
     public function saveWorkloadProjects()
@@ -88,6 +92,29 @@ class WorkloadProjectsComponent extends Component
 
         $this->workload->save();
 
-        $this->emit('refreshChart');
+        $this->updateData(false);
     }
+
+    public function updateData($updateChart = true) 
+    {
+        debug("WPC - update data");
+
+        if (empty($this->project_weeks)) {
+            $this->project_weeks = 0;
+        }
+
+        if (empty($this->project_guidance)) {
+            $this->project_guidance = 0;
+        }
+        
+        $this->project_total = round($this->project_weeks * $this->settings["TEMPS_PILOTAJ_PROJET"] * $this->settings["DAYS_PER_WEEK"] * 100) / 100;
+        $this->project_days = round($this->project_guidance);
+
+        // $this->saveWorkloadProjects();
+
+        if ($updateChart) {
+            $this->emit('updateChart');
+        }
+    }
+
 }

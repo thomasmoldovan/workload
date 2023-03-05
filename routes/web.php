@@ -28,7 +28,6 @@ Route::get('/', function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/overview', [OverviewController::class, 'index'])->name('overview.index');
     Route::get('/dashboard/{id?}', [DashboardController::class, 'index'])->name('dashboard.index');
-    // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
     Route::get('/colaborators', [ColaboratorController::class, 'index'])->name('colaborators.index');
     Route::get('/promotions', [PromotionController::class, 'index'])->name('promotions.index');

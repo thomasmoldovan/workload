@@ -80,7 +80,7 @@ class PromotionGoalComponent extends Component
 
         Goal::where(["temporary" => true])->delete();
         
-        $this->updateData();
+        $this->updateData(false);
     }
 
     public function addPromotionGoal() 
@@ -120,7 +120,7 @@ class PromotionGoalComponent extends Component
 
         $this->resetComponent();
 
-        $this->updateData();
+        $this->updateData(false);
     } 
 
     public function resetComponent() 
@@ -129,7 +129,7 @@ class PromotionGoalComponent extends Component
         $this->days         = 0;
     }
 
-    public function updateData() 
+    public function updateData($updateChart = true) 
     {
         $this->goals = Goal::where("colaborator_id", $this->colaborator_id)->get();
         $this->total_hours = 0;
@@ -137,6 +137,8 @@ class PromotionGoalComponent extends Component
             $this->total_hours += $goal->promotion->days;
         }
 
-        $this->emit('updateChart');
+        if ($updateChart) {
+            $this->emit('updateChart');
+        }
     }
 }

@@ -99,7 +99,7 @@ class StudentPromotionComponent extends Component
 
         Student::where(["temporary" => true])->delete();
         
-        $this->updateData();
+        $this->updateData(false);
     }
 
     public function addStudentPromotion() 
@@ -146,7 +146,7 @@ class StudentPromotionComponent extends Component
 
         $this->resetComponent();
 
-        $this->updateData();
+        $this->updateData(false);
     } 
 
     public function resetComponent() 
@@ -158,7 +158,7 @@ class StudentPromotionComponent extends Component
         $this->days         = 0;
     }
 
-    public function updateData() 
+    public function updateData($updateChart = true) 
     {
         debug("SPC - update data");
         
@@ -166,7 +166,9 @@ class StudentPromotionComponent extends Component
         $this->total_days  = $this->getTotalDaysFromStudents();
         $this->total_hours = number_format($this->total_days / $this->settings["HOURS_PER_DAY"], 2);
 
-        $this->emit('updateChart');
+        if ($updateChart) {
+            $this->emit('updateChart');
+        }
     }
 
     public function getTotalDaysFromStudents() {

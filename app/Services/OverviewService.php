@@ -40,6 +40,15 @@ class OverviewService
             $overview[$colaborator->id]["conception_nationale"] = $this->getConceptionNationale();
             $overview[$colaborator->id]["activites_campus"] = $this->getActivitesCampus();
             $overview[$colaborator->id]["autre_activites"] = $this->getAutreActivites();
+
+            $overview[$colaborator->id]["total"] = (float) number_format(
+                            $overview[$colaborator->id]["responsable_pedagogique"] * 100 / $this->settings["TOTAL_DAYS"] +
+                            $overview[$colaborator->id]["pilote_projet"] * 100 / $this->settings["TOTAL_DAYS"] +
+                            $overview[$colaborator->id]["face_a_face"] * 100 / $this->settings["TOTAL_DAYS"] + 
+                            $overview[$colaborator->id]["suivi_eleve"] * 100 / $this->settings["TOTAL_DAYS"] +
+                            $overview[$colaborator->id]["conception_nationale"] * 100 / $this->settings["TOTAL_DAYS"] +
+                            $overview[$colaborator->id]["activites_campus"] * 100 / $this->settings["TOTAL_DAYS"] +
+                            $overview[$colaborator->id]["autre_activites"] * 100 / $this->settings["TOTAL_DAYS"], 2);
         }
 
         return $overview;

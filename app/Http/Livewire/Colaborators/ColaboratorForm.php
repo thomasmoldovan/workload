@@ -4,6 +4,9 @@ namespace App\Http\Livewire\Colaborators;
 
 use App\Traits\WithToaster;
 use App\Models\Colaborator;
+use App\Models\Delivery;
+use App\Models\Goal;
+use App\Models\Student;
 use App\Models\Workload;
 use Livewire\Component;
 
@@ -70,20 +73,10 @@ class ColaboratorForm extends Component
 
     public function delete(Colaborator $colaborator) 
     {
-        // if ($colaborator->promotions()->count() > 1) {
-        //     $this->alert("error", "Error", "This colaborator still has promotions associated and cannot be deleted");
-        //     return;
-        // }
-
-        // if ($colaborator->students()->count() > 1) {
-        //     $this->alert("error", "Error", "This colaborator still has promotions associated and cannot be deleted");
-        //     return;
-        // }
-
-        // if ($colaborator->delivery()->count() > 1) {
-        //     $this->alert("error", "Error", "This colaborator still has promotions associated and cannot be deleted");
-        //     return;
-        // }
+        Workload::where("colaborator_id", $colaborator->id)->delete();
+        Student::where("colaborator_id", $colaborator->id)->delete();
+        Goal::where("colaborator_id", $colaborator->id)->delete();
+        Delivery::where("colaborator_id", $colaborator->id)->delete();
 
         $colaborator->delete();
         $this->alert("success", "Success", "Colaborator deleted");

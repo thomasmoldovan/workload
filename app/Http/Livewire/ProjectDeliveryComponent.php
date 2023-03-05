@@ -79,7 +79,7 @@ class ProjectDeliveryComponent extends Component
 
         Delivery::where(["temporary" => true])->delete();
         
-        $this->updateData();
+        $this->updateData(false);
     }
 
     public function addProjectDelivery() 
@@ -131,7 +131,7 @@ class ProjectDeliveryComponent extends Component
         $this->multiplier = 2;
     }
 
-    public function updateData() 
+    public function updateData($updateChart = true) 
     {
         $this->deliveries = Delivery::where("colaborator_id", $this->colaborator_id)->get();
         
@@ -141,6 +141,8 @@ class ProjectDeliveryComponent extends Component
         }
         $this->total_days = round($this->total_hours / $this->settings["HOURS_PER_DAY"] * 100) / 100;
 
-        $this->emit('updateChart');
+        if ($updateChart) {
+            $this->emit('updateChart');
+        }
     }
 }

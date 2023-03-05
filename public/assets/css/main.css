@@ -3,6 +3,10 @@ body {
     background: #f1f1f1;
 }
 
+.warning {
+    background: #ffd7c3;
+}
+
 .form-control {
     font-size: 0.8rem;
 }

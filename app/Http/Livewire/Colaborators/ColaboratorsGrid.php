@@ -13,6 +13,12 @@ final class ColaboratorsGrid extends PowerGridComponent
 {
     use ActionButton;
 
+    public string $sortField = 'surname';
+    
+    public string $sortDirection = 'asc';
+
+    public int $perPage = 999;
+
     protected $listeners = [
         'refresh-grid' => '$refresh'
     ];
@@ -32,7 +38,7 @@ final class ColaboratorsGrid extends PowerGridComponent
                 ->type(Exportable::TYPE_XLS, Exportable::TYPE_CSV),
             Header::make()->showSearchInput(),
             Footer::make()
-                ->showPerPage()
+                // ->showPerPage()
                 ->showRecordCount(),
         ];
     }
@@ -52,7 +58,7 @@ final class ColaboratorsGrid extends PowerGridComponent
     */
     public function datasource(): Builder
     {
-        return Colaborator::query()->orderBy('id', 'desc');
+        return Colaborator::query();
     }
 
     /*
@@ -112,8 +118,8 @@ final class ColaboratorsGrid extends PowerGridComponent
     {
         return [
             Column::make('ID', 'id')
-                ->sortable()
-                ->searchable(),
+                ->searchable()
+                ->sortable(),
 
             Column::make('NOM DE FAMILLE', 'surname')
                 ->sortable()

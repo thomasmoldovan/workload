@@ -14,6 +14,7 @@ use PowerComponents\LivewirePowerGrid\Exportable;
 use PowerComponents\LivewirePowerGrid\PowerGrid;
 use PowerComponents\LivewirePowerGrid\PowerGridEloquent;
 use PowerComponents\LivewirePowerGrid\PowerGridComponent;
+use PowerComponents\LivewirePowerGrid\Rules\Rule;
 use PowerComponents\LivewirePowerGrid\Traits\ActionButton;
 
 final class OverviewGrid extends PowerGridComponent
@@ -21,7 +22,6 @@ final class OverviewGrid extends PowerGridComponent
     use ActionButton;
 
     public int   $perPage = 1000;
-    public array $perPageValues = [1, 2, 3];
 
     protected $listeners = ['colaboratorView' => 'colaboratorView'];
 
@@ -77,7 +77,8 @@ final class OverviewGrid extends PowerGridComponent
             ->addColumn('suivi_eleve')
             ->addColumn('conception_nationale')
             ->addColumn('activites_campus')
-            ->addColumn('autre_activites');
+            ->addColumn('autre_activites')
+            ->addColumn('total');
     }
 
     /*
@@ -103,7 +104,7 @@ final class OverviewGrid extends PowerGridComponent
             Column::make('Nom', 'name')
                 ->searchable()
                 ->sortable(),
-            Column::make('Resp. Pedagogique', 'responsable_pedagogique')
+            Column::make('Resp. Ped.', 'responsable_pedagogique')
                 ->searchable()
                 ->sortable(),
             Column::make('Plan. Projets', 'pilote_projet')
@@ -115,13 +116,16 @@ final class OverviewGrid extends PowerGridComponent
             Column::make('Suivi Élèves', 'suivi_eleve')
                 ->searchable()
                 ->sortable(),
-            Column::make('Conception Nationale', 'conception_nationale')
+            Column::make('Con. Nat.', 'conception_nationale')
                 ->searchable()
                 ->sortable(),
             Column::make('Act. Campus', 'activites_campus')
                 ->searchable()
                 ->sortable(),
             Column::make('Autres Act.', 'autre_activites')
+                ->searchable()
+                ->sortable(),
+            Column::make('Total.', 'total')
                 ->searchable()
                 ->sortable(),
 
@@ -135,6 +139,17 @@ final class OverviewGrid extends PowerGridComponent
                 ->class('btn btn-primary btn-sm m-1')
                 ->route('dashboard.index', ['id' => 'id'])
        ];
+    }
+
+    public function actionRules(): array
+    {
+        return [
+            Rule::rows()
+                ->when(function ($overview) { 
+                    return $overview->total > 100;
+                })
+                ->setAttribute('class', 'warning'),
+        ];
     }
 
     public function colaboratorView($id)

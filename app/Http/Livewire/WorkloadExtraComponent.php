@@ -16,7 +16,7 @@ class WorkloadExtraComponent extends Component
 
     protected $listeners = [
         'colaboratorSelected' => 'colaboratorSelected',
-        'saveWorkload'        => 'saveWorkloadExtra',
+        // 'saveWorkload'        => 'saveWorkloadExtra',
         'refreshChart'        => '$refresh'
     ];
 
@@ -42,7 +42,9 @@ class WorkloadExtraComponent extends Component
             $this->colaborator_id = $colaborator_id;
             $this->workload = Workload::where('colaborator_id', $this->colaborator_id)->first();
         } else {
-            return false;
+            $this->workload->national_days = 0;
+            $this->workload->campus_days = 0;
+            $this->workload->delivery_days = 0;
         }
 
         if (is_null($this->workload)) {
@@ -60,7 +62,8 @@ class WorkloadExtraComponent extends Component
             $this->delivery_days = $this->workload->delivery_days;
         }
 
-        $this->emit('refreshChart');
+        $this->updateData(false);
+        // $this->emit('refreshChart');
     }
 
     public function saveWorkloadExtra()
@@ -73,6 +76,30 @@ class WorkloadExtraComponent extends Component
 
         $this->workload->save();
 
-        $this->emit('refreshChart');
+        $this->updateData(false);
+    }
+
+    public function updated()
+    {
+        $this->updateData();
+    }
+
+    public function updateData($updateChart = true) 
+    {
+        if (empty($this->national_days)) {
+            $this->national_days = 0;
+        }
+        if (empty($this->campus_days)) {
+            $this->campus_days = 0;
+        }
+        if (empty($this->delivery_days)) {
+            $this->delivery_days = 0;
+        }
+
+        // $this->saveWorkloadExtra();
+
+        if ($updateChart) {
+            $this->emit('updateChart');
+        }
     }
 }
