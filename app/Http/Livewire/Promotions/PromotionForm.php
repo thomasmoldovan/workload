@@ -2,9 +2,11 @@
 
 namespace App\Http\Livewire\Promotions;
 
+use App\Models\Goal;
 use App\Traits\WithToaster;
 use App\Models\Promotion;
 use App\Models\PromotionType;
+use App\Models\Student;
 use Livewire\Component;
 
 class PromotionForm extends Component
@@ -54,6 +56,9 @@ class PromotionForm extends Component
 
     public function delete(Promotion $promotion) 
     {
+        Goal::where('promotion_id', $promotion->id)->delete();
+        Student::where('promotion_id', $promotion->id)->delete();
+
         $promotion->delete();
         $this->alert("success", "Success", "Promotion deleted");
 

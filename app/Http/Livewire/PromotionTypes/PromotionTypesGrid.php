@@ -28,7 +28,7 @@ final class PromotionTypesGrid extends PowerGridComponent
     */
     public function setUp(): array
     {
-        $this->showCheckBox();
+        // $this->showCheckBox();
 
         return [
             Exportable::make('export')
@@ -36,7 +36,7 @@ final class PromotionTypesGrid extends PowerGridComponent
                 ->type(Exportable::TYPE_XLS, Exportable::TYPE_CSV),
             Header::make()->showSearchInput(),
             Footer::make()
-                ->showPerPage()
+                // ->showPerPage()
                 ->showRecordCount(),
         ];
     }
@@ -170,10 +170,10 @@ final class PromotionTypesGrid extends PowerGridComponent
                  ->target("_self")
                  ->emit('promotionTypeEdit', ['id' => 'id']),
  
-            Button::make('destroy', 'Delete')
-                 ->class('btn btn-danger btn-sm m-1')
-                 ->target("_self")
-                 ->emit('promotionTypeDelete', ['id' => 'id']),
+            // Button::make('destroy', 'Delete')
+            //      ->class('btn btn-danger btn-sm m-1')
+            //      ->target("_self")
+            //      ->emit('promotionTypeDelete', ['id' => 'id']),
         ];
     }
 

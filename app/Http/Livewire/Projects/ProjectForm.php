@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Projects;
 
+use App\Models\Delivery;
 use App\Models\Project;
 use App\Traits\WithToaster;
 use App\Models\Promotion;
@@ -53,6 +54,8 @@ class ProjectForm extends Component
 
     public function delete(Project $project) 
     {
+        Delivery::where('project_id', $project->id)->delete();
+
         $project->delete();
         $this->alert("success", "Success", "Project deleted");
 

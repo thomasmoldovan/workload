@@ -72,7 +72,7 @@
                     </td>
                     @if ($key == 0)
                         <td style="vertical-align: middle;" rowspan="0">
-                            <input value="{{ $total_days." jeurs" }}" type="text" class="form-control" disabled readonly />
+                            <input value="{{ $total_days." jours" }}" type="text" class="form-control" disabled readonly />
                         </td>
                     @endif
                 </tr>

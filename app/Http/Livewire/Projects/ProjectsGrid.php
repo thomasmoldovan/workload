@@ -13,6 +13,10 @@ final class ProjectsGrid extends PowerGridComponent
 {
     use ActionButton;
 
+    public int $perPage = 20;
+
+    public array $perPageValues = [0, 10, 20, 50];
+
     /*
     |--------------------------------------------------------------------------
     |  Features Setup
@@ -28,7 +32,7 @@ final class ProjectsGrid extends PowerGridComponent
                 ->type(Exportable::TYPE_XLS, Exportable::TYPE_CSV),
             Header::make()->showSearchInput(),
             Footer::make()
-                ->showPerPage()
+                // ->showPerPage()
                 ->showRecordCount(),
         ];
     }

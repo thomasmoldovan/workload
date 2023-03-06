@@ -22,6 +22,10 @@ final class PromotionsGrid extends PowerGridComponent
 
     public int $perPage = 999;
 
+    public string $sortField = 'id';
+    
+    public string $sortDirection = 'desc';
+
     protected $listeners = [
         'refresh-grid' => '$refresh'
     ];
@@ -63,8 +67,7 @@ final class PromotionsGrid extends PowerGridComponent
     {
         return Promotion::query()
             ->join("promotion_types as pt", "promotions.promotion_type_id", "=", "pt.id")
-            ->select("promotions.*", "pt.name as promotion_type_name")
-            ->orderBy('id', 'desc');
+            ->select("promotions.*", "pt.name as promotion_type_name");
     }
 
     public function promotionTypes(): Collection
