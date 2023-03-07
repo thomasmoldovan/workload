@@ -134,13 +134,13 @@
                         show: true
                     },
                     data: [
-                        { value: {{ $responsable_pedagogique * 100 / $settings["TOTAL_DAYS"] }}, name: 'Responsable Pédagogique' },
-                        { value: {{ $pilote_projet * 100 / $settings["TOTAL_DAYS"] }}, name: 'Planification Projets' },
-                        { value: {{ $face_a_face * 100 / $settings["TOTAL_DAYS"] }}, name: 'Face à Face' },
-                        { value: {{ $suivi_eleve * 100 / $settings["TOTAL_DAYS"] }}, name: 'Suivi Élève' },
-                        { value: {{ $conception_nationale * 100 / $settings["TOTAL_DAYS"] }}, name: 'Conception Nationale' },
-                        { value: {{ $activites_campus * 100 / $settings["TOTAL_DAYS"] }}, name: 'Activités Campus' },
-                        { value: {{ $activites_anexe * 100 / $settings["TOTAL_DAYS"] }}, name: 'Activités Annexes' }
+                        { value: {{ number_format($responsable_pedagogique * 100 / $settings["TOTAL_DAYS"], 2) }}, name: 'Responsable Pédagogique' },
+                        { value: {{ number_format($pilote_projet * 100 / $settings["TOTAL_DAYS"], 2) }}, name: 'Planification Projets' },
+                        { value: {{ number_format($face_a_face * 100 / $settings["TOTAL_DAYS"], 2) }}, name: 'Face à Face' },
+                        { value: {{ number_format($suivi_eleve * 100 / $settings["TOTAL_DAYS"], 2) }}, name: 'Suivi Élève' },
+                        { value: {{ number_format($conception_nationale * 100 / $settings["TOTAL_DAYS"], 2) }}, name: 'Conception Nationale' },
+                        { value: {{ number_format($activites_campus * 100 / $settings["TOTAL_DAYS"], 2) }}, name: 'Activités Campus' },
+                        { value: {{ number_format($activites_anexe * 100 / $settings["TOTAL_DAYS"], 2) }}, name: 'Activités Annexes' }
                     ]
                 }]
             });
