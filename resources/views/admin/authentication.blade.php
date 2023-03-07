@@ -24,7 +24,7 @@
     <link href="{{ asset('/assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
 
     <!-- jQuery needs to be in the head -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="/assets/js/jquery-3.6.0.min.js"></script>
     <script src="/assets/js/toastr/toastr.js"></script>
 
     <!-- Template Main CSS File -->

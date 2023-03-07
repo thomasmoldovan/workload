@@ -3,11 +3,16 @@
 namespace App\Providers;
 
 use App\Models\Settings;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+
+    public $settings;
+    public $settingsCollection;
+
     /**
      * Register any application services.
      *
@@ -25,6 +30,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        if($this->app->environment('production')) {
+            URL::forceScheme('https');
+        }
+
         if (php_sapi_name() !== "cli") {
             $this->settings = [];
             $this->settingsCollection = Settings::all();
