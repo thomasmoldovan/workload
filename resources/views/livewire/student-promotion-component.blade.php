@@ -16,7 +16,7 @@
                 <tr class="header-background">
                     <th class="col-3">
                         <label class="pt-1 table-header-font">Promotion</label>
-                        <form autocomplete="off">
+                        <form onkeydown="return event.key != 'Enter';" autocomplete="off">
                             <select wire:model="promotion_id" class="form-select" id="student-promotion-id">
                                 <option class="dropdown-item" value="-1">Promotion</option>
                                 @foreach ($promotions as $key => $promotion)
@@ -27,7 +27,7 @@
                     </th>
                     <th class="col-2">
                         <label class="pt-1 table-header-font">N° Apprenants</label>
-                        <form autocomplete="off">
+                        <form onkeydown="return event.key != 'Enter';" autocomplete="off">
                                 <input wire:model="nr_students" type="number" 
                                     class="form-control" min="0" step="1" id="nr_students"
                                     value="0" />
@@ -67,7 +67,7 @@
                                 data-bs-original-title="{{ $student->promotion_type->name }}">
                                 {{ $student->promotion_type->id }}
                             </span>
-                             - {{ $student->promotion->name }}
+                            &nbsp;&nbsp;{{ $student->promotion->name }}
                         </span>
                     </td>
                     <td><span class="ps-2 ms-1">{{ $student->nr_students }}</span></td>

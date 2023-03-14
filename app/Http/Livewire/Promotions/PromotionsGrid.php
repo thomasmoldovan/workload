@@ -235,6 +235,6 @@ final class PromotionsGrid extends PowerGridComponent
 
     public function onUpdatedEditable(string $id, string $field, string $value): void
     {
-        Promotion::find($id)->update([$field => $value]);
+        Promotion::query()->find($id)->update([$field => $value]);
     }
 }

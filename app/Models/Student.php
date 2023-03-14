@@ -47,23 +47,10 @@ class Student extends Model
         );
     }
 
-    public function getDaysFromType() {
-        $VE_PRESENTIEL = 4;
-        $VE_DISTANCE   = 1.5;
-        $EI            = 2;
-        $SS_PRESENTIEL = 4;
-        $SS_DISTANCE   = 1.5;
+    public function getDaysFromType() 
+    {
+        $promotionType = PromotionType::find($this->promotion->promotion_type_id);
 
-        switch ($this->promotion->promotion_type_id)
-        {
-            case 1:
-                return ($VE_PRESENTIEL + $EI + $VE_DISTANCE) * $this->nr_students;
-            case 2:
-                return ($VE_PRESENTIEL + $EI) * $this->nr_students;
-            case 3:
-                return $EI * $this->nr_students;
-            default:
-                return 0;
-        }        
+        return $promotionType->ve_present + $promotionType->ve_distance + $promotionType->ei + $promotionType->ss_present + $promotionType->ss_distance;      
     }
 }

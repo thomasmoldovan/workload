@@ -62,7 +62,7 @@
                                 data-bs-original-title="{{ $goal->promotion_type->name }}">
                                 {{ $goal->promotion_type->id }}
                             </span>
-                             - {{ $goal->promotion->name }}
+                            &nbsp;&nbsp;{{ $goal->promotion->name }}
                         </span>
                     </td>
                     <td>
